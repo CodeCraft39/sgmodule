@@ -1,6 +1,9 @@
 # Paired YouTube script reconstruction
 
-Build .2 resolves the pre-device audit findings; see [../youtube-audit/RESOLUTION.md](../youtube-audit/RESOLUTION.md). The original audit is historical. Routine logs require debug=true; the supplied QX test profile enables it through remote script-URL fragments.
+Current builds: `request-compat-20261101.1` and `response-compat-20261101.1`.
+The source/runtime consolidation is described in [ARCHITECTURE.md](ARCHITECTURE.md).
+The pre-device audit findings remain resolved; see [../youtube-audit/RESOLUTION.md](../youtube-audit/RESOLUTION.md).
+Routine logs require debug=true; the supplied QX test profile enables it through remote script-URL fragments.
 
 The author's proxy-script-template has also been checked against this project;
 see [TEMPLATE-REVIEW.md](TEMPLATE-REVIEW.md) for the pinned adapter comparison,
@@ -83,67 +86,56 @@ then reconstruct its actual fields. There are no ad_break or initplayback
 transactions in the supplied handoff. Blocking the endpoint, clearing its body,
 or borrowing Player field numbers is not justified by that evidence.
 
-## Recovered response source
+## Maintained source
 
-- `schema.ts`: editable runtime descriptors for **83** message types, extracted
-  from the embedded constructors. Lazy references preserve message dependencies.
-- `messages.ts`: recovered TypeScript field interfaces. Handler traversal uses
-  an explicitly open Message type because these are partial schemas.
-- `schema/response.proto`: matching partial wire declarations. Enum fields use
-  wire-compatible int32; symbolic enum metadata remains in schema.ts. This is not
-  a complete Google schema and was not validated with protoc.
-- `handlers.ts`: readable implementations for rich-item filtering, player
-  ad fields/PiP/background/captions, Shorts, guide, settings, get_watch and key
-  acquisition from config/log_event.
-- `main.ts`: exact-path dispatch, binary adapters, shared storage, output and
-  content-free diagnostic logs. Response filtering is still needed for player,
-  feed/search/Shorts data and runtime key acquisition; reversing only initplayback
-  and log_event would leave these responsibilities hidden.
-- `next-wire.ts`: typed version of the previously capture-verified field-42
-  editor. It requires the observed product layout AND a /pagead/ URL in the
-  expected data container. It covers standalone Next and raw Next messages
-  embedded in repeated Watch contents, preserving untouched bytes at that stage.
-- `vendor/protobuf-runtime.js`: readable, formatted generic runtime extracted
-  from the original bundle, with a typed declaration boundary. It remains
-  JavaScript third-party/runtime code; it has not been falsely relabeled as fully
-  reconstructed TypeScript. One documented change preserves descriptor order
-  rather than sorting fields, matching the original generated writers.
+- `schema/youtube.json`: one authoritative schema and endpoint/path definition,
+  with evidence provenance. It covers 83 recovered response messages, eight
+  observed immersive-view messages and two request messages.
+- `generate.py`: produces interfaces, typed response codecs, request field
+  constants, wire paths and .proto views. Builds reject stale generated output.
+- `handlers.ts` and `endpoints.ts`: concrete typed handlers and an endpoint map
+  checked against the schema. The broad Message/any facade has been removed.
+- `src/protobuf/`: shared bounded wire reading, lossless editing, typed traversal,
+  UTF-8 support, schema validation, and a small public-API runtime adapter.
+- `filters/immersive.ts`: client-independent product-panel filtering for standalone
+  and embedded Next; field paths come from generated schema constants.
+- `main.ts`: native binary adapters, shared storage, output and safe diagnostics.
+- `dependencies.json`: pinned @protobuf-ts/runtime 2.11.1 with archive integrity.
+  The extracted opaque runtime has been removed. The upstream dependency is
+  prepared only in /private/tmp and bundled at build time.
 
-No external production dependency or TypeScript installation is required on the
-device. The same response adapter supplies QX ArrayBuffer output and native
-Uint8Array body output for Surge-compatible clients.
-
-Intentional response differences: exact dispatch rather than substring routing;
-the narrowly matched modern next panel removal; safe missing-User-Agent/body
-handling and native option decoding shared with request; recovery from null/invalid
-configuration caches; observable storage failures without discarding filtered
-bodies; no-op Watch pass-through; no key values in logs;
-empty/missing player/caption structures are guarded. The two original empty
-codecs, `AdSlot.Render` and `ColdConfigGroup`, discard unknown fields; the generic
-reconstructed codecs preserve them. Other default and populated codec cases
-match the original output bytes in the tests. The original legacy ad heuristic
-and its cache format are retained; no broad cache-policy redesign is claimed.
+These remain evidence-backed partial schemas. Unknown fields remain preserved;
+partial coverage does not imply complete recognition of all ad formats.
+Generated writers preserve declaration order. Unchanged raw fields retain their
+original encoding during lossless edits; typed re-encoding may normalize ordering
+and tags while preserving unknown values. The original two empty codecs discarded
+unknown data; preserving it remains an intentional difference. Malformed known
+wire types/strings now fail open before any filtered body or cache is committed.
+The legacy rich-item cache policy remains unchanged.
 
 ## Verification
 
 `validation.json` records:
 
-- 83 message types; 332 codec checks (default/populated input, with/without an
+- 83 recovered and eight additional observed-view message types; 332 original-codec checks (default/populated input, with/without an
   unknown field). The two empty-codec preservation differences are tested
   explicitly, rather than claimed as parity.
-- 25 output/storage behavior comparisons with the original across endpoint
+- 40 output/storage behavior comparisons with the original across endpoint
   handlers and native QX/Surge-compatible output. Custom-caption comparison is
   performed on the Surge adapter because the original QX adapter ignores those
   arguments. Synthetic fixtures cannot establish real-client compatibility.
 - All three uploaded next responses replayed after Brotli decompression. Modern
-  outputs match the independently tested isolated patch; no-op input stays
+  output hashes match the independently recorded golden results; no-op input stays
   unchanged. QX and Surge-compatible adapters produce equal payload bytes.
 - Ad-break observation passes through and does not mutate data; malformed
   inputs complete with no replacement. Strict TypeScript checking passes.
 
 The request suite passes 16 groups, including 100 generated decoder
 variants. Its build is reproducible. Eight additional audit-regression groups pass, including nested capture replay
-and repaired-key request handoff. Both reconstructed bundles remain device
+and repaired-key request handoff. Twelve architecture groups additionally cover
+wire preservation, schema validation, Unicode and operation without native
+TextEncoder/Decoder or BigInt. Compile-only negative contracts verify message
+typing. Both reconstructed bundles remain device
 test candidates, not proof of ad-free playback.
 
 ## Build and test
@@ -154,11 +146,12 @@ with no global installs or persistent environment changes. They are removed at
 the end of this investigation. Recreate them before using these commands:
 
 ```sh
-python3 tools/youtube-response/build.py --esbuild /private/tmp/maasea-request-work/esbuild/package/bin/esbuild
-/private/tmp/maasea-request-work/node/node-v22.21.1-darwin-arm64/bin/node /private/tmp/maasea-request-work/typescript/package/lib/tsc.js -p tools/youtube-response/tsconfig.json
-/private/tmp/maasea-request-work/esbuild/package/bin/esbuild Script/Youtube/src/response/schema.ts --bundle --platform=node --format=cjs --outfile=/private/tmp/maasea-request-work/schema.cjs
-python3 tools/youtube-next/prepare.py /Users/yutingli/Downloads/maasea_codex_handoff.zip /private/tmp/maasea-request-work/captures
-/private/tmp/maasea-request-work/node/node-v22.21.1-darwin-arm64/bin/node tools/youtube-response/test.mjs /private/tmp/maasea-request-work/schema.cjs Script/Youtube/youtube.response.js /private/tmp/maasea-request-work/captures
+python3 tools/youtube-response/dependency.py --directory /private/tmp/maasea-refactor
+python3 tools/youtube-response/generate.py --check
+python3 tools/youtube-response/build.py \
+  --esbuild /private/tmp/maasea-refactor/esbuild/package/bin/esbuild \
+  --dependency-dir /private/tmp/maasea-refactor
+python3 tools/youtube-next/prepare.py /Users/yutingli/Downloads/maasea_codex_handoff.zip /private/tmp/maasea-refactor/captures
 ```
 
 For final testing push **both rebuilt scripts** to CodeCraft39/sgmodule master
@@ -177,9 +170,10 @@ captures as above and run:
 
 ```sh
 python3 tools/youtube-response/check.py \
-  --node /private/tmp/maasea-request-work/node/node-v22.21.1-darwin-arm64/bin/node \
-  --typescript /private/tmp/maasea-request-work/typescript/package/lib/tsc.js \
-  --esbuild /private/tmp/maasea-request-work/esbuild/package/bin/esbuild \
-  --work-dir /private/tmp/maasea-request-work/paired-check \
-  --captures /private/tmp/maasea-request-work/captures
+  --node /private/tmp/maasea-refactor/node/node-v22.21.1-darwin-arm64/bin/node \
+  --typescript /private/tmp/maasea-refactor/typescript/package/lib/tsc.js \
+  --esbuild /private/tmp/maasea-refactor/esbuild/package/bin/esbuild \
+  --dependency-dir /private/tmp/maasea-refactor \
+  --work-dir /private/tmp/maasea-refactor/paired-check \
+  --captures /private/tmp/maasea-refactor/captures
 ```

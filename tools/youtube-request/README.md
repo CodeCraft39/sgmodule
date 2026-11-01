@@ -1,6 +1,8 @@
 # Request-script reconstruction and QX compatibility candidate
 
-Build .2 resolves the pre-device audit findings; see `../youtube-audit/RESOLUTION.md`. Routine logging now requires `debug=true`. The supplied QX test profile references the remote rebuilt pair with that fragment enabled.
+Build `request-compat-20261101.1` shares generated schema definitions and a bounded
+wire reader with the response implementation; see `../youtube-response/ARCHITECTURE.md`.
+The pre-device audit findings remain resolved; see `../youtube-audit/RESOLUTION.md`. Routine logging now requires `debug=true`. The supplied QX test profile references the remote rebuilt pair with that fragment enabled.
 
 The companion response script has now also been reconstructed. See
 `../youtube-response/README.md` for the current paired-script status and GitHub
@@ -57,14 +59,17 @@ The Worker endpoint and its existing ck/target/options query format are retained
 | File under src/request | Purpose |
 | --- | --- |
 | types.ts | Typed platform inputs, runtime config and decisions |
-| protobuf.ts | Bounded reader for the two embedded request message definitions |
+| protobuf.ts | Read-only request decoding using the shared bounded wire reader |
+| messages.ts / schema.ts | Interfaces and field constants generated from schema/youtube.json |
 | base64.ts | Base64/base64url decoding without Node or browser-specific APIs |
 | core.ts | Header processing, key comparison, Worker URL and fallback decisions |
 | options.ts | Existing options plus QX fragment/environment option parsing |
 | platform.ts | Binary normalization and client-specific completion values |
 | main.ts / entry.ts | Storage integration, diagnostics, one completion per execution |
 
-The recovered schema is `Script/Youtube/schema/onesie-request.proto`. Its exact
+The authoritative definition is `Script/Youtube/schema/youtube.json`;
+`onesie-request.proto`, request interfaces and field constants are generated views.
+Run `python3 tools/youtube-response/generate.py` after schema edits; builds reject stale output. Its exact
 known path is root field 3 → bytes field 5 (`encryptedClientKey`); the other known
 nested bytes fields are 2, 6 and 7. These definitions come from the original
 bundle, not from the `/next` response captures. Unknown fields are retained as
@@ -103,7 +108,7 @@ Intentional changes beyond the QX completion objects:
 - Invalid base64 and incorrectly typed known protobuf fields are rejected rather
   than relying on permissive behavior in the old runtime.
 
-The diagnostic prefix is `YT-REQUEST request-compat-20261031.2`. With debug=true, one ordinary line
+The diagnostic prefix is `YT-REQUEST request-compat-20261101.1`. With debug=true, one ordinary line
 reports client, endpoint, action, reason, body length, cache-write result and a
 native session identifier when available. No body data, keys, full URLs, Worker
 query strings or raw exception text are printed.

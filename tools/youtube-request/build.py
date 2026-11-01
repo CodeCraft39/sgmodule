@@ -3,12 +3,14 @@ from pathlib import Path
 import argparse
 import hashlib
 import subprocess
+import sys
 
 root = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser()
 parser.add_argument('--esbuild', required=True)
 parser.add_argument('--out', type=Path, default=root / 'Script/Youtube/youtube.request.js')
 args = parser.parse_args()
+subprocess.run([sys.executable, str(root / 'tools/youtube-response/generate.py'), '--check'], check=True, cwd=root)
 fixture = root / 'tools/youtube-request/fixtures/upstream.request.js'
 assert hashlib.sha256(fixture.read_bytes()).hexdigest() == '3ecca15e06e76a31720092c581180f648ef2c45e494644941ba985c878efbb26'
 subprocess.run([args.esbuild, str(root / 'Script/Youtube/src/request/entry.ts'),

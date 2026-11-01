@@ -1,0 +1,9 @@
+{
+  "@protobuf-ts/runtime": {
+    "version": "2.11.1",
+    "url": "https://registry.npmjs.org/@protobuf-ts/runtime/-/runtime-2.11.1.tgz",
+    "sha256": "3bb18cb373565b5c95e466c1db76e4b1d8166b62276a15e3547c36f9e25b502b",
+    "source": "https://github.com/timostamm/protobuf-ts/tree/v2.11.1/packages/runtime",
+    "license": "Apache-2.0 AND BSD-3-Clause"
+  }
+}

@@ -1,0 +1,1562 @@
+{
+  "format": 1,
+  "description": "Partial evidence-backed schema views. Unknown semantics remain unnamed. Array cardinality is inherited from the bundle, not inferred from one occurrence.",
+  "evidence": {
+    "bundle-response": {
+      "file": "tools/youtube-response/fixtures/upstream.response.js",
+      "sha256": "f98483d5f5017514f82502253c0db5ce2d4ffb7839887aa2cadc22666f5a7f12"
+    },
+    "bundle-request": {
+      "file": "tools/youtube-request/fixtures/upstream.request.js",
+      "sha256": "3ecca15e06e76a31720092c581180f648ef2c45e494644941ba985c878efbb26"
+    },
+    "next-captures": {
+      "report": "tools/youtube-next/REPORT.md",
+      "captures": [
+        "20261031_204503",
+        "20261031_213054",
+        "20261031_213333"
+      ],
+      "note": "The immersive view is used for lossless wire traversal. Optional edges express navigable structure, not established Google cardinality."
+    }
+  },
+  "enums": {
+    "youtube.ump.encrypted.CompressionAlgorithm": {
+      "NONE": 0,
+      "GZIP": 1,
+      "BROTLI": 2
+    }
+  },
+  "messages": [
+    {
+      "name": "youtube.component.Label",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "runs",
+          "type": "youtube.component.Run",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.component.Run",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "text",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.component.ResponseContext",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 6,
+          "name": "serviceTrackingParams",
+          "type": "youtube.component.ServiceTrackingParam",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.component.ServiceTrackingParam",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "service",
+          "type": "int32"
+        },
+        {
+          "no": 2,
+          "name": "params",
+          "type": "youtube.component.Param",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.component.Param",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "no": 2,
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.Browse",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "responseContext",
+          "type": "youtube.component.ResponseContext"
+        },
+        {
+          "no": 9,
+          "name": "content",
+          "type": "youtube.response.browse.Content"
+        },
+        {
+          "no": 10,
+          "name": "onResponseReceivedAction",
+          "type": "youtube.response.browse.Content"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.Content",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 58173949,
+          "name": "singleColumnResultsRenderer",
+          "type": "youtube.response.browse.SingleColumnResultsRenderer"
+        },
+        {
+          "no": 153515154,
+          "name": "elementRenderer",
+          "type": "youtube.response.browse.ElementRenderer"
+        },
+        {
+          "no": 49399797,
+          "name": "sectionListRenderer",
+          "type": "youtube.response.browse.SectionListRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.SingleColumnResultsRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "tabs",
+          "type": "youtube.response.browse.BrowseTabSupportedRenderer",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.BrowseTabSupportedRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 58174010,
+          "name": "tabRenderer",
+          "type": "youtube.response.browse.TabRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.TabRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "content",
+          "type": "youtube.response.browse.Content"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.SectionListRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "sectionListSupportedRenderers",
+          "type": "youtube.response.browse.SectionListSupportedRenderer",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.SectionListSupportedRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 50195462,
+          "name": "itemSectionRenderer",
+          "type": "youtube.response.browse.ItemSectionRenderer"
+        },
+        {
+          "no": 51845067,
+          "name": "shelfRenderer",
+          "type": "youtube.response.browse.ShelfRenderer"
+        },
+        {
+          "no": 221496734,
+          "name": "musicDescriptionShelfRenderer",
+          "type": "youtube.response.browse.MusicDescriptionShelfRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.ItemSectionRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "richItemContents",
+          "type": "youtube.response.browse.RichItemContent",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.RichItemContent",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 153515154,
+          "name": "videoWithContextRenderer",
+          "type": "youtube.response.browse.ElementRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.ElementRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 172660663,
+          "name": "videoRendererContent",
+          "type": "youtube.response.browse.VideoRendererContent"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.VideoRendererContent",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "videoInfo",
+          "type": "youtube.response.browse.VideoInfo"
+        },
+        {
+          "no": 2,
+          "name": "renderInfo",
+          "type": "youtube.response.browse.RenderInfo"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.VideoInfo",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 168777401,
+          "name": "videoContext",
+          "type": "youtube.response.browse.VideoContext"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.VideoContext",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 5,
+          "name": "videoContent",
+          "type": "youtube.response.browse.VideoContent"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.VideoContent",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 465160965,
+          "name": "timedLyricsRender",
+          "type": "youtube.response.browse.TimedLyricsRender"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.TimedLyricsRender",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "timedLyricsContent",
+          "type": "youtube.response.browse.TimedLyricsContent"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.TimedLyricsContent",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "runs",
+          "type": "youtube.component.Run",
+          "repeated": true
+        },
+        {
+          "no": 2,
+          "name": "footerLabel",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.RenderInfo",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 183314536,
+          "name": "layoutRender",
+          "type": "youtube.response.browse.LayoutRender"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.LayoutRender",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "eml",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.ShelfRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 5,
+          "name": "richSectionContent",
+          "type": "youtube.response.browse.RichSectionContent"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.RichSectionContent",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 51431404,
+          "name": "reelShelfRenderer",
+          "type": "youtube.response.browse.ReelShelfRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.ReelShelfRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "richItemContents",
+          "type": "youtube.response.browse.RichItemContent",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.browse.MusicDescriptionShelfRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 3,
+          "name": "description",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 10,
+          "name": "footer",
+          "type": "youtube.component.Label"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.next.Next",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 7,
+          "name": "content",
+          "type": "youtube.response.next.Content"
+        },
+        {
+          "no": 8,
+          "name": "onResponseReceivedAction",
+          "type": "youtube.response.browse.Content"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.next.Content",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 51779735,
+          "name": "nextResult",
+          "type": "youtube.response.next.NextResult"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.next.NextResult",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "content",
+          "type": "youtube.response.browse.Content"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.search.Search",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "content",
+          "type": "youtube.response.browse.Content"
+        },
+        {
+          "no": 7,
+          "name": "onResponseReceivedCommand",
+          "type": "youtube.response.search.OnResponseReceivedCommand"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.search.OnResponseReceivedCommand",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 50195462,
+          "name": "itemSectionRenderer",
+          "type": "youtube.response.browse.ItemSectionRenderer"
+        },
+        {
+          "no": 49399797,
+          "name": "appendContinuationItemsAction",
+          "type": "youtube.response.browse.SectionListRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.Shorts",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 2,
+          "name": "entries",
+          "type": "youtube.response.shorts.Entry",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.Entry",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "command",
+          "type": "youtube.response.shorts.Command"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.Command",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 139608561,
+          "name": "reelWatchEndpoint",
+          "type": "youtube.response.shorts.ReelWatchEndpoint"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.ReelWatchEndpoint",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 8,
+          "name": "overlay",
+          "type": "youtube.response.shorts.Overlay"
+        },
+        {
+          "no": 16,
+          "name": "adClientParams",
+          "type": "youtube.response.shorts.AdClientParams"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.AdClientParams",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "isAd",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.Overlay",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 139970731,
+          "name": "reelPlayerOverlayRenderer",
+          "type": "youtube.response.shorts.ReelPlayerOverlayRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.shorts.ReelPlayerOverlayRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 12,
+          "name": "style",
+          "type": "int32"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.guide.Guide",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "labelItems",
+          "type": "youtube.response.guide.Item",
+          "repeated": true
+        },
+        {
+          "no": 6,
+          "name": "iconItems",
+          "type": "youtube.response.guide.Item",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.guide.Item",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 117866661,
+          "name": "guideSectionRenderer",
+          "type": "youtube.response.guide.GuideSectionRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.guide.GuideSectionRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "rendererItems",
+          "type": "youtube.response.guide.RendererItem",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.guide.RendererItem",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 318370163,
+          "name": "iconRender",
+          "type": "youtube.response.guide.guideEntryRenderer"
+        },
+        {
+          "no": 117501096,
+          "name": "labelRender",
+          "type": "youtube.response.guide.guideEntryRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.guide.guideEntryRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "browseId",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.Player",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 7,
+          "name": "adPlacements",
+          "type": "youtube.response.player.AdPlacement",
+          "repeated": true
+        },
+        {
+          "no": 2,
+          "name": "playabilityStatus",
+          "type": "youtube.response.player.PlayabilityStatus"
+        },
+        {
+          "no": 9,
+          "name": "playbackTracking",
+          "type": "youtube.response.player.PlaybackTracking"
+        },
+        {
+          "no": 10,
+          "name": "captions",
+          "type": "youtube.response.player.Captions"
+        },
+        {
+          "no": 68,
+          "name": "adSlots",
+          "type": "youtube.response.player.AdSlot",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.AdPlacement",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 84813246,
+          "name": "adPlacementRenderer",
+          "type": "youtube.response.player.AdPlacementRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.AdPlacementRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "params",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.PlayabilityStatus",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 21,
+          "name": "pictureInPictureRender",
+          "type": "youtube.response.player.PictureInPictureSupportedRenderer"
+        },
+        {
+          "no": 11,
+          "name": "backgroundPlayerRender",
+          "type": "youtube.response.player.BackgroundSupportedRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.PictureInPictureSupportedRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 151635310,
+          "name": "pictureInPictureAbility",
+          "type": "youtube.response.player.PictureInPictureAbility"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.BackgroundSupportedRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 64657230,
+          "name": "backgroundAbility",
+          "type": "youtube.response.player.BackgroundAbility"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.PictureInPictureAbility",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "no": 4,
+          "name": "f4",
+          "type": "int32"
+        },
+        {
+          "no": 6,
+          "name": "f6",
+          "type": "int32"
+        },
+        {
+          "no": 8,
+          "name": "f8",
+          "type": "int32"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.BackgroundAbility",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "active",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.PlaybackTracking",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "videostatsPlaybackUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 2,
+          "name": "videostatsDelayplayUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 3,
+          "name": "videostatsWatchtimeUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 4,
+          "name": "ptrackingUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 5,
+          "name": "qoeUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 13,
+          "name": "atrUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 15,
+          "name": "videostatsEngageUrl",
+          "type": "youtube.response.player.Tracking"
+        },
+        {
+          "no": 18,
+          "name": "pageadViewthroughconversion",
+          "type": "youtube.response.player.Tracking"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.Tracking",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "baseUrl",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.Captions",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 51621377,
+          "name": "playerCaptionsTrackListRenderer",
+          "type": "youtube.response.player.PlayerCaptionsTrackListRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.PlayerCaptionsTrackListRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "captionTracks",
+          "type": "youtube.response.player.CaptionTrack",
+          "repeated": true
+        },
+        {
+          "no": 2,
+          "name": "audioTracks",
+          "type": "youtube.response.player.AudioTrack",
+          "repeated": true
+        },
+        {
+          "no": 3,
+          "name": "translationLanguages",
+          "type": "youtube.response.player.TranslationLanguage",
+          "repeated": true
+        },
+        {
+          "no": 4,
+          "name": "defaultAudioTrackIndex",
+          "type": "int32",
+          "optional": true
+        },
+        {
+          "no": 6,
+          "name": "defaultCaptionTrackIndex",
+          "type": "int32",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.CaptionTrack",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "baseUrl",
+          "type": "string"
+        },
+        {
+          "no": 2,
+          "name": "name",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 3,
+          "name": "vssId",
+          "type": "string"
+        },
+        {
+          "no": 4,
+          "name": "languageCode",
+          "type": "string"
+        },
+        {
+          "no": 5,
+          "name": "kind",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "no": 6,
+          "name": "rtl",
+          "type": "bool",
+          "optional": true
+        },
+        {
+          "no": 7,
+          "name": "isTranslatable",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.AudioTrack",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 2,
+          "name": "captionTrackIndices",
+          "type": "int32",
+          "repeated": "unpacked"
+        },
+        {
+          "no": 3,
+          "name": "defaultCaptionTrackIndex",
+          "type": "int32",
+          "optional": true
+        },
+        {
+          "no": 4,
+          "name": "forcedCaptionTrackIndex",
+          "type": "int32",
+          "optional": true
+        },
+        {
+          "no": 5,
+          "name": "visibility",
+          "type": "int32",
+          "optional": true
+        },
+        {
+          "no": 6,
+          "name": "hasDefaultTrack",
+          "type": "bool",
+          "optional": true
+        },
+        {
+          "no": 7,
+          "name": "hasForcedTrack",
+          "type": "bool",
+          "optional": true
+        },
+        {
+          "no": 8,
+          "name": "audioTrackId",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "no": 11,
+          "name": "captionsInitialState",
+          "type": "int32",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.TranslationLanguage",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "languageCode",
+          "type": "string"
+        },
+        {
+          "no": 2,
+          "name": "languageName",
+          "type": "youtube.component.Label"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.AdSlot",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 424701016,
+          "name": "render",
+          "type": "youtube.response.player.AdSlot.Render"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.player.AdSlot.Render",
+      "evidence": "bundle-response",
+      "fields": []
+    },
+    {
+      "name": "youtube.response.setting.Setting",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 6,
+          "name": "settingItems",
+          "type": "youtube.response.setting.SettingItem",
+          "repeated": true
+        },
+        {
+          "no": 7,
+          "name": "collectionItems",
+          "type": "youtube.response.setting.SettingItem",
+          "protoName": "CollectionItems",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SettingItem",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 88478200,
+          "name": "backgroundPlayBackSettingRenderer",
+          "type": "youtube.response.setting.BackgroundPlayBackSettingRenderer"
+        },
+        {
+          "no": 66930374,
+          "name": "settingCategoryCollectionRenderer",
+          "type": "youtube.response.setting.SettingCategoryCollectionRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.BackgroundPlayBackSettingRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "name",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 2,
+          "name": "backgroundPlayback",
+          "type": "bool"
+        },
+        {
+          "no": 3,
+          "name": "download",
+          "type": "bool"
+        },
+        {
+          "no": 5,
+          "name": "trackingParams",
+          "type": "bytes"
+        },
+        {
+          "no": 9,
+          "name": "downloadQualitySelection",
+          "type": "bool"
+        },
+        {
+          "no": 10,
+          "name": "smartDownload",
+          "type": "bool"
+        },
+        {
+          "no": 14,
+          "name": "icon",
+          "type": "youtube.response.setting.Icon"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SettingCategoryCollectionRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 2,
+          "name": "name",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 3,
+          "name": "subSettings",
+          "type": "youtube.response.setting.SubSetting",
+          "repeated": true
+        },
+        {
+          "no": 4,
+          "name": "categoryId",
+          "type": "int32"
+        },
+        {
+          "no": 5,
+          "name": "icon",
+          "type": "youtube.response.setting.Icon"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.Icon",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "iconType",
+          "type": "int32"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SubSetting",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 61331416,
+          "name": "settingBooleanRenderer",
+          "type": "youtube.response.setting.SettingBooleanRenderer"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SettingBooleanRenderer",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 2,
+          "name": "title",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 3,
+          "name": "description",
+          "type": "youtube.component.Label"
+        },
+        {
+          "no": 5,
+          "name": "enableServiceEndpoint",
+          "type": "youtube.response.setting.ServiceEndpoint"
+        },
+        {
+          "no": 6,
+          "name": "disableServiceEndpoint",
+          "type": "youtube.response.setting.ServiceEndpoint"
+        },
+        {
+          "no": 15,
+          "name": "itemId",
+          "type": "int32"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.ServiceEndpoint",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 81212182,
+          "name": "setClientSettingEndpoint",
+          "type": "youtube.response.setting.SetClientSettingEndpoint"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SetClientSettingEndpoint",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "settingData",
+          "type": "youtube.response.setting.SettingData"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.SettingData",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "clientSettingEnum",
+          "type": "youtube.response.setting.ClientSettingEnum"
+        },
+        {
+          "no": 3,
+          "name": "boolValue",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.setting.ClientSettingEnum",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "item",
+          "type": "int32"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.watch.Watch",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "contents",
+          "type": "youtube.response.watch.Content",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.watch.Content",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 2,
+          "name": "player",
+          "type": "youtube.response.player.Player"
+        },
+        {
+          "no": 3,
+          "name": "next",
+          "type": "youtube.response.next.Next"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.Config",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "responseContext",
+          "type": "youtube.response.config.ResponseContext",
+          "protoName": "response_context"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.ResponseContext",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 16,
+          "name": "globalConfigGroup",
+          "type": "youtube.response.config.GlobalConfigGroup"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.GlobalConfigGroup",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 6,
+          "name": "coldConfigGroup",
+          "type": "youtube.response.config.ColdConfigGroup"
+        },
+        {
+          "no": 7,
+          "name": "hotConfigGroup",
+          "type": "youtube.response.config.HotConfigGroup"
+        },
+        {
+          "no": 4,
+          "name": "hotHashData",
+          "type": "string",
+          "protoName": "hot_hash_data",
+          "optional": true
+        },
+        {
+          "no": 5,
+          "name": "coldHashData",
+          "type": "string",
+          "protoName": "cold_hash_data",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.ColdConfigGroup",
+      "evidence": "bundle-response",
+      "fields": []
+    },
+    {
+      "name": "youtube.response.config.HotConfigGroup",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 138536474,
+          "name": "mediaHotConfig",
+          "type": "youtube.response.config.MediaHotConfig"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.MediaHotConfig",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 146311580,
+          "name": "onesieHotConfig",
+          "type": "youtube.response.config.OnesieHotConfig"
+        }
+      ]
+    },
+    {
+      "name": "youtube.response.config.OnesieHotConfig",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "clientKey",
+          "type": "bytes"
+        },
+        {
+          "no": 2,
+          "name": "encryptKey",
+          "type": "bytes"
+        },
+        {
+          "no": 3,
+          "name": "keyExpiresInSeconds",
+          "type": "int64"
+        },
+        {
+          "no": 30,
+          "name": "useHotConfigToCreateOnesieRequest",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "youtube.ump.encrypted.EncryptedInnertubeResponsePart",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 1,
+          "name": "encryptedContent",
+          "type": "bytes"
+        },
+        {
+          "no": 2,
+          "name": "hmac",
+          "type": "bytes"
+        },
+        {
+          "no": 3,
+          "name": "iv",
+          "type": "bytes"
+        },
+        {
+          "no": 4,
+          "name": "compressionAlgorithm",
+          "type": "youtube.ump.encrypted.CompressionAlgorithm"
+        }
+      ]
+    },
+    {
+      "name": "youtube.ump.encrypted.OnesieInnertubeResponse",
+      "evidence": "bundle-response",
+      "fields": [
+        {
+          "no": 4,
+          "name": "contents",
+          "type": "youtube.response.watch.Content",
+          "repeated": true
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveNext",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 42,
+          "name": "belowPlayerImmersiveLayout",
+          "type": "youtube.observed.next.ImmersiveEnvelope"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveEnvelope",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 357104971,
+          "name": "field357104971",
+          "type": "youtube.observed.next.ImmersiveOuter"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveOuter",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 2,
+          "name": "field2",
+          "type": "youtube.observed.next.ImmersiveBody"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveBody",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 361256913,
+          "name": "field361256913",
+          "type": "youtube.observed.next.ImmersiveTree"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveTree",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 1,
+          "name": "field1",
+          "type": "youtube.observed.next.ImmersiveFrame"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveFrame",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 138681066,
+          "name": "field138681066",
+          "type": "youtube.observed.next.ImmersiveView"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.ImmersiveView",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 3,
+          "name": "field3",
+          "type": "youtube.observed.next.SectionEnvelope"
+        }
+      ]
+    },
+    {
+      "name": "youtube.observed.next.SectionEnvelope",
+      "evidence": "next-captures",
+      "fields": [
+        {
+          "no": 49399797,
+          "name": "sectionListRenderer",
+          "type": "youtube.response.browse.SectionListRenderer"
+        }
+      ]
+    }
+  ],
+  "requestMessages": [
+    {
+      "name": "youtube.request.init.OnesieRequest",
+      "evidence": "bundle-request",
+      "fields": [
+        {
+          "no": 3,
+          "name": "encryptedInnertubeRequest",
+          "type": "youtube.request.init.EncryptedInnertubeRequest",
+          "protoName": "encrypted_innertube_request"
+        }
+      ]
+    },
+    {
+      "name": "youtube.request.init.EncryptedInnertubeRequest",
+      "evidence": "bundle-request",
+      "fields": [
+        {
+          "no": 2,
+          "name": "encryptedOnesieInnertubeRequest",
+          "type": "bytes",
+          "protoName": "encrypted_onesie_innertube_request"
+        },
+        {
+          "no": 5,
+          "name": "encryptedClientKey",
+          "type": "bytes",
+          "protoName": "encrypted_client_key"
+        },
+        {
+          "no": 6,
+          "name": "iv",
+          "type": "bytes",
+          "protoName": "iv"
+        },
+        {
+          "no": 7,
+          "name": "hmac",
+          "type": "bytes",
+          "protoName": "hmac"
+        }
+      ]
+    }
+  ],
+  "endpoints": {
+    "browse": {
+      "message": "youtube.response.browse.Browse"
+    },
+    "next": {
+      "message": "youtube.response.next.Next"
+    },
+    "player": {
+      "message": "youtube.response.player.Player"
+    },
+    "search": {
+      "message": "youtube.response.search.Search"
+    },
+    "reel/reel_watch_sequence": {
+      "message": "youtube.response.shorts.Shorts"
+    },
+    "guide": {
+      "message": "youtube.response.guide.Guide"
+    },
+    "account/get_setting": {
+      "message": "youtube.response.setting.Setting"
+    },
+    "get_watch": {
+      "message": "youtube.response.watch.Watch"
+    },
+    "config": {
+      "message": "youtube.response.config.Config"
+    },
+    "log_event": {
+      "message": "youtube.response.config.Config"
+    }
+  },
+  "wirePaths": {
+    "immersiveItems": {
+      "root": "youtube.observed.next.ImmersiveNext",
+      "path": [
+        "belowPlayerImmersiveLayout",
+        "field357104971",
+        "field2",
+        "field361256913",
+        "field1",
+        "field138681066",
+        "field3",
+        "sectionListRenderer",
+        "sectionListSupportedRenderers",
+        "itemSectionRenderer",
+        "richItemContents"
+      ]
+    },
+    "watchNext": {
+      "root": "youtube.response.watch.Watch",
+      "path": [
+        "contents",
+        "next"
+      ]
+    },
+    "rendererLayout": {
+      "root": "youtube.response.browse.RichItemContent",
+      "path": [
+        "videoWithContextRenderer",
+        "videoRendererContent",
+        "renderInfo",
+        "layoutRender",
+        "eml"
+      ]
+    },
+    "rendererData": {
+      "root": "youtube.response.browse.RichItemContent",
+      "path": [
+        "videoWithContextRenderer",
+        "videoRendererContent",
+        "videoInfo",
+        "videoContext",
+        "videoContent"
+      ]
+    }
+  }
+}

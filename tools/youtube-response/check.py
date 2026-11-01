@@ -4,13 +4,17 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
+sys.dont_write_bytecode = True
+from dependency import verify
 
 root = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
 for name in ['node', 'typescript', 'esbuild']:
     p.add_argument('--' + name, required=True)
+p.add_argument('--dependency-dir', type=Path, required=True)
 p.add_argument('--work-dir', type=Path, required=True)
 p.add_argument('--captures', type=Path, required=True, help='Output root of tools/youtube-next/prepare.py')
 a = p.parse_args()
@@ -28,15 +32,29 @@ def run(cmd):
 
 run([sys.executable, 'tools/youtube-request/check.py', '--node', a.node,
      '--typescript', a.typescript, '--esbuild', a.esbuild, '--work-dir', str(work / 'request')])
-run([a.node, a.typescript, '-p', 'tools/youtube-response/tsconfig.json'])
-run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild])
+package = verify(a.dependency_dir)
+run([sys.executable, 'tools/youtube-response/generate.py', '--check'])
+tsconfig = work / 'tsconfig.response.json'
+tsconfig.write_text(json.dumps({'extends': str(root / 'tools/youtube-response/tsconfig.json'),
+    'compilerOptions': {'paths': {'@protobuf-ts/runtime': [str(package / 'build/types/index.d.ts')]}},
+    'include':[str(root / 'Script/Youtube/src/response/**/*.ts'), str(root / 'tools/youtube-response/type-contracts.ts')]}))
+run([a.node, a.typescript, '-p', str(tsconfig)])
+run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild, '--dependency-dir', str(a.dependency_dir)])
 run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild,
-     '--out', str(work / 'response.reproduced.js')])
+     '--out', str(work / 'response.reproduced.js'), '--dependency-dir', str(a.dependency_dir)])
 script = root / 'Script/Youtube/youtube.response.js'
 assert script.read_bytes() == (work / 'response.reproduced.js').read_bytes()
+assert b'/private/tmp/' not in script.read_bytes(), 'Build embeds a temporary dependency path'
+alternate = work / 'alternate-dependency-location'
+alternate.mkdir(exist_ok=True)
+shutil.copyfile(a.dependency_dir / 'runtime.tgz', alternate / 'runtime.tgz')
+run([sys.executable, 'tools/youtube-response/dependency.py', '--directory', str(alternate)])
+run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild,
+     '--dependency-dir', str(alternate), '--out', str(work / 'response.alternate.js')])
+assert script.read_bytes() == (work / 'response.alternate.js').read_bytes(), 'Dependency path changes bundle'
 entry = work / 'test-entry.cjs'
 run([a.esbuild, 'tools/youtube-response/test-entry.ts', '--bundle', '--platform=node',
-     '--format=cjs', '--outfile=' + str(entry)])
+     '--format=cjs', '--alias:@protobuf-ts/runtime=' + str(package / 'build/es2015/index.js'), '--outfile=' + str(entry)])
 run([a.node, 'tools/youtube-response/test.mjs', str(entry), str(script), str(a.captures.resolve())])
 tap = run([a.node, 'tools/youtube-response/regressions.mjs', str(entry), str(script),
            str(root / 'Script/Youtube/youtube.request.js'), str(a.captures.resolve())])
@@ -44,9 +62,14 @@ tap = run([a.node, 'tools/youtube-response/regressions.mjs', str(entry), str(scr
 groups = int(re.search(r'^# tests (\d+)$', tap, re.MULTILINE).group(1))
 passed = int(re.search(r'^# pass (\d+)$', tap, re.MULTILINE).group(1))
 assert groups == passed
+architecture = run([a.node, 'tools/youtube-response/architecture.mjs', str(entry), str(script), str(a.captures.resolve())])
+(work / 'architecture.tap').write_text(architecture + '\n')
+architecture_groups = int(re.search(r'^# tests (\d+)$', architecture, re.MULTILINE).group(1))
+architecture_passed = int(re.search(r'^# pass (\d+)$', architecture, re.MULTILINE).group(1))
+assert architecture_groups == architecture_passed
 file = root / 'tools/youtube-response/validation.json'
 report = json.loads(file.read_text())
-report.update(typecheck='passed', reproducibleBuild=True, auditRegressionGroups=groups,
+report.update(schemaGeneration='verified', runtimeDependency='@protobuf-ts/runtime@2.11.1', architectureTestGroups=architecture_groups, architecturePassed=architecture_passed, typecheck='passed', reproducibleBuild=True, reproducibleAcrossDependencyPaths=True, auditRegressionGroups=groups,
               auditRegressionPassed=passed, scriptSha256=hashlib.sha256(script.read_bytes()).hexdigest())
 file.write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

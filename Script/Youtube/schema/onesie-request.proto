@@ -1,9 +1,6 @@
 syntax = "proto3";
 package youtube.request.init;
-
-// Reconstructed from the original 2026-07-12 bundle, not recovered Google source.
-// Only fields described by that bundle are declared. The runtime reader retains
-// unknown fields and never encodes or changes the original request bytes.
+// Generated from youtube.json. Requests are read without re-encoding.
 message OnesieRequest {
   EncryptedInnertubeRequest encrypted_innertube_request = 3;
 }

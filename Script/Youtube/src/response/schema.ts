@@ -1,329 +1,1522 @@
-// Recovered embedded descriptors; edit these for schema changes.
-import {MessageType} from './vendor/protobuf-runtime.js';
-import type {MessageCodec} from './types';
-export const messages: Record<string, MessageCodec> = {};
-messages["youtube.component.Label"]=new MessageType("youtube.component.Label",[
-  {"no":1,"name":"runs","kind":"message","repeat":1,"T":()=>messages["youtube.component.Run"],"localName":"runs","jsonName":"runs","opt":false}
-]);
-messages["youtube.component.Run"]=new MessageType("youtube.component.Run",[
-  {"no":1,"name":"text","kind":"scalar","T":9,"localName":"text","jsonName":"text","repeat":0,"opt":false}
-]);
-messages["youtube.component.ResponseContext"]=new MessageType("youtube.component.ResponseContext",[
-  {"no":6,"name":"serviceTrackingParams","kind":"message","repeat":1,"T":()=>messages["youtube.component.ServiceTrackingParam"],"localName":"serviceTrackingParams","jsonName":"serviceTrackingParams","opt":false}
-]);
-messages["youtube.component.ServiceTrackingParam"]=new MessageType("youtube.component.ServiceTrackingParam",[
-  {"no":1,"name":"service","kind":"scalar","T":5,"localName":"service","jsonName":"service","repeat":0,"opt":false},
-  {"no":2,"name":"params","kind":"message","repeat":1,"T":()=>messages["youtube.component.Param"],"localName":"params","jsonName":"params","opt":false}
-]);
-messages["youtube.component.Param"]=new MessageType("youtube.component.Param",[
-  {"no":1,"name":"key","kind":"scalar","T":9,"localName":"key","jsonName":"key","repeat":0,"opt":false},
-  {"no":2,"name":"value","kind":"scalar","T":9,"localName":"value","jsonName":"value","repeat":0,"opt":false}
-]);
-messages["youtube.response.browse.Browse"]=new MessageType("youtube.response.browse.Browse",[
-  {"no":1,"name":"responseContext","kind":"message","T":()=>messages["youtube.component.ResponseContext"],"localName":"responseContext","jsonName":"responseContext","repeat":0,"opt":true},
-  {"no":9,"name":"content","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"content","jsonName":"content","repeat":0,"opt":true},
-  {"no":10,"name":"onResponseReceivedAction","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"onResponseReceivedAction","jsonName":"onResponseReceivedAction","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.Content"]=new MessageType("youtube.response.browse.Content",[
-  {"no":58173949,"name":"singleColumnResultsRenderer","kind":"message","T":()=>messages["youtube.response.browse.SingleColumnResultsRenderer"],"localName":"singleColumnResultsRenderer","jsonName":"singleColumnResultsRenderer","repeat":0,"opt":true},
-  {"no":153515154,"name":"elementRenderer","kind":"message","T":()=>messages["youtube.response.browse.ElementRenderer"],"localName":"elementRenderer","jsonName":"elementRenderer","repeat":0,"opt":true},
-  {"no":49399797,"name":"sectionListRenderer","kind":"message","T":()=>messages["youtube.response.browse.SectionListRenderer"],"localName":"sectionListRenderer","jsonName":"sectionListRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.SingleColumnResultsRenderer"]=new MessageType("youtube.response.browse.SingleColumnResultsRenderer",[
-  {"no":1,"name":"tabs","kind":"message","repeat":1,"T":()=>messages["youtube.response.browse.BrowseTabSupportedRenderer"],"localName":"tabs","jsonName":"tabs","opt":false}
-]);
-messages["youtube.response.browse.BrowseTabSupportedRenderer"]=new MessageType("youtube.response.browse.BrowseTabSupportedRenderer",[
-  {"no":58174010,"name":"tabRenderer","kind":"message","T":()=>messages["youtube.response.browse.TabRenderer"],"localName":"tabRenderer","jsonName":"tabRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.TabRenderer"]=new MessageType("youtube.response.browse.TabRenderer",[
-  {"no":4,"name":"content","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"content","jsonName":"content","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.SectionListRenderer"]=new MessageType("youtube.response.browse.SectionListRenderer",[
-  {"no":1,"name":"sectionListSupportedRenderers","kind":"message","repeat":1,"T":()=>messages["youtube.response.browse.SectionListSupportedRenderer"],"localName":"sectionListSupportedRenderers","jsonName":"sectionListSupportedRenderers","opt":false}
-]);
-messages["youtube.response.browse.SectionListSupportedRenderer"]=new MessageType("youtube.response.browse.SectionListSupportedRenderer",[
-  {"no":50195462,"name":"itemSectionRenderer","kind":"message","T":()=>messages["youtube.response.browse.ItemSectionRenderer"],"localName":"itemSectionRenderer","jsonName":"itemSectionRenderer","repeat":0,"opt":true},
-  {"no":51845067,"name":"shelfRenderer","kind":"message","T":()=>messages["youtube.response.browse.ShelfRenderer"],"localName":"shelfRenderer","jsonName":"shelfRenderer","repeat":0,"opt":true},
-  {"no":221496734,"name":"musicDescriptionShelfRenderer","kind":"message","T":()=>messages["youtube.response.browse.MusicDescriptionShelfRenderer"],"localName":"musicDescriptionShelfRenderer","jsonName":"musicDescriptionShelfRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.ItemSectionRenderer"]=new MessageType("youtube.response.browse.ItemSectionRenderer",[
-  {"no":1,"name":"richItemContents","kind":"message","repeat":1,"T":()=>messages["youtube.response.browse.RichItemContent"],"localName":"richItemContents","jsonName":"richItemContents","opt":false}
-]);
-messages["youtube.response.browse.RichItemContent"]=new MessageType("youtube.response.browse.RichItemContent",[
-  {"no":153515154,"name":"videoWithContextRenderer","kind":"message","T":()=>messages["youtube.response.browse.ElementRenderer"],"localName":"videoWithContextRenderer","jsonName":"videoWithContextRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.ElementRenderer"]=new MessageType("youtube.response.browse.ElementRenderer",[
-  {"no":172660663,"name":"videoRendererContent","kind":"message","T":()=>messages["youtube.response.browse.VideoRendererContent"],"localName":"videoRendererContent","jsonName":"videoRendererContent","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.VideoRendererContent"]=new MessageType("youtube.response.browse.VideoRendererContent",[
-  {"no":1,"name":"videoInfo","kind":"message","T":()=>messages["youtube.response.browse.VideoInfo"],"localName":"videoInfo","jsonName":"videoInfo","repeat":0,"opt":true},
-  {"no":2,"name":"renderInfo","kind":"message","T":()=>messages["youtube.response.browse.RenderInfo"],"localName":"renderInfo","jsonName":"renderInfo","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.VideoInfo"]=new MessageType("youtube.response.browse.VideoInfo",[
-  {"no":168777401,"name":"videoContext","kind":"message","T":()=>messages["youtube.response.browse.VideoContext"],"localName":"videoContext","jsonName":"videoContext","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.VideoContext"]=new MessageType("youtube.response.browse.VideoContext",[
-  {"no":5,"name":"videoContent","kind":"message","T":()=>messages["youtube.response.browse.VideoContent"],"localName":"videoContent","jsonName":"videoContent","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.VideoContent"]=new MessageType("youtube.response.browse.VideoContent",[
-  {"no":465160965,"name":"timedLyricsRender","kind":"message","T":()=>messages["youtube.response.browse.TimedLyricsRender"],"localName":"timedLyricsRender","jsonName":"timedLyricsRender","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.TimedLyricsRender"]=new MessageType("youtube.response.browse.TimedLyricsRender",[
-  {"no":4,"name":"timedLyricsContent","kind":"message","T":()=>messages["youtube.response.browse.TimedLyricsContent"],"localName":"timedLyricsContent","jsonName":"timedLyricsContent","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.TimedLyricsContent"]=new MessageType("youtube.response.browse.TimedLyricsContent",[
-  {"no":1,"name":"runs","kind":"message","repeat":1,"T":()=>messages["youtube.component.Run"],"localName":"runs","jsonName":"runs","opt":false},
-  {"no":2,"name":"footerLabel","kind":"scalar","T":9,"localName":"footerLabel","jsonName":"footerLabel","repeat":0,"opt":false}
-]);
-messages["youtube.response.browse.RenderInfo"]=new MessageType("youtube.response.browse.RenderInfo",[
-  {"no":183314536,"name":"layoutRender","kind":"message","T":()=>messages["youtube.response.browse.LayoutRender"],"localName":"layoutRender","jsonName":"layoutRender","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.LayoutRender"]=new MessageType("youtube.response.browse.LayoutRender",[
-  {"no":1,"name":"eml","kind":"scalar","T":9,"localName":"eml","jsonName":"eml","repeat":0,"opt":false}
-]);
-messages["youtube.response.browse.ShelfRenderer"]=new MessageType("youtube.response.browse.ShelfRenderer",[
-  {"no":5,"name":"richSectionContent","kind":"message","T":()=>messages["youtube.response.browse.RichSectionContent"],"localName":"richSectionContent","jsonName":"richSectionContent","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.RichSectionContent"]=new MessageType("youtube.response.browse.RichSectionContent",[
-  {"no":51431404,"name":"reelShelfRenderer","kind":"message","T":()=>messages["youtube.response.browse.ReelShelfRenderer"],"localName":"reelShelfRenderer","jsonName":"reelShelfRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.browse.ReelShelfRenderer"]=new MessageType("youtube.response.browse.ReelShelfRenderer",[
-  {"no":1,"name":"richItemContents","kind":"message","repeat":1,"T":()=>messages["youtube.response.browse.RichItemContent"],"localName":"richItemContents","jsonName":"richItemContents","opt":false}
-]);
-messages["youtube.response.browse.MusicDescriptionShelfRenderer"]=new MessageType("youtube.response.browse.MusicDescriptionShelfRenderer",[
-  {"no":3,"name":"description","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"description","jsonName":"description","repeat":0,"opt":true},
-  {"no":10,"name":"footer","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"footer","jsonName":"footer","repeat":0,"opt":true}
-]);
-messages["youtube.response.next.Next"]=new MessageType("youtube.response.next.Next",[
-  {"no":7,"name":"content","kind":"message","T":()=>messages["youtube.response.next.Content"],"localName":"content","jsonName":"content","repeat":0,"opt":true},
-  {"no":8,"name":"onResponseReceivedAction","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"onResponseReceivedAction","jsonName":"onResponseReceivedAction","repeat":0,"opt":true}
-]);
-messages["youtube.response.next.Content"]=new MessageType("youtube.response.next.Content",[
-  {"no":51779735,"name":"nextResult","kind":"message","T":()=>messages["youtube.response.next.NextResult"],"localName":"nextResult","jsonName":"nextResult","repeat":0,"opt":true}
-]);
-messages["youtube.response.next.NextResult"]=new MessageType("youtube.response.next.NextResult",[
-  {"no":1,"name":"content","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"content","jsonName":"content","repeat":0,"opt":true}
-]);
-messages["youtube.response.search.Search"]=new MessageType("youtube.response.search.Search",[
-  {"no":4,"name":"content","kind":"message","T":()=>messages["youtube.response.browse.Content"],"localName":"content","jsonName":"content","repeat":0,"opt":true},
-  {"no":7,"name":"onResponseReceivedCommand","kind":"message","T":()=>messages["youtube.response.search.OnResponseReceivedCommand"],"localName":"onResponseReceivedCommand","jsonName":"onResponseReceivedCommand","repeat":0,"opt":true}
-]);
-messages["youtube.response.search.OnResponseReceivedCommand"]=new MessageType("youtube.response.search.OnResponseReceivedCommand",[
-  {"no":50195462,"name":"itemSectionRenderer","kind":"message","T":()=>messages["youtube.response.browse.ItemSectionRenderer"],"localName":"itemSectionRenderer","jsonName":"itemSectionRenderer","repeat":0,"opt":true},
-  {"no":49399797,"name":"appendContinuationItemsAction","kind":"message","T":()=>messages["youtube.response.browse.SectionListRenderer"],"localName":"appendContinuationItemsAction","jsonName":"appendContinuationItemsAction","repeat":0,"opt":true}
-]);
-messages["youtube.response.shorts.Shorts"]=new MessageType("youtube.response.shorts.Shorts",[
-  {"no":2,"name":"entries","kind":"message","repeat":2,"T":()=>messages["youtube.response.shorts.Entry"],"localName":"entries","jsonName":"entries","opt":false}
-]);
-messages["youtube.response.shorts.Entry"]=new MessageType("youtube.response.shorts.Entry",[
-  {"no":1,"name":"command","kind":"message","T":()=>messages["youtube.response.shorts.Command"],"localName":"command","jsonName":"command","repeat":0,"opt":true}
-]);
-messages["youtube.response.shorts.Command"]=new MessageType("youtube.response.shorts.Command",[
-  {"no":139608561,"name":"reelWatchEndpoint","kind":"message","T":()=>messages["youtube.response.shorts.ReelWatchEndpoint"],"localName":"reelWatchEndpoint","jsonName":"reelWatchEndpoint","repeat":0,"opt":true}
-]);
-messages["youtube.response.shorts.ReelWatchEndpoint"]=new MessageType("youtube.response.shorts.ReelWatchEndpoint",[
-  {"no":8,"name":"overlay","kind":"message","T":()=>messages["youtube.response.shorts.Overlay"],"localName":"overlay","jsonName":"overlay","repeat":0,"opt":true},
-  {"no":16,"name":"adClientParams","kind":"message","T":()=>messages["youtube.response.shorts.AdClientParams"],"localName":"adClientParams","jsonName":"adClientParams","repeat":0,"opt":true}
-]);
-messages["youtube.response.shorts.AdClientParams"]=new MessageType("youtube.response.shorts.AdClientParams",[
-  {"no":1,"name":"isAd","kind":"scalar","T":8,"localName":"isAd","jsonName":"isAd","repeat":0,"opt":false}
-]);
-messages["youtube.response.shorts.Overlay"]=new MessageType("youtube.response.shorts.Overlay",[
-  {"no":139970731,"name":"reelPlayerOverlayRenderer","kind":"message","T":()=>messages["youtube.response.shorts.ReelPlayerOverlayRenderer"],"localName":"reelPlayerOverlayRenderer","jsonName":"reelPlayerOverlayRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.shorts.ReelPlayerOverlayRenderer"]=new MessageType("youtube.response.shorts.ReelPlayerOverlayRenderer",[
-  {"no":12,"name":"style","kind":"scalar","T":5,"localName":"style","jsonName":"style","repeat":0,"opt":false}
-]);
-messages["youtube.response.guide.Guide"]=new MessageType("youtube.response.guide.Guide",[
-  {"no":4,"name":"labelItems","kind":"message","repeat":1,"T":()=>messages["youtube.response.guide.Item"],"localName":"labelItems","jsonName":"labelItems","opt":false},
-  {"no":6,"name":"iconItems","kind":"message","repeat":1,"T":()=>messages["youtube.response.guide.Item"],"localName":"iconItems","jsonName":"iconItems","opt":false}
-]);
-messages["youtube.response.guide.Item"]=new MessageType("youtube.response.guide.Item",[
-  {"no":117866661,"name":"guideSectionRenderer","kind":"message","T":()=>messages["youtube.response.guide.GuideSectionRenderer"],"localName":"guideSectionRenderer","jsonName":"guideSectionRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.guide.GuideSectionRenderer"]=new MessageType("youtube.response.guide.GuideSectionRenderer",[
-  {"no":1,"name":"rendererItems","kind":"message","repeat":1,"T":()=>messages["youtube.response.guide.RendererItem"],"localName":"rendererItems","jsonName":"rendererItems","opt":false}
-]);
-messages["youtube.response.guide.RendererItem"]=new MessageType("youtube.response.guide.RendererItem",[
-  {"no":318370163,"name":"iconRender","kind":"message","T":()=>messages["youtube.response.guide.guideEntryRenderer"],"localName":"iconRender","jsonName":"iconRender","repeat":0,"opt":true},
-  {"no":117501096,"name":"labelRender","kind":"message","T":()=>messages["youtube.response.guide.guideEntryRenderer"],"localName":"labelRender","jsonName":"labelRender","repeat":0,"opt":true}
-]);
-messages["youtube.response.guide.guideEntryRenderer"]=new MessageType("youtube.response.guide.guideEntryRenderer",[
-  {"no":1,"name":"browseId","kind":"scalar","T":9,"localName":"browseId","jsonName":"browseId","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.Player"]=new MessageType("youtube.response.player.Player",[
-  {"no":7,"name":"adPlacements","kind":"message","repeat":1,"T":()=>messages["youtube.response.player.AdPlacement"],"localName":"adPlacements","jsonName":"adPlacements","opt":false},
-  {"no":2,"name":"playabilityStatus","kind":"message","T":()=>messages["youtube.response.player.PlayabilityStatus"],"localName":"playabilityStatus","jsonName":"playabilityStatus","repeat":0,"opt":true},
-  {"no":9,"name":"playbackTracking","kind":"message","T":()=>messages["youtube.response.player.PlaybackTracking"],"localName":"playbackTracking","jsonName":"playbackTracking","repeat":0,"opt":true},
-  {"no":10,"name":"captions","kind":"message","T":()=>messages["youtube.response.player.Captions"],"localName":"captions","jsonName":"captions","repeat":0,"opt":true},
-  {"no":68,"name":"adSlots","kind":"message","repeat":1,"T":()=>messages["youtube.response.player.AdSlot"],"localName":"adSlots","jsonName":"adSlots","opt":false}
-]);
-messages["youtube.response.player.AdPlacement"]=new MessageType("youtube.response.player.AdPlacement",[
-  {"no":84813246,"name":"adPlacementRenderer","kind":"message","T":()=>messages["youtube.response.player.AdPlacementRenderer"],"localName":"adPlacementRenderer","jsonName":"adPlacementRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.AdPlacementRenderer"]=new MessageType("youtube.response.player.AdPlacementRenderer",[
-  {"no":4,"name":"params","kind":"scalar","T":9,"localName":"params","jsonName":"params","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.PlayabilityStatus"]=new MessageType("youtube.response.player.PlayabilityStatus",[
-  {"no":21,"name":"pictureInPictureRender","kind":"message","T":()=>messages["youtube.response.player.PictureInPictureSupportedRenderer"],"localName":"pictureInPictureRender","jsonName":"pictureInPictureRender","repeat":0,"opt":true},
-  {"no":11,"name":"backgroundPlayerRender","kind":"message","T":()=>messages["youtube.response.player.BackgroundSupportedRenderer"],"localName":"backgroundPlayerRender","jsonName":"backgroundPlayerRender","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.PictureInPictureSupportedRenderer"]=new MessageType("youtube.response.player.PictureInPictureSupportedRenderer",[
-  {"no":151635310,"name":"pictureInPictureAbility","kind":"message","T":()=>messages["youtube.response.player.PictureInPictureAbility"],"localName":"pictureInPictureAbility","jsonName":"pictureInPictureAbility","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.BackgroundSupportedRenderer"]=new MessageType("youtube.response.player.BackgroundSupportedRenderer",[
-  {"no":64657230,"name":"backgroundAbility","kind":"message","T":()=>messages["youtube.response.player.BackgroundAbility"],"localName":"backgroundAbility","jsonName":"backgroundAbility","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.PictureInPictureAbility"]=new MessageType("youtube.response.player.PictureInPictureAbility",[
-  {"no":1,"name":"active","kind":"scalar","T":8,"localName":"active","jsonName":"active","repeat":0,"opt":false},
-  {"no":4,"name":"f4","kind":"scalar","T":5,"localName":"f4","jsonName":"f4","repeat":0,"opt":false},
-  {"no":6,"name":"f6","kind":"scalar","T":5,"localName":"f6","jsonName":"f6","repeat":0,"opt":false},
-  {"no":8,"name":"f8","kind":"scalar","T":5,"localName":"f8","jsonName":"f8","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.BackgroundAbility"]=new MessageType("youtube.response.player.BackgroundAbility",[
-  {"no":1,"name":"active","kind":"scalar","T":8,"localName":"active","jsonName":"active","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.PlaybackTracking"]=new MessageType("youtube.response.player.PlaybackTracking",[
-  {"no":1,"name":"videostatsPlaybackUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"videostatsPlaybackUrl","jsonName":"videostatsPlaybackUrl","repeat":0,"opt":true},
-  {"no":2,"name":"videostatsDelayplayUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"videostatsDelayplayUrl","jsonName":"videostatsDelayplayUrl","repeat":0,"opt":true},
-  {"no":3,"name":"videostatsWatchtimeUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"videostatsWatchtimeUrl","jsonName":"videostatsWatchtimeUrl","repeat":0,"opt":true},
-  {"no":4,"name":"ptrackingUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"ptrackingUrl","jsonName":"ptrackingUrl","repeat":0,"opt":true},
-  {"no":5,"name":"qoeUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"qoeUrl","jsonName":"qoeUrl","repeat":0,"opt":true},
-  {"no":13,"name":"atrUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"atrUrl","jsonName":"atrUrl","repeat":0,"opt":true},
-  {"no":15,"name":"videostatsEngageUrl","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"videostatsEngageUrl","jsonName":"videostatsEngageUrl","repeat":0,"opt":true},
-  {"no":18,"name":"pageadViewthroughconversion","kind":"message","T":()=>messages["youtube.response.player.Tracking"],"localName":"pageadViewthroughconversion","jsonName":"pageadViewthroughconversion","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.Tracking"]=new MessageType("youtube.response.player.Tracking",[
-  {"no":1,"name":"baseUrl","kind":"scalar","T":9,"localName":"baseUrl","jsonName":"baseUrl","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.Captions"]=new MessageType("youtube.response.player.Captions",[
-  {"no":51621377,"name":"playerCaptionsTrackListRenderer","kind":"message","jsonName":"playerCaptionsTracklistRenderer","T":()=>messages["youtube.response.player.PlayerCaptionsTrackListRenderer"],"localName":"playerCaptionsTrackListRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.PlayerCaptionsTrackListRenderer"]=new MessageType("youtube.response.player.PlayerCaptionsTrackListRenderer",[
-  {"no":1,"name":"captionTracks","kind":"message","repeat":1,"T":()=>messages["youtube.response.player.CaptionTrack"],"localName":"captionTracks","jsonName":"captionTracks","opt":false},
-  {"no":2,"name":"audioTracks","kind":"message","repeat":1,"T":()=>messages["youtube.response.player.AudioTrack"],"localName":"audioTracks","jsonName":"audioTracks","opt":false},
-  {"no":3,"name":"translationLanguages","kind":"message","repeat":1,"T":()=>messages["youtube.response.player.TranslationLanguage"],"localName":"translationLanguages","jsonName":"translationLanguages","opt":false},
-  {"no":4,"name":"defaultAudioTrackIndex","kind":"scalar","opt":true,"T":5,"localName":"defaultAudioTrackIndex","jsonName":"defaultAudioTrackIndex","repeat":0},
-  {"no":6,"name":"defaultCaptionTrackIndex","kind":"scalar","opt":true,"T":5,"localName":"defaultCaptionTrackIndex","jsonName":"defaultCaptionTrackIndex","repeat":0}
-]);
-messages["youtube.response.player.CaptionTrack"]=new MessageType("youtube.response.player.CaptionTrack",[
-  {"no":1,"name":"baseUrl","kind":"scalar","T":9,"localName":"baseUrl","jsonName":"baseUrl","repeat":0,"opt":false},
-  {"no":2,"name":"name","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"name","jsonName":"name","repeat":0,"opt":true},
-  {"no":3,"name":"vssId","kind":"scalar","T":9,"localName":"vssId","jsonName":"vssId","repeat":0,"opt":false},
-  {"no":4,"name":"languageCode","kind":"scalar","T":9,"localName":"languageCode","jsonName":"languageCode","repeat":0,"opt":false},
-  {"no":5,"name":"kind","kind":"scalar","opt":true,"T":9,"localName":"kind","jsonName":"kind","repeat":0},
-  {"no":6,"name":"rtl","kind":"scalar","opt":true,"T":8,"localName":"rtl","jsonName":"rtl","repeat":0},
-  {"no":7,"name":"isTranslatable","kind":"scalar","T":8,"localName":"isTranslatable","jsonName":"isTranslatable","repeat":0,"opt":false}
-]);
-messages["youtube.response.player.AudioTrack"]=new MessageType("youtube.response.player.AudioTrack",[
-  {"no":2,"name":"captionTrackIndices","kind":"scalar","repeat":2,"T":5,"localName":"captionTrackIndices","jsonName":"captionTrackIndices","opt":false},
-  {"no":3,"name":"defaultCaptionTrackIndex","kind":"scalar","opt":true,"T":5,"localName":"defaultCaptionTrackIndex","jsonName":"defaultCaptionTrackIndex","repeat":0},
-  {"no":4,"name":"forcedCaptionTrackIndex","kind":"scalar","opt":true,"T":5,"localName":"forcedCaptionTrackIndex","jsonName":"forcedCaptionTrackIndex","repeat":0},
-  {"no":5,"name":"visibility","kind":"scalar","opt":true,"T":5,"localName":"visibility","jsonName":"visibility","repeat":0},
-  {"no":6,"name":"hasDefaultTrack","kind":"scalar","opt":true,"T":8,"localName":"hasDefaultTrack","jsonName":"hasDefaultTrack","repeat":0},
-  {"no":7,"name":"hasForcedTrack","kind":"scalar","opt":true,"T":8,"localName":"hasForcedTrack","jsonName":"hasForcedTrack","repeat":0},
-  {"no":8,"name":"audioTrackId","kind":"scalar","opt":true,"T":9,"localName":"audioTrackId","jsonName":"audioTrackId","repeat":0},
-  {"no":11,"name":"captionsInitialState","kind":"scalar","opt":true,"T":5,"localName":"captionsInitialState","jsonName":"captionsInitialState","repeat":0}
-]);
-messages["youtube.response.player.TranslationLanguage"]=new MessageType("youtube.response.player.TranslationLanguage",[
-  {"no":1,"name":"languageCode","kind":"scalar","T":9,"localName":"languageCode","jsonName":"languageCode","repeat":0,"opt":false},
-  {"no":2,"name":"languageName","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"languageName","jsonName":"languageName","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.AdSlot"]=new MessageType("youtube.response.player.AdSlot",[
-  {"no":424701016,"name":"render","kind":"message","T":()=>messages["youtube.response.player.AdSlot.Render"],"localName":"render","jsonName":"render","repeat":0,"opt":true}
-]);
-messages["youtube.response.player.AdSlot.Render"]=new MessageType("youtube.response.player.AdSlot.Render",[
+// Generated by tools/youtube-response/generate.py from schema/youtube.json. Do not edit.
 
-]);
-messages["youtube.response.setting.Setting"]=new MessageType("youtube.response.setting.Setting",[
-  {"no":6,"name":"settingItems","kind":"message","repeat":1,"T":()=>messages["youtube.response.setting.SettingItem"],"localName":"settingItems","jsonName":"settingItems","opt":false},
-  {"no":7,"name":"CollectionItems","kind":"message","jsonName":"CollectionItems","repeat":1,"T":()=>messages["youtube.response.setting.SettingItem"],"localName":"collectionItems","opt":false}
-]);
-messages["youtube.response.setting.SettingItem"]=new MessageType("youtube.response.setting.SettingItem",[
-  {"no":88478200,"name":"backgroundPlayBackSettingRenderer","kind":"message","T":()=>messages["youtube.response.setting.BackgroundPlayBackSettingRenderer"],"localName":"backgroundPlayBackSettingRenderer","jsonName":"backgroundPlayBackSettingRenderer","repeat":0,"opt":true},
-  {"no":66930374,"name":"settingCategoryCollectionRenderer","kind":"message","T":()=>messages["youtube.response.setting.SettingCategoryCollectionRenderer"],"localName":"settingCategoryCollectionRenderer","jsonName":"settingCategoryCollectionRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.BackgroundPlayBackSettingRenderer"]=new MessageType("youtube.response.setting.BackgroundPlayBackSettingRenderer",[
-  {"no":1,"name":"name","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"name","jsonName":"name","repeat":0,"opt":true},
-  {"no":2,"name":"backgroundPlayback","kind":"scalar","T":8,"localName":"backgroundPlayback","jsonName":"backgroundPlayback","repeat":0,"opt":false},
-  {"no":3,"name":"download","kind":"scalar","T":8,"localName":"download","jsonName":"download","repeat":0,"opt":false},
-  {"no":5,"name":"trackingParams","kind":"scalar","T":12,"localName":"trackingParams","jsonName":"trackingParams","repeat":0,"opt":false},
-  {"no":9,"name":"downloadQualitySelection","kind":"scalar","T":8,"localName":"downloadQualitySelection","jsonName":"downloadQualitySelection","repeat":0,"opt":false},
-  {"no":10,"name":"smartDownload","kind":"scalar","T":8,"localName":"smartDownload","jsonName":"smartDownload","repeat":0,"opt":false},
-  {"no":14,"name":"icon","kind":"message","T":()=>messages["youtube.response.setting.Icon"],"localName":"icon","jsonName":"icon","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.SettingCategoryCollectionRenderer"]=new MessageType("youtube.response.setting.SettingCategoryCollectionRenderer",[
-  {"no":2,"name":"name","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"name","jsonName":"name","repeat":0,"opt":true},
-  {"no":3,"name":"subSettings","kind":"message","repeat":1,"T":()=>messages["youtube.response.setting.SubSetting"],"localName":"subSettings","jsonName":"subSettings","opt":false},
-  {"no":4,"name":"categoryId","kind":"scalar","T":5,"localName":"categoryId","jsonName":"categoryId","repeat":0,"opt":false},
-  {"no":5,"name":"icon","kind":"message","T":()=>messages["youtube.response.setting.Icon"],"localName":"icon","jsonName":"icon","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.Icon"]=new MessageType("youtube.response.setting.Icon",[
-  {"no":1,"name":"iconType","kind":"scalar","T":5,"localName":"iconType","jsonName":"iconType","repeat":0,"opt":false}
-]);
-messages["youtube.response.setting.SubSetting"]=new MessageType("youtube.response.setting.SubSetting",[
-  {"no":61331416,"name":"settingBooleanRenderer","kind":"message","T":()=>messages["youtube.response.setting.SettingBooleanRenderer"],"localName":"settingBooleanRenderer","jsonName":"settingBooleanRenderer","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.SettingBooleanRenderer"]=new MessageType("youtube.response.setting.SettingBooleanRenderer",[
-  {"no":2,"name":"title","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"title","jsonName":"title","repeat":0,"opt":true},
-  {"no":3,"name":"description","kind":"message","T":()=>messages["youtube.component.Label"],"localName":"description","jsonName":"description","repeat":0,"opt":true},
-  {"no":5,"name":"enableServiceEndpoint","kind":"message","T":()=>messages["youtube.response.setting.ServiceEndpoint"],"localName":"enableServiceEndpoint","jsonName":"enableServiceEndpoint","repeat":0,"opt":true},
-  {"no":6,"name":"disableServiceEndpoint","kind":"message","T":()=>messages["youtube.response.setting.ServiceEndpoint"],"localName":"disableServiceEndpoint","jsonName":"disableServiceEndpoint","repeat":0,"opt":true},
-  {"no":15,"name":"itemId","kind":"scalar","T":5,"localName":"itemId","jsonName":"itemId","repeat":0,"opt":false}
-]);
-messages["youtube.response.setting.ServiceEndpoint"]=new MessageType("youtube.response.setting.ServiceEndpoint",[
-  {"no":81212182,"name":"setClientSettingEndpoint","kind":"message","T":()=>messages["youtube.response.setting.SetClientSettingEndpoint"],"localName":"setClientSettingEndpoint","jsonName":"setClientSettingEndpoint","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.SetClientSettingEndpoint"]=new MessageType("youtube.response.setting.SetClientSettingEndpoint",[
-  {"no":1,"name":"settingData","kind":"message","T":()=>messages["youtube.response.setting.SettingData"],"localName":"settingData","jsonName":"settingData","repeat":0,"opt":true}
-]);
-messages["youtube.response.setting.SettingData"]=new MessageType("youtube.response.setting.SettingData",[
-  {"no":1,"name":"clientSettingEnum","kind":"message","T":()=>messages["youtube.response.setting.ClientSettingEnum"],"localName":"clientSettingEnum","jsonName":"clientSettingEnum","repeat":0,"opt":true},
-  {"no":3,"name":"boolValue","kind":"scalar","T":8,"localName":"boolValue","jsonName":"boolValue","repeat":0,"opt":false}
-]);
-messages["youtube.response.setting.ClientSettingEnum"]=new MessageType("youtube.response.setting.ClientSettingEnum",[
-  {"no":1,"name":"item","kind":"scalar","T":5,"localName":"item","jsonName":"item","repeat":0,"opt":false}
-]);
-messages["youtube.response.watch.Watch"]=new MessageType("youtube.response.watch.Watch",[
-  {"no":1,"name":"contents","kind":"message","repeat":1,"T":()=>messages["youtube.response.watch.Content"],"localName":"contents","jsonName":"contents","opt":false}
-]);
-messages["youtube.response.watch.Content"]=new MessageType("youtube.response.watch.Content",[
-  {"no":2,"name":"player","kind":"message","T":()=>messages["youtube.response.player.Player"],"localName":"player","jsonName":"player","repeat":0,"opt":true},
-  {"no":3,"name":"next","kind":"message","T":()=>messages["youtube.response.next.Next"],"localName":"next","jsonName":"next","repeat":0,"opt":true}
-]);
-messages["youtube.response.config.Config"]=new MessageType("youtube.response.config.Config",[
-  {"no":1,"name":"response_context","kind":"message","T":()=>messages["youtube.response.config.ResponseContext"],"localName":"responseContext","jsonName":"responseContext","repeat":0,"opt":true}
-]);
-messages["youtube.response.config.ResponseContext"]=new MessageType("youtube.response.config.ResponseContext",[
-  {"no":16,"name":"globalConfigGroup","kind":"message","T":()=>messages["youtube.response.config.GlobalConfigGroup"],"localName":"globalConfigGroup","jsonName":"globalConfigGroup","repeat":0,"opt":true}
-]);
-messages["youtube.response.config.GlobalConfigGroup"]=new MessageType("youtube.response.config.GlobalConfigGroup",[
-  {"no":6,"name":"coldConfigGroup","kind":"message","T":()=>messages["youtube.response.config.ColdConfigGroup"],"localName":"coldConfigGroup","jsonName":"coldConfigGroup","repeat":0,"opt":true},
-  {"no":7,"name":"hotConfigGroup","kind":"message","T":()=>messages["youtube.response.config.HotConfigGroup"],"localName":"hotConfigGroup","jsonName":"hotConfigGroup","repeat":0,"opt":true},
-  {"no":4,"name":"hot_hash_data","kind":"scalar","opt":true,"T":9,"localName":"hotHashData","jsonName":"hotHashData","repeat":0},
-  {"no":5,"name":"cold_hash_data","kind":"scalar","opt":true,"T":9,"localName":"coldHashData","jsonName":"coldHashData","repeat":0}
-]);
-messages["youtube.response.config.ColdConfigGroup"]=new MessageType("youtube.response.config.ColdConfigGroup",[
-
-]);
-messages["youtube.response.config.HotConfigGroup"]=new MessageType("youtube.response.config.HotConfigGroup",[
-  {"no":138536474,"name":"mediaHotConfig","kind":"message","T":()=>messages["youtube.response.config.MediaHotConfig"],"localName":"mediaHotConfig","jsonName":"mediaHotConfig","repeat":0,"opt":true}
-]);
-messages["youtube.response.config.MediaHotConfig"]=new MessageType("youtube.response.config.MediaHotConfig",[
-  {"no":146311580,"name":"onesieHotConfig","kind":"message","T":()=>messages["youtube.response.config.OnesieHotConfig"],"localName":"onesieHotConfig","jsonName":"onesieHotConfig","repeat":0,"opt":true}
-]);
-messages["youtube.response.config.OnesieHotConfig"]=new MessageType("youtube.response.config.OnesieHotConfig",[
-  {"no":1,"name":"clientKey","kind":"scalar","T":12,"localName":"clientKey","jsonName":"clientKey","repeat":0,"opt":false},
-  {"no":2,"name":"encryptKey","kind":"scalar","T":12,"localName":"encryptKey","jsonName":"encryptKey","repeat":0,"opt":false},
-  {"no":3,"name":"keyExpiresInSeconds","kind":"scalar","T":3,"localName":"keyExpiresInSeconds","jsonName":"keyExpiresInSeconds","repeat":0,"opt":false},
-  {"no":30,"name":"useHotConfigToCreateOnesieRequest","kind":"scalar","T":8,"localName":"useHotConfigToCreateOnesieRequest","jsonName":"useHotConfigToCreateOnesieRequest","repeat":0,"opt":false}
-]);
-messages["youtube.ump.encrypted.EncryptedInnertubeResponsePart"]=new MessageType("youtube.ump.encrypted.EncryptedInnertubeResponsePart",[
-  {"no":1,"name":"encryptedContent","kind":"scalar","T":12,"localName":"encryptedContent","jsonName":"encryptedContent","repeat":0,"opt":false},
-  {"no":2,"name":"hmac","kind":"scalar","T":12,"localName":"hmac","jsonName":"hmac","repeat":0,"opt":false},
-  {"no":3,"name":"iv","kind":"scalar","T":12,"localName":"iv","jsonName":"iv","repeat":0,"opt":false},
-  {"no":4,"name":"compressionAlgorithm","kind":"enum","T":()=>["youtube.ump.encrypted.CompressionAlgorithm", {"0": "NONE", "1": "GZIP", "2": "BROTLI", "NONE": 0, "GZIP": 1, "BROTLI": 2}],"localName":"compressionAlgorithm","jsonName":"compressionAlgorithm","repeat":0,"opt":false}
-]);
-messages["youtube.ump.encrypted.OnesieInnertubeResponse"]=new MessageType("youtube.ump.encrypted.OnesieInnertubeResponse",[
-  {"no":4,"name":"contents","kind":"message","repeat":1,"T":()=>messages["youtube.response.watch.Content"],"localName":"contents","jsonName":"contents","opt":false}
-]);
+import {ProxyMessageType, UnknownFields} from '../protobuf/runtime';
+import type {BinaryWriteOptions, IBinaryWriter, IMessageType} from '@protobuf-ts/runtime';
+import * as M from './messages';
+class youtube_component_Label$Type extends ProxyMessageType<M.youtube_component_Label> {
+  constructor() {
+    super("youtube.component.Label", [
+      {no:1, name:"runs", localName:"runs", kind:"message", T:() => messages["youtube.component.Run"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_component_Label, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.runs) messages["youtube.component.Run"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_component_Run$Type extends ProxyMessageType<M.youtube_component_Run> {
+  constructor() {
+    super("youtube.component.Run", [
+      {no:1, name:"text", localName:"text", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_component_Run, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.text.length > 0) writer.tag(1, 2).string(message.text);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_component_ResponseContext$Type extends ProxyMessageType<M.youtube_component_ResponseContext> {
+  constructor() {
+    super("youtube.component.ResponseContext", [
+      {no:6, name:"serviceTrackingParams", localName:"serviceTrackingParams", kind:"message", T:() => messages["youtube.component.ServiceTrackingParam"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_component_ResponseContext, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.serviceTrackingParams) messages["youtube.component.ServiceTrackingParam"].internalBinaryWrite(value, writer.tag(6, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_component_ServiceTrackingParam$Type extends ProxyMessageType<M.youtube_component_ServiceTrackingParam> {
+  constructor() {
+    super("youtube.component.ServiceTrackingParam", [
+      {no:1, name:"service", localName:"service", kind:"scalar", T:5, repeat:0, opt:false},
+      {no:2, name:"params", localName:"params", kind:"message", T:() => messages["youtube.component.Param"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_component_ServiceTrackingParam, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.service !== 0) writer.tag(1, 0).int32(message.service);
+    for (const value of message.params) messages["youtube.component.Param"].internalBinaryWrite(value, writer.tag(2, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_component_Param$Type extends ProxyMessageType<M.youtube_component_Param> {
+  constructor() {
+    super("youtube.component.Param", [
+      {no:1, name:"key", localName:"key", kind:"scalar", T:9, repeat:0, opt:false},
+      {no:2, name:"value", localName:"value", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_component_Param, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.key.length > 0) writer.tag(1, 2).string(message.key);
+    if (message.value.length > 0) writer.tag(2, 2).string(message.value);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_Browse$Type extends ProxyMessageType<M.youtube_response_browse_Browse> {
+  constructor() {
+    super("youtube.response.browse.Browse", [
+      {no:1, name:"responseContext", localName:"responseContext", kind:"message", T:() => messages["youtube.component.ResponseContext"], repeat:0, opt:true},
+      {no:9, name:"content", localName:"content", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+      {no:10, name:"onResponseReceivedAction", localName:"onResponseReceivedAction", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_Browse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.responseContext !== undefined) messages["youtube.component.ResponseContext"].internalBinaryWrite(message.responseContext, writer.tag(1, 2).fork(), options).join();
+    if (message.content !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.content, writer.tag(9, 2).fork(), options).join();
+    if (message.onResponseReceivedAction !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.onResponseReceivedAction, writer.tag(10, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_Content$Type extends ProxyMessageType<M.youtube_response_browse_Content> {
+  constructor() {
+    super("youtube.response.browse.Content", [
+      {no:58173949, name:"singleColumnResultsRenderer", localName:"singleColumnResultsRenderer", kind:"message", T:() => messages["youtube.response.browse.SingleColumnResultsRenderer"], repeat:0, opt:true},
+      {no:153515154, name:"elementRenderer", localName:"elementRenderer", kind:"message", T:() => messages["youtube.response.browse.ElementRenderer"], repeat:0, opt:true},
+      {no:49399797, name:"sectionListRenderer", localName:"sectionListRenderer", kind:"message", T:() => messages["youtube.response.browse.SectionListRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_Content, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.singleColumnResultsRenderer !== undefined) messages["youtube.response.browse.SingleColumnResultsRenderer"].internalBinaryWrite(message.singleColumnResultsRenderer, writer.tag(58173949, 2).fork(), options).join();
+    if (message.elementRenderer !== undefined) messages["youtube.response.browse.ElementRenderer"].internalBinaryWrite(message.elementRenderer, writer.tag(153515154, 2).fork(), options).join();
+    if (message.sectionListRenderer !== undefined) messages["youtube.response.browse.SectionListRenderer"].internalBinaryWrite(message.sectionListRenderer, writer.tag(49399797, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_SingleColumnResultsRenderer$Type extends ProxyMessageType<M.youtube_response_browse_SingleColumnResultsRenderer> {
+  constructor() {
+    super("youtube.response.browse.SingleColumnResultsRenderer", [
+      {no:1, name:"tabs", localName:"tabs", kind:"message", T:() => messages["youtube.response.browse.BrowseTabSupportedRenderer"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_SingleColumnResultsRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.tabs) messages["youtube.response.browse.BrowseTabSupportedRenderer"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_BrowseTabSupportedRenderer$Type extends ProxyMessageType<M.youtube_response_browse_BrowseTabSupportedRenderer> {
+  constructor() {
+    super("youtube.response.browse.BrowseTabSupportedRenderer", [
+      {no:58174010, name:"tabRenderer", localName:"tabRenderer", kind:"message", T:() => messages["youtube.response.browse.TabRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_BrowseTabSupportedRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.tabRenderer !== undefined) messages["youtube.response.browse.TabRenderer"].internalBinaryWrite(message.tabRenderer, writer.tag(58174010, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_TabRenderer$Type extends ProxyMessageType<M.youtube_response_browse_TabRenderer> {
+  constructor() {
+    super("youtube.response.browse.TabRenderer", [
+      {no:4, name:"content", localName:"content", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_TabRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.content !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.content, writer.tag(4, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_SectionListRenderer$Type extends ProxyMessageType<M.youtube_response_browse_SectionListRenderer> {
+  constructor() {
+    super("youtube.response.browse.SectionListRenderer", [
+      {no:1, name:"sectionListSupportedRenderers", localName:"sectionListSupportedRenderers", kind:"message", T:() => messages["youtube.response.browse.SectionListSupportedRenderer"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_SectionListRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.sectionListSupportedRenderers) messages["youtube.response.browse.SectionListSupportedRenderer"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_SectionListSupportedRenderer$Type extends ProxyMessageType<M.youtube_response_browse_SectionListSupportedRenderer> {
+  constructor() {
+    super("youtube.response.browse.SectionListSupportedRenderer", [
+      {no:50195462, name:"itemSectionRenderer", localName:"itemSectionRenderer", kind:"message", T:() => messages["youtube.response.browse.ItemSectionRenderer"], repeat:0, opt:true},
+      {no:51845067, name:"shelfRenderer", localName:"shelfRenderer", kind:"message", T:() => messages["youtube.response.browse.ShelfRenderer"], repeat:0, opt:true},
+      {no:221496734, name:"musicDescriptionShelfRenderer", localName:"musicDescriptionShelfRenderer", kind:"message", T:() => messages["youtube.response.browse.MusicDescriptionShelfRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_SectionListSupportedRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.itemSectionRenderer !== undefined) messages["youtube.response.browse.ItemSectionRenderer"].internalBinaryWrite(message.itemSectionRenderer, writer.tag(50195462, 2).fork(), options).join();
+    if (message.shelfRenderer !== undefined) messages["youtube.response.browse.ShelfRenderer"].internalBinaryWrite(message.shelfRenderer, writer.tag(51845067, 2).fork(), options).join();
+    if (message.musicDescriptionShelfRenderer !== undefined) messages["youtube.response.browse.MusicDescriptionShelfRenderer"].internalBinaryWrite(message.musicDescriptionShelfRenderer, writer.tag(221496734, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_ItemSectionRenderer$Type extends ProxyMessageType<M.youtube_response_browse_ItemSectionRenderer> {
+  constructor() {
+    super("youtube.response.browse.ItemSectionRenderer", [
+      {no:1, name:"richItemContents", localName:"richItemContents", kind:"message", T:() => messages["youtube.response.browse.RichItemContent"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_ItemSectionRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.richItemContents) messages["youtube.response.browse.RichItemContent"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_RichItemContent$Type extends ProxyMessageType<M.youtube_response_browse_RichItemContent> {
+  constructor() {
+    super("youtube.response.browse.RichItemContent", [
+      {no:153515154, name:"videoWithContextRenderer", localName:"videoWithContextRenderer", kind:"message", T:() => messages["youtube.response.browse.ElementRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_RichItemContent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videoWithContextRenderer !== undefined) messages["youtube.response.browse.ElementRenderer"].internalBinaryWrite(message.videoWithContextRenderer, writer.tag(153515154, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_ElementRenderer$Type extends ProxyMessageType<M.youtube_response_browse_ElementRenderer> {
+  constructor() {
+    super("youtube.response.browse.ElementRenderer", [
+      {no:172660663, name:"videoRendererContent", localName:"videoRendererContent", kind:"message", T:() => messages["youtube.response.browse.VideoRendererContent"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_ElementRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videoRendererContent !== undefined) messages["youtube.response.browse.VideoRendererContent"].internalBinaryWrite(message.videoRendererContent, writer.tag(172660663, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_VideoRendererContent$Type extends ProxyMessageType<M.youtube_response_browse_VideoRendererContent> {
+  constructor() {
+    super("youtube.response.browse.VideoRendererContent", [
+      {no:1, name:"videoInfo", localName:"videoInfo", kind:"message", T:() => messages["youtube.response.browse.VideoInfo"], repeat:0, opt:true},
+      {no:2, name:"renderInfo", localName:"renderInfo", kind:"message", T:() => messages["youtube.response.browse.RenderInfo"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_VideoRendererContent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videoInfo !== undefined) messages["youtube.response.browse.VideoInfo"].internalBinaryWrite(message.videoInfo, writer.tag(1, 2).fork(), options).join();
+    if (message.renderInfo !== undefined) messages["youtube.response.browse.RenderInfo"].internalBinaryWrite(message.renderInfo, writer.tag(2, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_VideoInfo$Type extends ProxyMessageType<M.youtube_response_browse_VideoInfo> {
+  constructor() {
+    super("youtube.response.browse.VideoInfo", [
+      {no:168777401, name:"videoContext", localName:"videoContext", kind:"message", T:() => messages["youtube.response.browse.VideoContext"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_VideoInfo, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videoContext !== undefined) messages["youtube.response.browse.VideoContext"].internalBinaryWrite(message.videoContext, writer.tag(168777401, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_VideoContext$Type extends ProxyMessageType<M.youtube_response_browse_VideoContext> {
+  constructor() {
+    super("youtube.response.browse.VideoContext", [
+      {no:5, name:"videoContent", localName:"videoContent", kind:"message", T:() => messages["youtube.response.browse.VideoContent"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_VideoContext, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videoContent !== undefined) messages["youtube.response.browse.VideoContent"].internalBinaryWrite(message.videoContent, writer.tag(5, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_VideoContent$Type extends ProxyMessageType<M.youtube_response_browse_VideoContent> {
+  constructor() {
+    super("youtube.response.browse.VideoContent", [
+      {no:465160965, name:"timedLyricsRender", localName:"timedLyricsRender", kind:"message", T:() => messages["youtube.response.browse.TimedLyricsRender"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_VideoContent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.timedLyricsRender !== undefined) messages["youtube.response.browse.TimedLyricsRender"].internalBinaryWrite(message.timedLyricsRender, writer.tag(465160965, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_TimedLyricsRender$Type extends ProxyMessageType<M.youtube_response_browse_TimedLyricsRender> {
+  constructor() {
+    super("youtube.response.browse.TimedLyricsRender", [
+      {no:4, name:"timedLyricsContent", localName:"timedLyricsContent", kind:"message", T:() => messages["youtube.response.browse.TimedLyricsContent"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_TimedLyricsRender, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.timedLyricsContent !== undefined) messages["youtube.response.browse.TimedLyricsContent"].internalBinaryWrite(message.timedLyricsContent, writer.tag(4, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_TimedLyricsContent$Type extends ProxyMessageType<M.youtube_response_browse_TimedLyricsContent> {
+  constructor() {
+    super("youtube.response.browse.TimedLyricsContent", [
+      {no:1, name:"runs", localName:"runs", kind:"message", T:() => messages["youtube.component.Run"], repeat:1, opt:false},
+      {no:2, name:"footerLabel", localName:"footerLabel", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_TimedLyricsContent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.runs) messages["youtube.component.Run"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    if (message.footerLabel.length > 0) writer.tag(2, 2).string(message.footerLabel);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_RenderInfo$Type extends ProxyMessageType<M.youtube_response_browse_RenderInfo> {
+  constructor() {
+    super("youtube.response.browse.RenderInfo", [
+      {no:183314536, name:"layoutRender", localName:"layoutRender", kind:"message", T:() => messages["youtube.response.browse.LayoutRender"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_RenderInfo, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.layoutRender !== undefined) messages["youtube.response.browse.LayoutRender"].internalBinaryWrite(message.layoutRender, writer.tag(183314536, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_LayoutRender$Type extends ProxyMessageType<M.youtube_response_browse_LayoutRender> {
+  constructor() {
+    super("youtube.response.browse.LayoutRender", [
+      {no:1, name:"eml", localName:"eml", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_LayoutRender, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.eml.length > 0) writer.tag(1, 2).string(message.eml);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_ShelfRenderer$Type extends ProxyMessageType<M.youtube_response_browse_ShelfRenderer> {
+  constructor() {
+    super("youtube.response.browse.ShelfRenderer", [
+      {no:5, name:"richSectionContent", localName:"richSectionContent", kind:"message", T:() => messages["youtube.response.browse.RichSectionContent"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_ShelfRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.richSectionContent !== undefined) messages["youtube.response.browse.RichSectionContent"].internalBinaryWrite(message.richSectionContent, writer.tag(5, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_RichSectionContent$Type extends ProxyMessageType<M.youtube_response_browse_RichSectionContent> {
+  constructor() {
+    super("youtube.response.browse.RichSectionContent", [
+      {no:51431404, name:"reelShelfRenderer", localName:"reelShelfRenderer", kind:"message", T:() => messages["youtube.response.browse.ReelShelfRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_RichSectionContent, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.reelShelfRenderer !== undefined) messages["youtube.response.browse.ReelShelfRenderer"].internalBinaryWrite(message.reelShelfRenderer, writer.tag(51431404, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_ReelShelfRenderer$Type extends ProxyMessageType<M.youtube_response_browse_ReelShelfRenderer> {
+  constructor() {
+    super("youtube.response.browse.ReelShelfRenderer", [
+      {no:1, name:"richItemContents", localName:"richItemContents", kind:"message", T:() => messages["youtube.response.browse.RichItemContent"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_ReelShelfRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.richItemContents) messages["youtube.response.browse.RichItemContent"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_browse_MusicDescriptionShelfRenderer$Type extends ProxyMessageType<M.youtube_response_browse_MusicDescriptionShelfRenderer> {
+  constructor() {
+    super("youtube.response.browse.MusicDescriptionShelfRenderer", [
+      {no:3, name:"description", localName:"description", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:10, name:"footer", localName:"footer", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_browse_MusicDescriptionShelfRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.description !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.description, writer.tag(3, 2).fork(), options).join();
+    if (message.footer !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.footer, writer.tag(10, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_next_Next$Type extends ProxyMessageType<M.youtube_response_next_Next> {
+  constructor() {
+    super("youtube.response.next.Next", [
+      {no:7, name:"content", localName:"content", kind:"message", T:() => messages["youtube.response.next.Content"], repeat:0, opt:true},
+      {no:8, name:"onResponseReceivedAction", localName:"onResponseReceivedAction", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_next_Next, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.content !== undefined) messages["youtube.response.next.Content"].internalBinaryWrite(message.content, writer.tag(7, 2).fork(), options).join();
+    if (message.onResponseReceivedAction !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.onResponseReceivedAction, writer.tag(8, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_next_Content$Type extends ProxyMessageType<M.youtube_response_next_Content> {
+  constructor() {
+    super("youtube.response.next.Content", [
+      {no:51779735, name:"nextResult", localName:"nextResult", kind:"message", T:() => messages["youtube.response.next.NextResult"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_next_Content, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.nextResult !== undefined) messages["youtube.response.next.NextResult"].internalBinaryWrite(message.nextResult, writer.tag(51779735, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_next_NextResult$Type extends ProxyMessageType<M.youtube_response_next_NextResult> {
+  constructor() {
+    super("youtube.response.next.NextResult", [
+      {no:1, name:"content", localName:"content", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_next_NextResult, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.content !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.content, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_search_Search$Type extends ProxyMessageType<M.youtube_response_search_Search> {
+  constructor() {
+    super("youtube.response.search.Search", [
+      {no:4, name:"content", localName:"content", kind:"message", T:() => messages["youtube.response.browse.Content"], repeat:0, opt:true},
+      {no:7, name:"onResponseReceivedCommand", localName:"onResponseReceivedCommand", kind:"message", T:() => messages["youtube.response.search.OnResponseReceivedCommand"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_search_Search, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.content !== undefined) messages["youtube.response.browse.Content"].internalBinaryWrite(message.content, writer.tag(4, 2).fork(), options).join();
+    if (message.onResponseReceivedCommand !== undefined) messages["youtube.response.search.OnResponseReceivedCommand"].internalBinaryWrite(message.onResponseReceivedCommand, writer.tag(7, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_search_OnResponseReceivedCommand$Type extends ProxyMessageType<M.youtube_response_search_OnResponseReceivedCommand> {
+  constructor() {
+    super("youtube.response.search.OnResponseReceivedCommand", [
+      {no:50195462, name:"itemSectionRenderer", localName:"itemSectionRenderer", kind:"message", T:() => messages["youtube.response.browse.ItemSectionRenderer"], repeat:0, opt:true},
+      {no:49399797, name:"appendContinuationItemsAction", localName:"appendContinuationItemsAction", kind:"message", T:() => messages["youtube.response.browse.SectionListRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_search_OnResponseReceivedCommand, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.itemSectionRenderer !== undefined) messages["youtube.response.browse.ItemSectionRenderer"].internalBinaryWrite(message.itemSectionRenderer, writer.tag(50195462, 2).fork(), options).join();
+    if (message.appendContinuationItemsAction !== undefined) messages["youtube.response.browse.SectionListRenderer"].internalBinaryWrite(message.appendContinuationItemsAction, writer.tag(49399797, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_Shorts$Type extends ProxyMessageType<M.youtube_response_shorts_Shorts> {
+  constructor() {
+    super("youtube.response.shorts.Shorts", [
+      {no:2, name:"entries", localName:"entries", kind:"message", T:() => messages["youtube.response.shorts.Entry"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_Shorts, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.entries) messages["youtube.response.shorts.Entry"].internalBinaryWrite(value, writer.tag(2, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_Entry$Type extends ProxyMessageType<M.youtube_response_shorts_Entry> {
+  constructor() {
+    super("youtube.response.shorts.Entry", [
+      {no:1, name:"command", localName:"command", kind:"message", T:() => messages["youtube.response.shorts.Command"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_Entry, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.command !== undefined) messages["youtube.response.shorts.Command"].internalBinaryWrite(message.command, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_Command$Type extends ProxyMessageType<M.youtube_response_shorts_Command> {
+  constructor() {
+    super("youtube.response.shorts.Command", [
+      {no:139608561, name:"reelWatchEndpoint", localName:"reelWatchEndpoint", kind:"message", T:() => messages["youtube.response.shorts.ReelWatchEndpoint"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_Command, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.reelWatchEndpoint !== undefined) messages["youtube.response.shorts.ReelWatchEndpoint"].internalBinaryWrite(message.reelWatchEndpoint, writer.tag(139608561, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_ReelWatchEndpoint$Type extends ProxyMessageType<M.youtube_response_shorts_ReelWatchEndpoint> {
+  constructor() {
+    super("youtube.response.shorts.ReelWatchEndpoint", [
+      {no:8, name:"overlay", localName:"overlay", kind:"message", T:() => messages["youtube.response.shorts.Overlay"], repeat:0, opt:true},
+      {no:16, name:"adClientParams", localName:"adClientParams", kind:"message", T:() => messages["youtube.response.shorts.AdClientParams"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_ReelWatchEndpoint, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.overlay !== undefined) messages["youtube.response.shorts.Overlay"].internalBinaryWrite(message.overlay, writer.tag(8, 2).fork(), options).join();
+    if (message.adClientParams !== undefined) messages["youtube.response.shorts.AdClientParams"].internalBinaryWrite(message.adClientParams, writer.tag(16, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_AdClientParams$Type extends ProxyMessageType<M.youtube_response_shorts_AdClientParams> {
+  constructor() {
+    super("youtube.response.shorts.AdClientParams", [
+      {no:1, name:"isAd", localName:"isAd", kind:"scalar", T:8, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_AdClientParams, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.isAd) writer.tag(1, 0).bool(message.isAd);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_Overlay$Type extends ProxyMessageType<M.youtube_response_shorts_Overlay> {
+  constructor() {
+    super("youtube.response.shorts.Overlay", [
+      {no:139970731, name:"reelPlayerOverlayRenderer", localName:"reelPlayerOverlayRenderer", kind:"message", T:() => messages["youtube.response.shorts.ReelPlayerOverlayRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_Overlay, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.reelPlayerOverlayRenderer !== undefined) messages["youtube.response.shorts.ReelPlayerOverlayRenderer"].internalBinaryWrite(message.reelPlayerOverlayRenderer, writer.tag(139970731, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_shorts_ReelPlayerOverlayRenderer$Type extends ProxyMessageType<M.youtube_response_shorts_ReelPlayerOverlayRenderer> {
+  constructor() {
+    super("youtube.response.shorts.ReelPlayerOverlayRenderer", [
+      {no:12, name:"style", localName:"style", kind:"scalar", T:5, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_shorts_ReelPlayerOverlayRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.style !== 0) writer.tag(12, 0).int32(message.style);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_guide_Guide$Type extends ProxyMessageType<M.youtube_response_guide_Guide> {
+  constructor() {
+    super("youtube.response.guide.Guide", [
+      {no:4, name:"labelItems", localName:"labelItems", kind:"message", T:() => messages["youtube.response.guide.Item"], repeat:1, opt:false},
+      {no:6, name:"iconItems", localName:"iconItems", kind:"message", T:() => messages["youtube.response.guide.Item"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_guide_Guide, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.labelItems) messages["youtube.response.guide.Item"].internalBinaryWrite(value, writer.tag(4, 2).fork(), options).join();
+    for (const value of message.iconItems) messages["youtube.response.guide.Item"].internalBinaryWrite(value, writer.tag(6, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_guide_Item$Type extends ProxyMessageType<M.youtube_response_guide_Item> {
+  constructor() {
+    super("youtube.response.guide.Item", [
+      {no:117866661, name:"guideSectionRenderer", localName:"guideSectionRenderer", kind:"message", T:() => messages["youtube.response.guide.GuideSectionRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_guide_Item, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.guideSectionRenderer !== undefined) messages["youtube.response.guide.GuideSectionRenderer"].internalBinaryWrite(message.guideSectionRenderer, writer.tag(117866661, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_guide_GuideSectionRenderer$Type extends ProxyMessageType<M.youtube_response_guide_GuideSectionRenderer> {
+  constructor() {
+    super("youtube.response.guide.GuideSectionRenderer", [
+      {no:1, name:"rendererItems", localName:"rendererItems", kind:"message", T:() => messages["youtube.response.guide.RendererItem"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_guide_GuideSectionRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.rendererItems) messages["youtube.response.guide.RendererItem"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_guide_RendererItem$Type extends ProxyMessageType<M.youtube_response_guide_RendererItem> {
+  constructor() {
+    super("youtube.response.guide.RendererItem", [
+      {no:318370163, name:"iconRender", localName:"iconRender", kind:"message", T:() => messages["youtube.response.guide.guideEntryRenderer"], repeat:0, opt:true},
+      {no:117501096, name:"labelRender", localName:"labelRender", kind:"message", T:() => messages["youtube.response.guide.guideEntryRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_guide_RendererItem, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.iconRender !== undefined) messages["youtube.response.guide.guideEntryRenderer"].internalBinaryWrite(message.iconRender, writer.tag(318370163, 2).fork(), options).join();
+    if (message.labelRender !== undefined) messages["youtube.response.guide.guideEntryRenderer"].internalBinaryWrite(message.labelRender, writer.tag(117501096, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_guide_guideEntryRenderer$Type extends ProxyMessageType<M.youtube_response_guide_guideEntryRenderer> {
+  constructor() {
+    super("youtube.response.guide.guideEntryRenderer", [
+      {no:1, name:"browseId", localName:"browseId", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_guide_guideEntryRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.browseId.length > 0) writer.tag(1, 2).string(message.browseId);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_Player$Type extends ProxyMessageType<M.youtube_response_player_Player> {
+  constructor() {
+    super("youtube.response.player.Player", [
+      {no:7, name:"adPlacements", localName:"adPlacements", kind:"message", T:() => messages["youtube.response.player.AdPlacement"], repeat:1, opt:false},
+      {no:2, name:"playabilityStatus", localName:"playabilityStatus", kind:"message", T:() => messages["youtube.response.player.PlayabilityStatus"], repeat:0, opt:true},
+      {no:9, name:"playbackTracking", localName:"playbackTracking", kind:"message", T:() => messages["youtube.response.player.PlaybackTracking"], repeat:0, opt:true},
+      {no:10, name:"captions", localName:"captions", kind:"message", T:() => messages["youtube.response.player.Captions"], repeat:0, opt:true},
+      {no:68, name:"adSlots", localName:"adSlots", kind:"message", T:() => messages["youtube.response.player.AdSlot"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_Player, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.adPlacements) messages["youtube.response.player.AdPlacement"].internalBinaryWrite(value, writer.tag(7, 2).fork(), options).join();
+    if (message.playabilityStatus !== undefined) messages["youtube.response.player.PlayabilityStatus"].internalBinaryWrite(message.playabilityStatus, writer.tag(2, 2).fork(), options).join();
+    if (message.playbackTracking !== undefined) messages["youtube.response.player.PlaybackTracking"].internalBinaryWrite(message.playbackTracking, writer.tag(9, 2).fork(), options).join();
+    if (message.captions !== undefined) messages["youtube.response.player.Captions"].internalBinaryWrite(message.captions, writer.tag(10, 2).fork(), options).join();
+    for (const value of message.adSlots) messages["youtube.response.player.AdSlot"].internalBinaryWrite(value, writer.tag(68, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_AdPlacement$Type extends ProxyMessageType<M.youtube_response_player_AdPlacement> {
+  constructor() {
+    super("youtube.response.player.AdPlacement", [
+      {no:84813246, name:"adPlacementRenderer", localName:"adPlacementRenderer", kind:"message", T:() => messages["youtube.response.player.AdPlacementRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_AdPlacement, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.adPlacementRenderer !== undefined) messages["youtube.response.player.AdPlacementRenderer"].internalBinaryWrite(message.adPlacementRenderer, writer.tag(84813246, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_AdPlacementRenderer$Type extends ProxyMessageType<M.youtube_response_player_AdPlacementRenderer> {
+  constructor() {
+    super("youtube.response.player.AdPlacementRenderer", [
+      {no:4, name:"params", localName:"params", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_AdPlacementRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.params.length > 0) writer.tag(4, 2).string(message.params);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_PlayabilityStatus$Type extends ProxyMessageType<M.youtube_response_player_PlayabilityStatus> {
+  constructor() {
+    super("youtube.response.player.PlayabilityStatus", [
+      {no:21, name:"pictureInPictureRender", localName:"pictureInPictureRender", kind:"message", T:() => messages["youtube.response.player.PictureInPictureSupportedRenderer"], repeat:0, opt:true},
+      {no:11, name:"backgroundPlayerRender", localName:"backgroundPlayerRender", kind:"message", T:() => messages["youtube.response.player.BackgroundSupportedRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_PlayabilityStatus, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.pictureInPictureRender !== undefined) messages["youtube.response.player.PictureInPictureSupportedRenderer"].internalBinaryWrite(message.pictureInPictureRender, writer.tag(21, 2).fork(), options).join();
+    if (message.backgroundPlayerRender !== undefined) messages["youtube.response.player.BackgroundSupportedRenderer"].internalBinaryWrite(message.backgroundPlayerRender, writer.tag(11, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_PictureInPictureSupportedRenderer$Type extends ProxyMessageType<M.youtube_response_player_PictureInPictureSupportedRenderer> {
+  constructor() {
+    super("youtube.response.player.PictureInPictureSupportedRenderer", [
+      {no:151635310, name:"pictureInPictureAbility", localName:"pictureInPictureAbility", kind:"message", T:() => messages["youtube.response.player.PictureInPictureAbility"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_PictureInPictureSupportedRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.pictureInPictureAbility !== undefined) messages["youtube.response.player.PictureInPictureAbility"].internalBinaryWrite(message.pictureInPictureAbility, writer.tag(151635310, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_BackgroundSupportedRenderer$Type extends ProxyMessageType<M.youtube_response_player_BackgroundSupportedRenderer> {
+  constructor() {
+    super("youtube.response.player.BackgroundSupportedRenderer", [
+      {no:64657230, name:"backgroundAbility", localName:"backgroundAbility", kind:"message", T:() => messages["youtube.response.player.BackgroundAbility"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_BackgroundSupportedRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.backgroundAbility !== undefined) messages["youtube.response.player.BackgroundAbility"].internalBinaryWrite(message.backgroundAbility, writer.tag(64657230, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_PictureInPictureAbility$Type extends ProxyMessageType<M.youtube_response_player_PictureInPictureAbility> {
+  constructor() {
+    super("youtube.response.player.PictureInPictureAbility", [
+      {no:1, name:"active", localName:"active", kind:"scalar", T:8, repeat:0, opt:false},
+      {no:4, name:"f4", localName:"f4", kind:"scalar", T:5, repeat:0, opt:false},
+      {no:6, name:"f6", localName:"f6", kind:"scalar", T:5, repeat:0, opt:false},
+      {no:8, name:"f8", localName:"f8", kind:"scalar", T:5, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_PictureInPictureAbility, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.active) writer.tag(1, 0).bool(message.active);
+    if (message.f4 !== 0) writer.tag(4, 0).int32(message.f4);
+    if (message.f6 !== 0) writer.tag(6, 0).int32(message.f6);
+    if (message.f8 !== 0) writer.tag(8, 0).int32(message.f8);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_BackgroundAbility$Type extends ProxyMessageType<M.youtube_response_player_BackgroundAbility> {
+  constructor() {
+    super("youtube.response.player.BackgroundAbility", [
+      {no:1, name:"active", localName:"active", kind:"scalar", T:8, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_BackgroundAbility, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.active) writer.tag(1, 0).bool(message.active);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_PlaybackTracking$Type extends ProxyMessageType<M.youtube_response_player_PlaybackTracking> {
+  constructor() {
+    super("youtube.response.player.PlaybackTracking", [
+      {no:1, name:"videostatsPlaybackUrl", localName:"videostatsPlaybackUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:2, name:"videostatsDelayplayUrl", localName:"videostatsDelayplayUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:3, name:"videostatsWatchtimeUrl", localName:"videostatsWatchtimeUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:4, name:"ptrackingUrl", localName:"ptrackingUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:5, name:"qoeUrl", localName:"qoeUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:13, name:"atrUrl", localName:"atrUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:15, name:"videostatsEngageUrl", localName:"videostatsEngageUrl", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+      {no:18, name:"pageadViewthroughconversion", localName:"pageadViewthroughconversion", kind:"message", T:() => messages["youtube.response.player.Tracking"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_PlaybackTracking, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.videostatsPlaybackUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.videostatsPlaybackUrl, writer.tag(1, 2).fork(), options).join();
+    if (message.videostatsDelayplayUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.videostatsDelayplayUrl, writer.tag(2, 2).fork(), options).join();
+    if (message.videostatsWatchtimeUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.videostatsWatchtimeUrl, writer.tag(3, 2).fork(), options).join();
+    if (message.ptrackingUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.ptrackingUrl, writer.tag(4, 2).fork(), options).join();
+    if (message.qoeUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.qoeUrl, writer.tag(5, 2).fork(), options).join();
+    if (message.atrUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.atrUrl, writer.tag(13, 2).fork(), options).join();
+    if (message.videostatsEngageUrl !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.videostatsEngageUrl, writer.tag(15, 2).fork(), options).join();
+    if (message.pageadViewthroughconversion !== undefined) messages["youtube.response.player.Tracking"].internalBinaryWrite(message.pageadViewthroughconversion, writer.tag(18, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_Tracking$Type extends ProxyMessageType<M.youtube_response_player_Tracking> {
+  constructor() {
+    super("youtube.response.player.Tracking", [
+      {no:1, name:"baseUrl", localName:"baseUrl", kind:"scalar", T:9, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_Tracking, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.baseUrl.length > 0) writer.tag(1, 2).string(message.baseUrl);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_Captions$Type extends ProxyMessageType<M.youtube_response_player_Captions> {
+  constructor() {
+    super("youtube.response.player.Captions", [
+      {no:51621377, name:"playerCaptionsTrackListRenderer", localName:"playerCaptionsTrackListRenderer", kind:"message", T:() => messages["youtube.response.player.PlayerCaptionsTrackListRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_Captions, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.playerCaptionsTrackListRenderer !== undefined) messages["youtube.response.player.PlayerCaptionsTrackListRenderer"].internalBinaryWrite(message.playerCaptionsTrackListRenderer, writer.tag(51621377, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_PlayerCaptionsTrackListRenderer$Type extends ProxyMessageType<M.youtube_response_player_PlayerCaptionsTrackListRenderer> {
+  constructor() {
+    super("youtube.response.player.PlayerCaptionsTrackListRenderer", [
+      {no:1, name:"captionTracks", localName:"captionTracks", kind:"message", T:() => messages["youtube.response.player.CaptionTrack"], repeat:1, opt:false},
+      {no:2, name:"audioTracks", localName:"audioTracks", kind:"message", T:() => messages["youtube.response.player.AudioTrack"], repeat:1, opt:false},
+      {no:3, name:"translationLanguages", localName:"translationLanguages", kind:"message", T:() => messages["youtube.response.player.TranslationLanguage"], repeat:1, opt:false},
+      {no:4, name:"defaultAudioTrackIndex", localName:"defaultAudioTrackIndex", kind:"scalar", T:5, repeat:0, opt:true},
+      {no:6, name:"defaultCaptionTrackIndex", localName:"defaultCaptionTrackIndex", kind:"scalar", T:5, repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_PlayerCaptionsTrackListRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.captionTracks) messages["youtube.response.player.CaptionTrack"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    for (const value of message.audioTracks) messages["youtube.response.player.AudioTrack"].internalBinaryWrite(value, writer.tag(2, 2).fork(), options).join();
+    for (const value of message.translationLanguages) messages["youtube.response.player.TranslationLanguage"].internalBinaryWrite(value, writer.tag(3, 2).fork(), options).join();
+    if (message.defaultAudioTrackIndex !== undefined) writer.tag(4, 0).int32(message.defaultAudioTrackIndex);
+    if (message.defaultCaptionTrackIndex !== undefined) writer.tag(6, 0).int32(message.defaultCaptionTrackIndex);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_CaptionTrack$Type extends ProxyMessageType<M.youtube_response_player_CaptionTrack> {
+  constructor() {
+    super("youtube.response.player.CaptionTrack", [
+      {no:1, name:"baseUrl", localName:"baseUrl", kind:"scalar", T:9, repeat:0, opt:false},
+      {no:2, name:"name", localName:"name", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:3, name:"vssId", localName:"vssId", kind:"scalar", T:9, repeat:0, opt:false},
+      {no:4, name:"languageCode", localName:"languageCode", kind:"scalar", T:9, repeat:0, opt:false},
+      {no:5, name:"kind", localName:"kind", kind:"scalar", T:9, repeat:0, opt:true},
+      {no:6, name:"rtl", localName:"rtl", kind:"scalar", T:8, repeat:0, opt:true},
+      {no:7, name:"isTranslatable", localName:"isTranslatable", kind:"scalar", T:8, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_CaptionTrack, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.baseUrl.length > 0) writer.tag(1, 2).string(message.baseUrl);
+    if (message.name !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.name, writer.tag(2, 2).fork(), options).join();
+    if (message.vssId.length > 0) writer.tag(3, 2).string(message.vssId);
+    if (message.languageCode.length > 0) writer.tag(4, 2).string(message.languageCode);
+    if (message.kind !== undefined) writer.tag(5, 2).string(message.kind);
+    if (message.rtl !== undefined) writer.tag(6, 0).bool(message.rtl);
+    if (message.isTranslatable) writer.tag(7, 0).bool(message.isTranslatable);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_AudioTrack$Type extends ProxyMessageType<M.youtube_response_player_AudioTrack> {
+  constructor() {
+    super("youtube.response.player.AudioTrack", [
+      {no:2, name:"captionTrackIndices", localName:"captionTrackIndices", kind:"scalar", T:5, repeat:2, opt:false},
+      {no:3, name:"defaultCaptionTrackIndex", localName:"defaultCaptionTrackIndex", kind:"scalar", T:5, repeat:0, opt:true},
+      {no:4, name:"forcedCaptionTrackIndex", localName:"forcedCaptionTrackIndex", kind:"scalar", T:5, repeat:0, opt:true},
+      {no:5, name:"visibility", localName:"visibility", kind:"scalar", T:5, repeat:0, opt:true},
+      {no:6, name:"hasDefaultTrack", localName:"hasDefaultTrack", kind:"scalar", T:8, repeat:0, opt:true},
+      {no:7, name:"hasForcedTrack", localName:"hasForcedTrack", kind:"scalar", T:8, repeat:0, opt:true},
+      {no:8, name:"audioTrackId", localName:"audioTrackId", kind:"scalar", T:9, repeat:0, opt:true},
+      {no:11, name:"captionsInitialState", localName:"captionsInitialState", kind:"scalar", T:5, repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_AudioTrack, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.captionTrackIndices) writer.tag(2, 0).int32(value);
+    if (message.defaultCaptionTrackIndex !== undefined) writer.tag(3, 0).int32(message.defaultCaptionTrackIndex);
+    if (message.forcedCaptionTrackIndex !== undefined) writer.tag(4, 0).int32(message.forcedCaptionTrackIndex);
+    if (message.visibility !== undefined) writer.tag(5, 0).int32(message.visibility);
+    if (message.hasDefaultTrack !== undefined) writer.tag(6, 0).bool(message.hasDefaultTrack);
+    if (message.hasForcedTrack !== undefined) writer.tag(7, 0).bool(message.hasForcedTrack);
+    if (message.audioTrackId !== undefined) writer.tag(8, 2).string(message.audioTrackId);
+    if (message.captionsInitialState !== undefined) writer.tag(11, 0).int32(message.captionsInitialState);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_TranslationLanguage$Type extends ProxyMessageType<M.youtube_response_player_TranslationLanguage> {
+  constructor() {
+    super("youtube.response.player.TranslationLanguage", [
+      {no:1, name:"languageCode", localName:"languageCode", kind:"scalar", T:9, repeat:0, opt:false},
+      {no:2, name:"languageName", localName:"languageName", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_TranslationLanguage, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.languageCode.length > 0) writer.tag(1, 2).string(message.languageCode);
+    if (message.languageName !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.languageName, writer.tag(2, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_AdSlot$Type extends ProxyMessageType<M.youtube_response_player_AdSlot> {
+  constructor() {
+    super("youtube.response.player.AdSlot", [
+      {no:424701016, name:"render", localName:"render", kind:"message", T:() => messages["youtube.response.player.AdSlot.Render"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_AdSlot, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.render !== undefined) messages["youtube.response.player.AdSlot.Render"].internalBinaryWrite(message.render, writer.tag(424701016, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_player_AdSlot_Render$Type extends ProxyMessageType<M.youtube_response_player_AdSlot_Render> {
+  constructor() {
+    super("youtube.response.player.AdSlot.Render", [
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_player_AdSlot_Render, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_Setting$Type extends ProxyMessageType<M.youtube_response_setting_Setting> {
+  constructor() {
+    super("youtube.response.setting.Setting", [
+      {no:6, name:"settingItems", localName:"settingItems", kind:"message", T:() => messages["youtube.response.setting.SettingItem"], repeat:1, opt:false},
+      {no:7, name:"CollectionItems", localName:"collectionItems", kind:"message", T:() => messages["youtube.response.setting.SettingItem"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_Setting, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.settingItems) messages["youtube.response.setting.SettingItem"].internalBinaryWrite(value, writer.tag(6, 2).fork(), options).join();
+    for (const value of message.collectionItems) messages["youtube.response.setting.SettingItem"].internalBinaryWrite(value, writer.tag(7, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SettingItem$Type extends ProxyMessageType<M.youtube_response_setting_SettingItem> {
+  constructor() {
+    super("youtube.response.setting.SettingItem", [
+      {no:88478200, name:"backgroundPlayBackSettingRenderer", localName:"backgroundPlayBackSettingRenderer", kind:"message", T:() => messages["youtube.response.setting.BackgroundPlayBackSettingRenderer"], repeat:0, opt:true},
+      {no:66930374, name:"settingCategoryCollectionRenderer", localName:"settingCategoryCollectionRenderer", kind:"message", T:() => messages["youtube.response.setting.SettingCategoryCollectionRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SettingItem, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.backgroundPlayBackSettingRenderer !== undefined) messages["youtube.response.setting.BackgroundPlayBackSettingRenderer"].internalBinaryWrite(message.backgroundPlayBackSettingRenderer, writer.tag(88478200, 2).fork(), options).join();
+    if (message.settingCategoryCollectionRenderer !== undefined) messages["youtube.response.setting.SettingCategoryCollectionRenderer"].internalBinaryWrite(message.settingCategoryCollectionRenderer, writer.tag(66930374, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_BackgroundPlayBackSettingRenderer$Type extends ProxyMessageType<M.youtube_response_setting_BackgroundPlayBackSettingRenderer> {
+  constructor() {
+    super("youtube.response.setting.BackgroundPlayBackSettingRenderer", [
+      {no:1, name:"name", localName:"name", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:2, name:"backgroundPlayback", localName:"backgroundPlayback", kind:"scalar", T:8, repeat:0, opt:false},
+      {no:3, name:"download", localName:"download", kind:"scalar", T:8, repeat:0, opt:false},
+      {no:5, name:"trackingParams", localName:"trackingParams", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:9, name:"downloadQualitySelection", localName:"downloadQualitySelection", kind:"scalar", T:8, repeat:0, opt:false},
+      {no:10, name:"smartDownload", localName:"smartDownload", kind:"scalar", T:8, repeat:0, opt:false},
+      {no:14, name:"icon", localName:"icon", kind:"message", T:() => messages["youtube.response.setting.Icon"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_BackgroundPlayBackSettingRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.name !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.name, writer.tag(1, 2).fork(), options).join();
+    if (message.backgroundPlayback) writer.tag(2, 0).bool(message.backgroundPlayback);
+    if (message.download) writer.tag(3, 0).bool(message.download);
+    if (message.trackingParams.length > 0) writer.tag(5, 2).bytes(message.trackingParams);
+    if (message.downloadQualitySelection) writer.tag(9, 0).bool(message.downloadQualitySelection);
+    if (message.smartDownload) writer.tag(10, 0).bool(message.smartDownload);
+    if (message.icon !== undefined) messages["youtube.response.setting.Icon"].internalBinaryWrite(message.icon, writer.tag(14, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SettingCategoryCollectionRenderer$Type extends ProxyMessageType<M.youtube_response_setting_SettingCategoryCollectionRenderer> {
+  constructor() {
+    super("youtube.response.setting.SettingCategoryCollectionRenderer", [
+      {no:2, name:"name", localName:"name", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:3, name:"subSettings", localName:"subSettings", kind:"message", T:() => messages["youtube.response.setting.SubSetting"], repeat:1, opt:false},
+      {no:4, name:"categoryId", localName:"categoryId", kind:"scalar", T:5, repeat:0, opt:false},
+      {no:5, name:"icon", localName:"icon", kind:"message", T:() => messages["youtube.response.setting.Icon"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SettingCategoryCollectionRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.name !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.name, writer.tag(2, 2).fork(), options).join();
+    for (const value of message.subSettings) messages["youtube.response.setting.SubSetting"].internalBinaryWrite(value, writer.tag(3, 2).fork(), options).join();
+    if (message.categoryId !== 0) writer.tag(4, 0).int32(message.categoryId);
+    if (message.icon !== undefined) messages["youtube.response.setting.Icon"].internalBinaryWrite(message.icon, writer.tag(5, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_Icon$Type extends ProxyMessageType<M.youtube_response_setting_Icon> {
+  constructor() {
+    super("youtube.response.setting.Icon", [
+      {no:1, name:"iconType", localName:"iconType", kind:"scalar", T:5, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_Icon, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.iconType !== 0) writer.tag(1, 0).int32(message.iconType);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SubSetting$Type extends ProxyMessageType<M.youtube_response_setting_SubSetting> {
+  constructor() {
+    super("youtube.response.setting.SubSetting", [
+      {no:61331416, name:"settingBooleanRenderer", localName:"settingBooleanRenderer", kind:"message", T:() => messages["youtube.response.setting.SettingBooleanRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SubSetting, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.settingBooleanRenderer !== undefined) messages["youtube.response.setting.SettingBooleanRenderer"].internalBinaryWrite(message.settingBooleanRenderer, writer.tag(61331416, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SettingBooleanRenderer$Type extends ProxyMessageType<M.youtube_response_setting_SettingBooleanRenderer> {
+  constructor() {
+    super("youtube.response.setting.SettingBooleanRenderer", [
+      {no:2, name:"title", localName:"title", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:3, name:"description", localName:"description", kind:"message", T:() => messages["youtube.component.Label"], repeat:0, opt:true},
+      {no:5, name:"enableServiceEndpoint", localName:"enableServiceEndpoint", kind:"message", T:() => messages["youtube.response.setting.ServiceEndpoint"], repeat:0, opt:true},
+      {no:6, name:"disableServiceEndpoint", localName:"disableServiceEndpoint", kind:"message", T:() => messages["youtube.response.setting.ServiceEndpoint"], repeat:0, opt:true},
+      {no:15, name:"itemId", localName:"itemId", kind:"scalar", T:5, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SettingBooleanRenderer, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.title !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.title, writer.tag(2, 2).fork(), options).join();
+    if (message.description !== undefined) messages["youtube.component.Label"].internalBinaryWrite(message.description, writer.tag(3, 2).fork(), options).join();
+    if (message.enableServiceEndpoint !== undefined) messages["youtube.response.setting.ServiceEndpoint"].internalBinaryWrite(message.enableServiceEndpoint, writer.tag(5, 2).fork(), options).join();
+    if (message.disableServiceEndpoint !== undefined) messages["youtube.response.setting.ServiceEndpoint"].internalBinaryWrite(message.disableServiceEndpoint, writer.tag(6, 2).fork(), options).join();
+    if (message.itemId !== 0) writer.tag(15, 0).int32(message.itemId);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_ServiceEndpoint$Type extends ProxyMessageType<M.youtube_response_setting_ServiceEndpoint> {
+  constructor() {
+    super("youtube.response.setting.ServiceEndpoint", [
+      {no:81212182, name:"setClientSettingEndpoint", localName:"setClientSettingEndpoint", kind:"message", T:() => messages["youtube.response.setting.SetClientSettingEndpoint"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_ServiceEndpoint, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.setClientSettingEndpoint !== undefined) messages["youtube.response.setting.SetClientSettingEndpoint"].internalBinaryWrite(message.setClientSettingEndpoint, writer.tag(81212182, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SetClientSettingEndpoint$Type extends ProxyMessageType<M.youtube_response_setting_SetClientSettingEndpoint> {
+  constructor() {
+    super("youtube.response.setting.SetClientSettingEndpoint", [
+      {no:1, name:"settingData", localName:"settingData", kind:"message", T:() => messages["youtube.response.setting.SettingData"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SetClientSettingEndpoint, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.settingData !== undefined) messages["youtube.response.setting.SettingData"].internalBinaryWrite(message.settingData, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_SettingData$Type extends ProxyMessageType<M.youtube_response_setting_SettingData> {
+  constructor() {
+    super("youtube.response.setting.SettingData", [
+      {no:1, name:"clientSettingEnum", localName:"clientSettingEnum", kind:"message", T:() => messages["youtube.response.setting.ClientSettingEnum"], repeat:0, opt:true},
+      {no:3, name:"boolValue", localName:"boolValue", kind:"scalar", T:8, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_SettingData, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.clientSettingEnum !== undefined) messages["youtube.response.setting.ClientSettingEnum"].internalBinaryWrite(message.clientSettingEnum, writer.tag(1, 2).fork(), options).join();
+    if (message.boolValue) writer.tag(3, 0).bool(message.boolValue);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_setting_ClientSettingEnum$Type extends ProxyMessageType<M.youtube_response_setting_ClientSettingEnum> {
+  constructor() {
+    super("youtube.response.setting.ClientSettingEnum", [
+      {no:1, name:"item", localName:"item", kind:"scalar", T:5, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_setting_ClientSettingEnum, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.item !== 0) writer.tag(1, 0).int32(message.item);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_watch_Watch$Type extends ProxyMessageType<M.youtube_response_watch_Watch> {
+  constructor() {
+    super("youtube.response.watch.Watch", [
+      {no:1, name:"contents", localName:"contents", kind:"message", T:() => messages["youtube.response.watch.Content"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_watch_Watch, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.contents) messages["youtube.response.watch.Content"].internalBinaryWrite(value, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_watch_Content$Type extends ProxyMessageType<M.youtube_response_watch_Content> {
+  constructor() {
+    super("youtube.response.watch.Content", [
+      {no:2, name:"player", localName:"player", kind:"message", T:() => messages["youtube.response.player.Player"], repeat:0, opt:true},
+      {no:3, name:"next", localName:"next", kind:"message", T:() => messages["youtube.response.next.Next"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_watch_Content, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.player !== undefined) messages["youtube.response.player.Player"].internalBinaryWrite(message.player, writer.tag(2, 2).fork(), options).join();
+    if (message.next !== undefined) messages["youtube.response.next.Next"].internalBinaryWrite(message.next, writer.tag(3, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_Config$Type extends ProxyMessageType<M.youtube_response_config_Config> {
+  constructor() {
+    super("youtube.response.config.Config", [
+      {no:1, name:"response_context", localName:"responseContext", kind:"message", T:() => messages["youtube.response.config.ResponseContext"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_Config, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.responseContext !== undefined) messages["youtube.response.config.ResponseContext"].internalBinaryWrite(message.responseContext, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_ResponseContext$Type extends ProxyMessageType<M.youtube_response_config_ResponseContext> {
+  constructor() {
+    super("youtube.response.config.ResponseContext", [
+      {no:16, name:"globalConfigGroup", localName:"globalConfigGroup", kind:"message", T:() => messages["youtube.response.config.GlobalConfigGroup"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_ResponseContext, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.globalConfigGroup !== undefined) messages["youtube.response.config.GlobalConfigGroup"].internalBinaryWrite(message.globalConfigGroup, writer.tag(16, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_GlobalConfigGroup$Type extends ProxyMessageType<M.youtube_response_config_GlobalConfigGroup> {
+  constructor() {
+    super("youtube.response.config.GlobalConfigGroup", [
+      {no:6, name:"coldConfigGroup", localName:"coldConfigGroup", kind:"message", T:() => messages["youtube.response.config.ColdConfigGroup"], repeat:0, opt:true},
+      {no:7, name:"hotConfigGroup", localName:"hotConfigGroup", kind:"message", T:() => messages["youtube.response.config.HotConfigGroup"], repeat:0, opt:true},
+      {no:4, name:"hot_hash_data", localName:"hotHashData", kind:"scalar", T:9, repeat:0, opt:true},
+      {no:5, name:"cold_hash_data", localName:"coldHashData", kind:"scalar", T:9, repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_GlobalConfigGroup, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.coldConfigGroup !== undefined) messages["youtube.response.config.ColdConfigGroup"].internalBinaryWrite(message.coldConfigGroup, writer.tag(6, 2).fork(), options).join();
+    if (message.hotConfigGroup !== undefined) messages["youtube.response.config.HotConfigGroup"].internalBinaryWrite(message.hotConfigGroup, writer.tag(7, 2).fork(), options).join();
+    if (message.hotHashData !== undefined) writer.tag(4, 2).string(message.hotHashData);
+    if (message.coldHashData !== undefined) writer.tag(5, 2).string(message.coldHashData);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_ColdConfigGroup$Type extends ProxyMessageType<M.youtube_response_config_ColdConfigGroup> {
+  constructor() {
+    super("youtube.response.config.ColdConfigGroup", [
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_ColdConfigGroup, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_HotConfigGroup$Type extends ProxyMessageType<M.youtube_response_config_HotConfigGroup> {
+  constructor() {
+    super("youtube.response.config.HotConfigGroup", [
+      {no:138536474, name:"mediaHotConfig", localName:"mediaHotConfig", kind:"message", T:() => messages["youtube.response.config.MediaHotConfig"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_HotConfigGroup, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.mediaHotConfig !== undefined) messages["youtube.response.config.MediaHotConfig"].internalBinaryWrite(message.mediaHotConfig, writer.tag(138536474, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_MediaHotConfig$Type extends ProxyMessageType<M.youtube_response_config_MediaHotConfig> {
+  constructor() {
+    super("youtube.response.config.MediaHotConfig", [
+      {no:146311580, name:"onesieHotConfig", localName:"onesieHotConfig", kind:"message", T:() => messages["youtube.response.config.OnesieHotConfig"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_MediaHotConfig, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.onesieHotConfig !== undefined) messages["youtube.response.config.OnesieHotConfig"].internalBinaryWrite(message.onesieHotConfig, writer.tag(146311580, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_response_config_OnesieHotConfig$Type extends ProxyMessageType<M.youtube_response_config_OnesieHotConfig> {
+  constructor() {
+    super("youtube.response.config.OnesieHotConfig", [
+      {no:1, name:"clientKey", localName:"clientKey", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:2, name:"encryptKey", localName:"encryptKey", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:3, name:"keyExpiresInSeconds", localName:"keyExpiresInSeconds", kind:"scalar", T:3, repeat:0, opt:false},
+      {no:30, name:"useHotConfigToCreateOnesieRequest", localName:"useHotConfigToCreateOnesieRequest", kind:"scalar", T:8, repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_response_config_OnesieHotConfig, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.clientKey.length > 0) writer.tag(1, 2).bytes(message.clientKey);
+    if (message.encryptKey.length > 0) writer.tag(2, 2).bytes(message.encryptKey);
+    if (message.keyExpiresInSeconds !== "0") writer.tag(3, 0).int64(message.keyExpiresInSeconds);
+    if (message.useHotConfigToCreateOnesieRequest) writer.tag(30, 0).bool(message.useHotConfigToCreateOnesieRequest);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_ump_encrypted_EncryptedInnertubeResponsePart$Type extends ProxyMessageType<M.youtube_ump_encrypted_EncryptedInnertubeResponsePart> {
+  constructor() {
+    super("youtube.ump.encrypted.EncryptedInnertubeResponsePart", [
+      {no:1, name:"encryptedContent", localName:"encryptedContent", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:2, name:"hmac", localName:"hmac", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:3, name:"iv", localName:"iv", kind:"scalar", T:12, repeat:0, opt:false},
+      {no:4, name:"compressionAlgorithm", localName:"compressionAlgorithm", kind:"enum", T:() => ["youtube.ump.encrypted.CompressionAlgorithm", M.youtube_ump_encrypted_CompressionAlgorithm], repeat:0, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_ump_encrypted_EncryptedInnertubeResponsePart, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.encryptedContent.length > 0) writer.tag(1, 2).bytes(message.encryptedContent);
+    if (message.hmac.length > 0) writer.tag(2, 2).bytes(message.hmac);
+    if (message.iv.length > 0) writer.tag(3, 2).bytes(message.iv);
+    if (message.compressionAlgorithm !== 0) writer.tag(4, 0).int32(message.compressionAlgorithm);
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_ump_encrypted_OnesieInnertubeResponse$Type extends ProxyMessageType<M.youtube_ump_encrypted_OnesieInnertubeResponse> {
+  constructor() {
+    super("youtube.ump.encrypted.OnesieInnertubeResponse", [
+      {no:4, name:"contents", localName:"contents", kind:"message", T:() => messages["youtube.response.watch.Content"], repeat:1, opt:false},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_ump_encrypted_OnesieInnertubeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    for (const value of message.contents) messages["youtube.response.watch.Content"].internalBinaryWrite(value, writer.tag(4, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveNext$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveNext> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveNext", [
+      {no:42, name:"belowPlayerImmersiveLayout", localName:"belowPlayerImmersiveLayout", kind:"message", T:() => messages["youtube.observed.next.ImmersiveEnvelope"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveNext, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.belowPlayerImmersiveLayout !== undefined) messages["youtube.observed.next.ImmersiveEnvelope"].internalBinaryWrite(message.belowPlayerImmersiveLayout, writer.tag(42, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveEnvelope$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveEnvelope> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveEnvelope", [
+      {no:357104971, name:"field357104971", localName:"field357104971", kind:"message", T:() => messages["youtube.observed.next.ImmersiveOuter"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveEnvelope, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field357104971 !== undefined) messages["youtube.observed.next.ImmersiveOuter"].internalBinaryWrite(message.field357104971, writer.tag(357104971, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveOuter$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveOuter> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveOuter", [
+      {no:2, name:"field2", localName:"field2", kind:"message", T:() => messages["youtube.observed.next.ImmersiveBody"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveOuter, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field2 !== undefined) messages["youtube.observed.next.ImmersiveBody"].internalBinaryWrite(message.field2, writer.tag(2, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveBody$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveBody> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveBody", [
+      {no:361256913, name:"field361256913", localName:"field361256913", kind:"message", T:() => messages["youtube.observed.next.ImmersiveTree"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveBody, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field361256913 !== undefined) messages["youtube.observed.next.ImmersiveTree"].internalBinaryWrite(message.field361256913, writer.tag(361256913, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveTree$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveTree> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveTree", [
+      {no:1, name:"field1", localName:"field1", kind:"message", T:() => messages["youtube.observed.next.ImmersiveFrame"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveTree, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field1 !== undefined) messages["youtube.observed.next.ImmersiveFrame"].internalBinaryWrite(message.field1, writer.tag(1, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveFrame$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveFrame> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveFrame", [
+      {no:138681066, name:"field138681066", localName:"field138681066", kind:"message", T:() => messages["youtube.observed.next.ImmersiveView"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveFrame, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field138681066 !== undefined) messages["youtube.observed.next.ImmersiveView"].internalBinaryWrite(message.field138681066, writer.tag(138681066, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_ImmersiveView$Type extends ProxyMessageType<M.youtube_observed_next_ImmersiveView> {
+  constructor() {
+    super("youtube.observed.next.ImmersiveView", [
+      {no:3, name:"field3", localName:"field3", kind:"message", T:() => messages["youtube.observed.next.SectionEnvelope"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_ImmersiveView, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.field3 !== undefined) messages["youtube.observed.next.SectionEnvelope"].internalBinaryWrite(message.field3, writer.tag(3, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+class youtube_observed_next_SectionEnvelope$Type extends ProxyMessageType<M.youtube_observed_next_SectionEnvelope> {
+  constructor() {
+    super("youtube.observed.next.SectionEnvelope", [
+      {no:49399797, name:"sectionListRenderer", localName:"sectionListRenderer", kind:"message", T:() => messages["youtube.response.browse.SectionListRenderer"], repeat:0, opt:true},
+    ]);
+  }
+  override internalBinaryWrite(message: M.youtube_observed_next_SectionEnvelope, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    if (message.sectionListRenderer !== undefined) messages["youtube.response.browse.SectionListRenderer"].internalBinaryWrite(message.sectionListRenderer, writer.tag(49399797, 2).fork(), options).join();
+    const unknown = options.writeUnknownFields;
+    if (unknown !== false) (unknown === true ? UnknownFields.onWrite : unknown)(this.typeName, message, writer);
+    return writer;
+  }
+}
+export interface MessageMap {
+  "youtube.component.Label": IMessageType<M.youtube_component_Label>;
+  "youtube.component.Run": IMessageType<M.youtube_component_Run>;
+  "youtube.component.ResponseContext": IMessageType<M.youtube_component_ResponseContext>;
+  "youtube.component.ServiceTrackingParam": IMessageType<M.youtube_component_ServiceTrackingParam>;
+  "youtube.component.Param": IMessageType<M.youtube_component_Param>;
+  "youtube.response.browse.Browse": IMessageType<M.youtube_response_browse_Browse>;
+  "youtube.response.browse.Content": IMessageType<M.youtube_response_browse_Content>;
+  "youtube.response.browse.SingleColumnResultsRenderer": IMessageType<M.youtube_response_browse_SingleColumnResultsRenderer>;
+  "youtube.response.browse.BrowseTabSupportedRenderer": IMessageType<M.youtube_response_browse_BrowseTabSupportedRenderer>;
+  "youtube.response.browse.TabRenderer": IMessageType<M.youtube_response_browse_TabRenderer>;
+  "youtube.response.browse.SectionListRenderer": IMessageType<M.youtube_response_browse_SectionListRenderer>;
+  "youtube.response.browse.SectionListSupportedRenderer": IMessageType<M.youtube_response_browse_SectionListSupportedRenderer>;
+  "youtube.response.browse.ItemSectionRenderer": IMessageType<M.youtube_response_browse_ItemSectionRenderer>;
+  "youtube.response.browse.RichItemContent": IMessageType<M.youtube_response_browse_RichItemContent>;
+  "youtube.response.browse.ElementRenderer": IMessageType<M.youtube_response_browse_ElementRenderer>;
+  "youtube.response.browse.VideoRendererContent": IMessageType<M.youtube_response_browse_VideoRendererContent>;
+  "youtube.response.browse.VideoInfo": IMessageType<M.youtube_response_browse_VideoInfo>;
+  "youtube.response.browse.VideoContext": IMessageType<M.youtube_response_browse_VideoContext>;
+  "youtube.response.browse.VideoContent": IMessageType<M.youtube_response_browse_VideoContent>;
+  "youtube.response.browse.TimedLyricsRender": IMessageType<M.youtube_response_browse_TimedLyricsRender>;
+  "youtube.response.browse.TimedLyricsContent": IMessageType<M.youtube_response_browse_TimedLyricsContent>;
+  "youtube.response.browse.RenderInfo": IMessageType<M.youtube_response_browse_RenderInfo>;
+  "youtube.response.browse.LayoutRender": IMessageType<M.youtube_response_browse_LayoutRender>;
+  "youtube.response.browse.ShelfRenderer": IMessageType<M.youtube_response_browse_ShelfRenderer>;
+  "youtube.response.browse.RichSectionContent": IMessageType<M.youtube_response_browse_RichSectionContent>;
+  "youtube.response.browse.ReelShelfRenderer": IMessageType<M.youtube_response_browse_ReelShelfRenderer>;
+  "youtube.response.browse.MusicDescriptionShelfRenderer": IMessageType<M.youtube_response_browse_MusicDescriptionShelfRenderer>;
+  "youtube.response.next.Next": IMessageType<M.youtube_response_next_Next>;
+  "youtube.response.next.Content": IMessageType<M.youtube_response_next_Content>;
+  "youtube.response.next.NextResult": IMessageType<M.youtube_response_next_NextResult>;
+  "youtube.response.search.Search": IMessageType<M.youtube_response_search_Search>;
+  "youtube.response.search.OnResponseReceivedCommand": IMessageType<M.youtube_response_search_OnResponseReceivedCommand>;
+  "youtube.response.shorts.Shorts": IMessageType<M.youtube_response_shorts_Shorts>;
+  "youtube.response.shorts.Entry": IMessageType<M.youtube_response_shorts_Entry>;
+  "youtube.response.shorts.Command": IMessageType<M.youtube_response_shorts_Command>;
+  "youtube.response.shorts.ReelWatchEndpoint": IMessageType<M.youtube_response_shorts_ReelWatchEndpoint>;
+  "youtube.response.shorts.AdClientParams": IMessageType<M.youtube_response_shorts_AdClientParams>;
+  "youtube.response.shorts.Overlay": IMessageType<M.youtube_response_shorts_Overlay>;
+  "youtube.response.shorts.ReelPlayerOverlayRenderer": IMessageType<M.youtube_response_shorts_ReelPlayerOverlayRenderer>;
+  "youtube.response.guide.Guide": IMessageType<M.youtube_response_guide_Guide>;
+  "youtube.response.guide.Item": IMessageType<M.youtube_response_guide_Item>;
+  "youtube.response.guide.GuideSectionRenderer": IMessageType<M.youtube_response_guide_GuideSectionRenderer>;
+  "youtube.response.guide.RendererItem": IMessageType<M.youtube_response_guide_RendererItem>;
+  "youtube.response.guide.guideEntryRenderer": IMessageType<M.youtube_response_guide_guideEntryRenderer>;
+  "youtube.response.player.Player": IMessageType<M.youtube_response_player_Player>;
+  "youtube.response.player.AdPlacement": IMessageType<M.youtube_response_player_AdPlacement>;
+  "youtube.response.player.AdPlacementRenderer": IMessageType<M.youtube_response_player_AdPlacementRenderer>;
+  "youtube.response.player.PlayabilityStatus": IMessageType<M.youtube_response_player_PlayabilityStatus>;
+  "youtube.response.player.PictureInPictureSupportedRenderer": IMessageType<M.youtube_response_player_PictureInPictureSupportedRenderer>;
+  "youtube.response.player.BackgroundSupportedRenderer": IMessageType<M.youtube_response_player_BackgroundSupportedRenderer>;
+  "youtube.response.player.PictureInPictureAbility": IMessageType<M.youtube_response_player_PictureInPictureAbility>;
+  "youtube.response.player.BackgroundAbility": IMessageType<M.youtube_response_player_BackgroundAbility>;
+  "youtube.response.player.PlaybackTracking": IMessageType<M.youtube_response_player_PlaybackTracking>;
+  "youtube.response.player.Tracking": IMessageType<M.youtube_response_player_Tracking>;
+  "youtube.response.player.Captions": IMessageType<M.youtube_response_player_Captions>;
+  "youtube.response.player.PlayerCaptionsTrackListRenderer": IMessageType<M.youtube_response_player_PlayerCaptionsTrackListRenderer>;
+  "youtube.response.player.CaptionTrack": IMessageType<M.youtube_response_player_CaptionTrack>;
+  "youtube.response.player.AudioTrack": IMessageType<M.youtube_response_player_AudioTrack>;
+  "youtube.response.player.TranslationLanguage": IMessageType<M.youtube_response_player_TranslationLanguage>;
+  "youtube.response.player.AdSlot": IMessageType<M.youtube_response_player_AdSlot>;
+  "youtube.response.player.AdSlot.Render": IMessageType<M.youtube_response_player_AdSlot_Render>;
+  "youtube.response.setting.Setting": IMessageType<M.youtube_response_setting_Setting>;
+  "youtube.response.setting.SettingItem": IMessageType<M.youtube_response_setting_SettingItem>;
+  "youtube.response.setting.BackgroundPlayBackSettingRenderer": IMessageType<M.youtube_response_setting_BackgroundPlayBackSettingRenderer>;
+  "youtube.response.setting.SettingCategoryCollectionRenderer": IMessageType<M.youtube_response_setting_SettingCategoryCollectionRenderer>;
+  "youtube.response.setting.Icon": IMessageType<M.youtube_response_setting_Icon>;
+  "youtube.response.setting.SubSetting": IMessageType<M.youtube_response_setting_SubSetting>;
+  "youtube.response.setting.SettingBooleanRenderer": IMessageType<M.youtube_response_setting_SettingBooleanRenderer>;
+  "youtube.response.setting.ServiceEndpoint": IMessageType<M.youtube_response_setting_ServiceEndpoint>;
+  "youtube.response.setting.SetClientSettingEndpoint": IMessageType<M.youtube_response_setting_SetClientSettingEndpoint>;
+  "youtube.response.setting.SettingData": IMessageType<M.youtube_response_setting_SettingData>;
+  "youtube.response.setting.ClientSettingEnum": IMessageType<M.youtube_response_setting_ClientSettingEnum>;
+  "youtube.response.watch.Watch": IMessageType<M.youtube_response_watch_Watch>;
+  "youtube.response.watch.Content": IMessageType<M.youtube_response_watch_Content>;
+  "youtube.response.config.Config": IMessageType<M.youtube_response_config_Config>;
+  "youtube.response.config.ResponseContext": IMessageType<M.youtube_response_config_ResponseContext>;
+  "youtube.response.config.GlobalConfigGroup": IMessageType<M.youtube_response_config_GlobalConfigGroup>;
+  "youtube.response.config.ColdConfigGroup": IMessageType<M.youtube_response_config_ColdConfigGroup>;
+  "youtube.response.config.HotConfigGroup": IMessageType<M.youtube_response_config_HotConfigGroup>;
+  "youtube.response.config.MediaHotConfig": IMessageType<M.youtube_response_config_MediaHotConfig>;
+  "youtube.response.config.OnesieHotConfig": IMessageType<M.youtube_response_config_OnesieHotConfig>;
+  "youtube.ump.encrypted.EncryptedInnertubeResponsePart": IMessageType<M.youtube_ump_encrypted_EncryptedInnertubeResponsePart>;
+  "youtube.ump.encrypted.OnesieInnertubeResponse": IMessageType<M.youtube_ump_encrypted_OnesieInnertubeResponse>;
+  "youtube.observed.next.ImmersiveNext": IMessageType<M.youtube_observed_next_ImmersiveNext>;
+  "youtube.observed.next.ImmersiveEnvelope": IMessageType<M.youtube_observed_next_ImmersiveEnvelope>;
+  "youtube.observed.next.ImmersiveOuter": IMessageType<M.youtube_observed_next_ImmersiveOuter>;
+  "youtube.observed.next.ImmersiveBody": IMessageType<M.youtube_observed_next_ImmersiveBody>;
+  "youtube.observed.next.ImmersiveTree": IMessageType<M.youtube_observed_next_ImmersiveTree>;
+  "youtube.observed.next.ImmersiveFrame": IMessageType<M.youtube_observed_next_ImmersiveFrame>;
+  "youtube.observed.next.ImmersiveView": IMessageType<M.youtube_observed_next_ImmersiveView>;
+  "youtube.observed.next.SectionEnvelope": IMessageType<M.youtube_observed_next_SectionEnvelope>;
+}
+export const messages: MessageMap = {
+  "youtube.component.Label": new youtube_component_Label$Type(),
+  "youtube.component.Run": new youtube_component_Run$Type(),
+  "youtube.component.ResponseContext": new youtube_component_ResponseContext$Type(),
+  "youtube.component.ServiceTrackingParam": new youtube_component_ServiceTrackingParam$Type(),
+  "youtube.component.Param": new youtube_component_Param$Type(),
+  "youtube.response.browse.Browse": new youtube_response_browse_Browse$Type(),
+  "youtube.response.browse.Content": new youtube_response_browse_Content$Type(),
+  "youtube.response.browse.SingleColumnResultsRenderer": new youtube_response_browse_SingleColumnResultsRenderer$Type(),
+  "youtube.response.browse.BrowseTabSupportedRenderer": new youtube_response_browse_BrowseTabSupportedRenderer$Type(),
+  "youtube.response.browse.TabRenderer": new youtube_response_browse_TabRenderer$Type(),
+  "youtube.response.browse.SectionListRenderer": new youtube_response_browse_SectionListRenderer$Type(),
+  "youtube.response.browse.SectionListSupportedRenderer": new youtube_response_browse_SectionListSupportedRenderer$Type(),
+  "youtube.response.browse.ItemSectionRenderer": new youtube_response_browse_ItemSectionRenderer$Type(),
+  "youtube.response.browse.RichItemContent": new youtube_response_browse_RichItemContent$Type(),
+  "youtube.response.browse.ElementRenderer": new youtube_response_browse_ElementRenderer$Type(),
+  "youtube.response.browse.VideoRendererContent": new youtube_response_browse_VideoRendererContent$Type(),
+  "youtube.response.browse.VideoInfo": new youtube_response_browse_VideoInfo$Type(),
+  "youtube.response.browse.VideoContext": new youtube_response_browse_VideoContext$Type(),
+  "youtube.response.browse.VideoContent": new youtube_response_browse_VideoContent$Type(),
+  "youtube.response.browse.TimedLyricsRender": new youtube_response_browse_TimedLyricsRender$Type(),
+  "youtube.response.browse.TimedLyricsContent": new youtube_response_browse_TimedLyricsContent$Type(),
+  "youtube.response.browse.RenderInfo": new youtube_response_browse_RenderInfo$Type(),
+  "youtube.response.browse.LayoutRender": new youtube_response_browse_LayoutRender$Type(),
+  "youtube.response.browse.ShelfRenderer": new youtube_response_browse_ShelfRenderer$Type(),
+  "youtube.response.browse.RichSectionContent": new youtube_response_browse_RichSectionContent$Type(),
+  "youtube.response.browse.ReelShelfRenderer": new youtube_response_browse_ReelShelfRenderer$Type(),
+  "youtube.response.browse.MusicDescriptionShelfRenderer": new youtube_response_browse_MusicDescriptionShelfRenderer$Type(),
+  "youtube.response.next.Next": new youtube_response_next_Next$Type(),
+  "youtube.response.next.Content": new youtube_response_next_Content$Type(),
+  "youtube.response.next.NextResult": new youtube_response_next_NextResult$Type(),
+  "youtube.response.search.Search": new youtube_response_search_Search$Type(),
+  "youtube.response.search.OnResponseReceivedCommand": new youtube_response_search_OnResponseReceivedCommand$Type(),
+  "youtube.response.shorts.Shorts": new youtube_response_shorts_Shorts$Type(),
+  "youtube.response.shorts.Entry": new youtube_response_shorts_Entry$Type(),
+  "youtube.response.shorts.Command": new youtube_response_shorts_Command$Type(),
+  "youtube.response.shorts.ReelWatchEndpoint": new youtube_response_shorts_ReelWatchEndpoint$Type(),
+  "youtube.response.shorts.AdClientParams": new youtube_response_shorts_AdClientParams$Type(),
+  "youtube.response.shorts.Overlay": new youtube_response_shorts_Overlay$Type(),
+  "youtube.response.shorts.ReelPlayerOverlayRenderer": new youtube_response_shorts_ReelPlayerOverlayRenderer$Type(),
+  "youtube.response.guide.Guide": new youtube_response_guide_Guide$Type(),
+  "youtube.response.guide.Item": new youtube_response_guide_Item$Type(),
+  "youtube.response.guide.GuideSectionRenderer": new youtube_response_guide_GuideSectionRenderer$Type(),
+  "youtube.response.guide.RendererItem": new youtube_response_guide_RendererItem$Type(),
+  "youtube.response.guide.guideEntryRenderer": new youtube_response_guide_guideEntryRenderer$Type(),
+  "youtube.response.player.Player": new youtube_response_player_Player$Type(),
+  "youtube.response.player.AdPlacement": new youtube_response_player_AdPlacement$Type(),
+  "youtube.response.player.AdPlacementRenderer": new youtube_response_player_AdPlacementRenderer$Type(),
+  "youtube.response.player.PlayabilityStatus": new youtube_response_player_PlayabilityStatus$Type(),
+  "youtube.response.player.PictureInPictureSupportedRenderer": new youtube_response_player_PictureInPictureSupportedRenderer$Type(),
+  "youtube.response.player.BackgroundSupportedRenderer": new youtube_response_player_BackgroundSupportedRenderer$Type(),
+  "youtube.response.player.PictureInPictureAbility": new youtube_response_player_PictureInPictureAbility$Type(),
+  "youtube.response.player.BackgroundAbility": new youtube_response_player_BackgroundAbility$Type(),
+  "youtube.response.player.PlaybackTracking": new youtube_response_player_PlaybackTracking$Type(),
+  "youtube.response.player.Tracking": new youtube_response_player_Tracking$Type(),
+  "youtube.response.player.Captions": new youtube_response_player_Captions$Type(),
+  "youtube.response.player.PlayerCaptionsTrackListRenderer": new youtube_response_player_PlayerCaptionsTrackListRenderer$Type(),
+  "youtube.response.player.CaptionTrack": new youtube_response_player_CaptionTrack$Type(),
+  "youtube.response.player.AudioTrack": new youtube_response_player_AudioTrack$Type(),
+  "youtube.response.player.TranslationLanguage": new youtube_response_player_TranslationLanguage$Type(),
+  "youtube.response.player.AdSlot": new youtube_response_player_AdSlot$Type(),
+  "youtube.response.player.AdSlot.Render": new youtube_response_player_AdSlot_Render$Type(),
+  "youtube.response.setting.Setting": new youtube_response_setting_Setting$Type(),
+  "youtube.response.setting.SettingItem": new youtube_response_setting_SettingItem$Type(),
+  "youtube.response.setting.BackgroundPlayBackSettingRenderer": new youtube_response_setting_BackgroundPlayBackSettingRenderer$Type(),
+  "youtube.response.setting.SettingCategoryCollectionRenderer": new youtube_response_setting_SettingCategoryCollectionRenderer$Type(),
+  "youtube.response.setting.Icon": new youtube_response_setting_Icon$Type(),
+  "youtube.response.setting.SubSetting": new youtube_response_setting_SubSetting$Type(),
+  "youtube.response.setting.SettingBooleanRenderer": new youtube_response_setting_SettingBooleanRenderer$Type(),
+  "youtube.response.setting.ServiceEndpoint": new youtube_response_setting_ServiceEndpoint$Type(),
+  "youtube.response.setting.SetClientSettingEndpoint": new youtube_response_setting_SetClientSettingEndpoint$Type(),
+  "youtube.response.setting.SettingData": new youtube_response_setting_SettingData$Type(),
+  "youtube.response.setting.ClientSettingEnum": new youtube_response_setting_ClientSettingEnum$Type(),
+  "youtube.response.watch.Watch": new youtube_response_watch_Watch$Type(),
+  "youtube.response.watch.Content": new youtube_response_watch_Content$Type(),
+  "youtube.response.config.Config": new youtube_response_config_Config$Type(),
+  "youtube.response.config.ResponseContext": new youtube_response_config_ResponseContext$Type(),
+  "youtube.response.config.GlobalConfigGroup": new youtube_response_config_GlobalConfigGroup$Type(),
+  "youtube.response.config.ColdConfigGroup": new youtube_response_config_ColdConfigGroup$Type(),
+  "youtube.response.config.HotConfigGroup": new youtube_response_config_HotConfigGroup$Type(),
+  "youtube.response.config.MediaHotConfig": new youtube_response_config_MediaHotConfig$Type(),
+  "youtube.response.config.OnesieHotConfig": new youtube_response_config_OnesieHotConfig$Type(),
+  "youtube.ump.encrypted.EncryptedInnertubeResponsePart": new youtube_ump_encrypted_EncryptedInnertubeResponsePart$Type(),
+  "youtube.ump.encrypted.OnesieInnertubeResponse": new youtube_ump_encrypted_OnesieInnertubeResponse$Type(),
+  "youtube.observed.next.ImmersiveNext": new youtube_observed_next_ImmersiveNext$Type(),
+  "youtube.observed.next.ImmersiveEnvelope": new youtube_observed_next_ImmersiveEnvelope$Type(),
+  "youtube.observed.next.ImmersiveOuter": new youtube_observed_next_ImmersiveOuter$Type(),
+  "youtube.observed.next.ImmersiveBody": new youtube_observed_next_ImmersiveBody$Type(),
+  "youtube.observed.next.ImmersiveTree": new youtube_observed_next_ImmersiveTree$Type(),
+  "youtube.observed.next.ImmersiveFrame": new youtube_observed_next_ImmersiveFrame$Type(),
+  "youtube.observed.next.ImmersiveView": new youtube_observed_next_ImmersiveView$Type(),
+  "youtube.observed.next.SectionEnvelope": new youtube_observed_next_SectionEnvelope$Type(),
+};

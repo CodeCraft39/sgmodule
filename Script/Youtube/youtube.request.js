@@ -1,7 +1,7 @@
 // Reconstructed Maasea request script. Source: src/request/. Device validation pending.
 (() => {
   // Script/Youtube/src/request/constants.ts
-  var BUILD = "request-compat-20261031.2";
+  var BUILD = "request-compat-20261101.1";
   var CONFIG_KEY = "YouTubeConfig";
   var WORKER_URL = "https://init-stream.maasea.workers.dev/";
 
@@ -27,7 +27,7 @@
     return out;
   }
 
-  // Script/Youtube/src/request/protobuf.ts
+  // Script/Youtube/src/protobuf/wire.ts
   function readFields(bytes2) {
     let p = 0;
     function uint32() {
@@ -43,7 +43,7 @@
     }
     function field(depth = 0) {
       if (depth > 32) throw Error("protobuf-group-depth");
-      const start = p, tag = uint32(), no = Math.floor(tag / 8), wire = tag % 8;
+      const start = p, tag = uint32(), no = Math.floor(tag / 8), wire = tag % 8, tagEnd = p;
       if (!no) throw Error("protobuf-invalid-tag");
       let dataStart = p;
       if (wire === 0) {
@@ -77,7 +77,7 @@
       } else if (wire === 5) p += 4;
       else if (wire !== 4) throw Error("protobuf-invalid-wire");
       if (p > bytes2.length) throw Error("protobuf-truncated-field");
-      return { no, wire, raw: bytes2.subarray(start, p), data: bytes2.subarray(dataStart, p) };
+      return { no, wire, tag: bytes2.subarray(start, tagEnd), raw: bytes2.subarray(start, p), data: bytes2.subarray(dataStart, p) };
     }
     const result = [];
     while (p < bytes2.length) {
@@ -87,10 +87,18 @@
     }
     return result;
   }
+
+  // Script/Youtube/src/request/schema.ts
+  var requestFields = {
+    OnesieRequest: { encryptedInnertubeRequest: 3 },
+    EncryptedInnertubeRequest: { encryptedOnesieInnertubeRequest: 2, encryptedClientKey: 5, iv: 6, hmac: 7 }
+  };
+
+  // Script/Youtube/src/request/protobuf.ts
   function decodeOnesieRequest(bytes2) {
     const result = { unknownFields: [] };
     for (const outer of readFields(bytes2)) {
-      if (outer.no !== 3) {
+      if (outer.no !== requestFields.OnesieRequest.encryptedInnertubeRequest) {
         result.unknownFields.push(outer);
         continue;
       }
@@ -103,12 +111,7 @@
         unknownFields: []
       };
       for (const f of readFields(outer.data)) {
-        const name = {
-          2: "encryptedOnesieInnertubeRequest",
-          5: "encryptedClientKey",
-          6: "iv",
-          7: "hmac"
-        }[f.no];
+        const name = Object.keys(requestFields.EncryptedInnertubeRequest).find((key) => requestFields.EncryptedInnertubeRequest[key] === f.no);
         if (name) {
           if (f.wire !== 2) throw Error("protobuf-wrong-bytes-wire");
           nested[name] = f.data;

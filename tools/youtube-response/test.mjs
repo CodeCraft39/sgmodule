@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import zlib from 'node:zlib';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 const dir=path.dirname(fileURLToPath(import.meta.url));
 const require=createRequire(import.meta.url),{messages}=require(path.resolve(process.argv[2]));
 const candidate=fs.readFileSync(process.argv[3],'utf8');
@@ -40,7 +41,7 @@ function fill(name,depth=0){
  return msg;
 }
 for(const [name,codec] of Object.entries(messages)){
- const old=originals[name];assert(old,name);
+ const old=originals[name];if(!old){assert(name.startsWith('youtube.observed.next.'));continue;}
  for(const msg of [old.create(),fill(name)]){
   const bytes=old.toBinary(msg);equal(codec.toBinary(codec.fromBinary(bytes)),old.toBinary(old.fromBinary(bytes)));
   const extended=Buffer.concat([bytes,unknown]);
@@ -65,6 +66,19 @@ for(const route of Object.keys(routes)){
 }
 compare('player',{playabilityStatus:{},adPlacements:[{}],adSlots:[{}],captions:{playerCaptionsTrackListRenderer:{
  captionTracks:[{baseUrl:'https://example.test/?x=1',languageCode:'en'}],audioTracks:[{captionTrackIndices:[0]}]}}},JSON.stringify({captionLang:'fr'}));
+// Populated cases exercise the generated-type handlers, not just empty roots.
+const rich={richItemContents:[{videoWithContextRenderer:{videoRendererContent:{renderInfo:{layoutRender:{eml:'inline_injection_entrypoint_layout.eml'}}}}},
+ {videoWithContextRenderer:{videoRendererContent:{renderInfo:{layoutRender:{eml:'organic_layout'}}}}}]};
+const content={sectionListRenderer:{sectionListSupportedRenderers:[{itemSectionRenderer:rich}]}};
+compare('browse',{content});
+compare('next',{content:{nextResult:{content}}});
+compare('search',{content});
+compare('guide',{labelItems:[{guideSectionRenderer:{rendererItems:[{iconRender:{browseId:'FEuploads'}},{labelRender:{browseId:'FEhome'}}]}}]}, JSON.stringify({blockUpload:true}));
+compare('account/get_setting',{settingItems:[{settingCategoryCollectionRenderer:{categoryId:10135,subSettings:[]}}]});
+compare('reel/reel_watch_sequence',{entries:[{command:{reelWatchEndpoint:{adClientParams:{isAd:true}}}},
+ {command:{reelWatchEndpoint:{adClientParams:{isAd:false}}}}]});
+compare('get_watch',{contents:[{next:{content:{nextResult:{content}}}}]});
+compare('player',{playabilityStatus:{},captions:{playerCaptionsTrackListRenderer:{captionTracks:[{name:{runs:[{text:'\ufeff字幕 😀'}]},baseUrl:'https://example.test/',languageCode:'en'}]}}});
 // Config key acquisition must still feed the request script's existing storage key.
 compare('config',{responseContext:{globalConfigGroup:{hotConfigGroup:{mediaHotConfig:{onesieHotConfig:{clientKey:new Uint8Array([1,2]),encryptKey:new Uint8Array([3,4])}}}}}});
 function vint(n){const a=[];do{const b=n%128;n=Math.floor(n/128);a.push(b|(n?128:0));}while(n);return Buffer.from(a);}
@@ -77,14 +91,17 @@ for(const client of ['qx','surge']){
  for(const k of Object.keys(a.result))equal(b.result[k],a.result[k]);
  assert.deepEqual(b.store,a.store);assert(JSON.parse(b.store.YouTubeAdvertiseInfo).blackNo.includes(199999999));behaviorChecks++;
 }
-// Captured modern /next responses: compare with the already independently tested
-// field-42 patch. This is not a golden comparison against the no-op upstream.
-const oldPatch=fs.readFileSync(path.resolve(dir,'../../Script/Youtube/youtube.response.qx.js'),'utf8');
+// Captured modern /next responses use hashes pinned by the independent wire
+// preservation investigation, rather than the no-op upstream as an oracle.
+const golden=JSON.parse(fs.readFileSync(path.join(dir,'fixtures/next-golden.json'),'utf8'));
+const hash=bytes=>createHash('sha256').update(Buffer.from(bytes)).digest('hex');
 const captures=[];
 for(const id of ['20261031_204503','20261031_213054','20261031_213333']){
  const raw=fs.readFileSync(path.join(process.argv[4],'captures',id,'0/response_body'));
- const body=zlib.brotliDecompressSync(raw),a=replay(oldPatch,'next',body),b=replay(candidate,'next',body);
- if(a.result.bodyBytes)equal(b.result.bodyBytes,a.result.bodyBytes);else assert.deepEqual(Object.keys(b.result),[]);
+ const body=zlib.brotliDecompressSync(raw),b=replay(candidate,'next',body);
+ const expected=golden.find(c=>c.id===id);assert.equal(hash(body),expected.inputSha256);
+ assert.equal(hash(b.result.bodyBytes??body),expected.outputSha256);
+ if(expected.removed===0)assert.deepEqual(Object.keys(b.result),[]);
  const sr=replay(candidate,'next',body,'surge');
  if(b.result.bodyBytes)equal(sr.result.body,b.result.bodyBytes);else assert.deepEqual(Object.keys(sr.result),[]);
  captures.push({id,input:body.length,output:b.result.bodyBytes?.byteLength??body.length});
@@ -93,5 +110,5 @@ for(const id of ['20261031_204503','20261031_213054','20261031_213333']){
 const adBreak=replay(candidate,'player/ad_break',unknown);
 assert.deepEqual(Object.keys(adBreak.result),[]);assert(adBreak.logs.some(l=>l.includes('unverified-ad-break-schema')));
 for(const bad of [[0],[0x0a,0xff]]){const r=replay(candidate,'next',bad);assert.deepEqual(Object.keys(r.result),[]);}
-const report={messageTypes:Object.keys(messages).length,codecChecks,behaviorChecks,captures,adBreak:'pass-through observation only',deviceValidation:'pending'};
+const report={messageTypes:Object.keys(messages).length,recoveredMessageTypes:Object.keys(originals).length,codecChecks,behaviorChecks,captures,adBreak:'pass-through observation only',deviceValidation:'pending'};
 fs.writeFileSync(path.join(dir,'validation.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

@@ -1,3 +1,6 @@
+> Current source architecture and build 20261101.1: [../youtube-response/ARCHITECTURE.md](../youtube-response/ARCHITECTURE.md).
+> This document records the preceding build .2 audit resolution; the open Message/any facade described below has since been removed.
+
 # Audit fixes — 31 October 2026, build .2
 
 The three actionable findings in AUDIT.md are resolved in source and the rebuilt

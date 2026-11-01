@@ -1,202 +1,205 @@
 syntax = "proto3";
-
 package reconstructed.youtube;
-
-// Partial definitions extracted from the original bundle; no claim of a complete Google schema.
-
+// Generated partial schema views. See youtube.json for evidence and limitations.
+enum youtube_ump_encrypted_CompressionAlgorithm {
+  youtube_ump_encrypted_CompressionAlgorithm_NONE = 0;
+  youtube_ump_encrypted_CompressionAlgorithm_GZIP = 1;
+  youtube_ump_encrypted_CompressionAlgorithm_BROTLI = 2;
+}
+// Evidence: bundle-response
 message youtube_component_Label {
   repeated youtube_component_Run runs = 1;
 }
-
+// Evidence: bundle-response
 message youtube_component_Run {
   string text = 1;
 }
-
+// Evidence: bundle-response
 message youtube_component_ResponseContext {
   repeated youtube_component_ServiceTrackingParam serviceTrackingParams = 6;
 }
-
+// Evidence: bundle-response
 message youtube_component_ServiceTrackingParam {
   int32 service = 1;
   repeated youtube_component_Param params = 2;
 }
-
+// Evidence: bundle-response
 message youtube_component_Param {
   string key = 1;
   string value = 2;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_Browse {
   youtube_component_ResponseContext responseContext = 1;
   youtube_response_browse_Content content = 9;
   youtube_response_browse_Content onResponseReceivedAction = 10;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_Content {
   youtube_response_browse_SingleColumnResultsRenderer singleColumnResultsRenderer = 58173949;
   youtube_response_browse_ElementRenderer elementRenderer = 153515154;
   youtube_response_browse_SectionListRenderer sectionListRenderer = 49399797;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_SingleColumnResultsRenderer {
   repeated youtube_response_browse_BrowseTabSupportedRenderer tabs = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_BrowseTabSupportedRenderer {
   youtube_response_browse_TabRenderer tabRenderer = 58174010;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_TabRenderer {
   youtube_response_browse_Content content = 4;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_SectionListRenderer {
   repeated youtube_response_browse_SectionListSupportedRenderer sectionListSupportedRenderers = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_SectionListSupportedRenderer {
   youtube_response_browse_ItemSectionRenderer itemSectionRenderer = 50195462;
   youtube_response_browse_ShelfRenderer shelfRenderer = 51845067;
   youtube_response_browse_MusicDescriptionShelfRenderer musicDescriptionShelfRenderer = 221496734;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_ItemSectionRenderer {
   repeated youtube_response_browse_RichItemContent richItemContents = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_RichItemContent {
   youtube_response_browse_ElementRenderer videoWithContextRenderer = 153515154;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_ElementRenderer {
   youtube_response_browse_VideoRendererContent videoRendererContent = 172660663;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_VideoRendererContent {
   youtube_response_browse_VideoInfo videoInfo = 1;
   youtube_response_browse_RenderInfo renderInfo = 2;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_VideoInfo {
   youtube_response_browse_VideoContext videoContext = 168777401;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_VideoContext {
   youtube_response_browse_VideoContent videoContent = 5;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_VideoContent {
   youtube_response_browse_TimedLyricsRender timedLyricsRender = 465160965;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_TimedLyricsRender {
   youtube_response_browse_TimedLyricsContent timedLyricsContent = 4;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_TimedLyricsContent {
   repeated youtube_component_Run runs = 1;
   string footerLabel = 2;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_RenderInfo {
   youtube_response_browse_LayoutRender layoutRender = 183314536;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_LayoutRender {
   string eml = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_ShelfRenderer {
   youtube_response_browse_RichSectionContent richSectionContent = 5;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_RichSectionContent {
   youtube_response_browse_ReelShelfRenderer reelShelfRenderer = 51431404;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_ReelShelfRenderer {
   repeated youtube_response_browse_RichItemContent richItemContents = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_browse_MusicDescriptionShelfRenderer {
   youtube_component_Label description = 3;
   youtube_component_Label footer = 10;
 }
-
+// Evidence: bundle-response
 message youtube_response_next_Next {
   youtube_response_next_Content content = 7;
   youtube_response_browse_Content onResponseReceivedAction = 8;
 }
-
+// Evidence: bundle-response
 message youtube_response_next_Content {
   youtube_response_next_NextResult nextResult = 51779735;
 }
-
+// Evidence: bundle-response
 message youtube_response_next_NextResult {
   youtube_response_browse_Content content = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_search_Search {
   youtube_response_browse_Content content = 4;
   youtube_response_search_OnResponseReceivedCommand onResponseReceivedCommand = 7;
 }
-
+// Evidence: bundle-response
 message youtube_response_search_OnResponseReceivedCommand {
   youtube_response_browse_ItemSectionRenderer itemSectionRenderer = 50195462;
   youtube_response_browse_SectionListRenderer appendContinuationItemsAction = 49399797;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_Shorts {
   repeated youtube_response_shorts_Entry entries = 2;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_Entry {
   youtube_response_shorts_Command command = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_Command {
   youtube_response_shorts_ReelWatchEndpoint reelWatchEndpoint = 139608561;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_ReelWatchEndpoint {
   youtube_response_shorts_Overlay overlay = 8;
   youtube_response_shorts_AdClientParams adClientParams = 16;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_AdClientParams {
   bool isAd = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_Overlay {
   youtube_response_shorts_ReelPlayerOverlayRenderer reelPlayerOverlayRenderer = 139970731;
 }
-
+// Evidence: bundle-response
 message youtube_response_shorts_ReelPlayerOverlayRenderer {
   int32 style = 12;
 }
-
+// Evidence: bundle-response
 message youtube_response_guide_Guide {
   repeated youtube_response_guide_Item labelItems = 4;
   repeated youtube_response_guide_Item iconItems = 6;
 }
-
+// Evidence: bundle-response
 message youtube_response_guide_Item {
   youtube_response_guide_GuideSectionRenderer guideSectionRenderer = 117866661;
 }
-
+// Evidence: bundle-response
 message youtube_response_guide_GuideSectionRenderer {
   repeated youtube_response_guide_RendererItem rendererItems = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_guide_RendererItem {
   youtube_response_guide_guideEntryRenderer iconRender = 318370163;
   youtube_response_guide_guideEntryRenderer labelRender = 117501096;
 }
-
+// Evidence: bundle-response
 message youtube_response_guide_guideEntryRenderer {
   string browseId = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_Player {
   repeated youtube_response_player_AdPlacement adPlacements = 7;
   youtube_response_player_PlayabilityStatus playabilityStatus = 2;
@@ -204,39 +207,39 @@ message youtube_response_player_Player {
   youtube_response_player_Captions captions = 10;
   repeated youtube_response_player_AdSlot adSlots = 68;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_AdPlacement {
   youtube_response_player_AdPlacementRenderer adPlacementRenderer = 84813246;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_AdPlacementRenderer {
   string params = 4;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_PlayabilityStatus {
   youtube_response_player_PictureInPictureSupportedRenderer pictureInPictureRender = 21;
   youtube_response_player_BackgroundSupportedRenderer backgroundPlayerRender = 11;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_PictureInPictureSupportedRenderer {
   youtube_response_player_PictureInPictureAbility pictureInPictureAbility = 151635310;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_BackgroundSupportedRenderer {
   youtube_response_player_BackgroundAbility backgroundAbility = 64657230;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_PictureInPictureAbility {
   bool active = 1;
   int32 f4 = 4;
   int32 f6 = 6;
   int32 f8 = 8;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_BackgroundAbility {
   bool active = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_PlaybackTracking {
   youtube_response_player_Tracking videostatsPlaybackUrl = 1;
   youtube_response_player_Tracking videostatsDelayplayUrl = 2;
@@ -247,15 +250,15 @@ message youtube_response_player_PlaybackTracking {
   youtube_response_player_Tracking videostatsEngageUrl = 15;
   youtube_response_player_Tracking pageadViewthroughconversion = 18;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_Tracking {
   string baseUrl = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_Captions {
   youtube_response_player_PlayerCaptionsTrackListRenderer playerCaptionsTrackListRenderer = 51621377;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_PlayerCaptionsTrackListRenderer {
   repeated youtube_response_player_CaptionTrack captionTracks = 1;
   repeated youtube_response_player_AudioTrack audioTracks = 2;
@@ -263,7 +266,7 @@ message youtube_response_player_PlayerCaptionsTrackListRenderer {
   optional int32 defaultAudioTrackIndex = 4;
   optional int32 defaultCaptionTrackIndex = 6;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_CaptionTrack {
   string baseUrl = 1;
   youtube_component_Label name = 2;
@@ -273,9 +276,9 @@ message youtube_response_player_CaptionTrack {
   optional bool rtl = 6;
   bool isTranslatable = 7;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_AudioTrack {
-  repeated int32 captionTrackIndices = 2;
+  repeated int32 captionTrackIndices = 2 [packed = false];
   optional int32 defaultCaptionTrackIndex = 3;
   optional int32 forcedCaptionTrackIndex = 4;
   optional int32 visibility = 5;
@@ -284,30 +287,29 @@ message youtube_response_player_AudioTrack {
   optional string audioTrackId = 8;
   optional int32 captionsInitialState = 11;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_TranslationLanguage {
   string languageCode = 1;
   youtube_component_Label languageName = 2;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_AdSlot {
   youtube_response_player_AdSlot_Render render = 424701016;
 }
-
+// Evidence: bundle-response
 message youtube_response_player_AdSlot_Render {
-
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_Setting {
   repeated youtube_response_setting_SettingItem settingItems = 6;
   repeated youtube_response_setting_SettingItem CollectionItems = 7;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SettingItem {
   youtube_response_setting_BackgroundPlayBackSettingRenderer backgroundPlayBackSettingRenderer = 88478200;
   youtube_response_setting_SettingCategoryCollectionRenderer settingCategoryCollectionRenderer = 66930374;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_BackgroundPlayBackSettingRenderer {
   youtube_component_Label name = 1;
   bool backgroundPlayback = 2;
@@ -317,22 +319,22 @@ message youtube_response_setting_BackgroundPlayBackSettingRenderer {
   bool smartDownload = 10;
   youtube_response_setting_Icon icon = 14;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SettingCategoryCollectionRenderer {
   youtube_component_Label name = 2;
   repeated youtube_response_setting_SubSetting subSettings = 3;
   int32 categoryId = 4;
   youtube_response_setting_Icon icon = 5;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_Icon {
   int32 iconType = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SubSetting {
   youtube_response_setting_SettingBooleanRenderer settingBooleanRenderer = 61331416;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SettingBooleanRenderer {
   youtube_component_Label title = 2;
   youtube_component_Label description = 3;
@@ -340,74 +342,105 @@ message youtube_response_setting_SettingBooleanRenderer {
   youtube_response_setting_ServiceEndpoint disableServiceEndpoint = 6;
   int32 itemId = 15;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_ServiceEndpoint {
   youtube_response_setting_SetClientSettingEndpoint setClientSettingEndpoint = 81212182;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SetClientSettingEndpoint {
   youtube_response_setting_SettingData settingData = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_SettingData {
   youtube_response_setting_ClientSettingEnum clientSettingEnum = 1;
   bool boolValue = 3;
 }
-
+// Evidence: bundle-response
 message youtube_response_setting_ClientSettingEnum {
   int32 item = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_watch_Watch {
   repeated youtube_response_watch_Content contents = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_watch_Content {
   youtube_response_player_Player player = 2;
   youtube_response_next_Next next = 3;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_Config {
   youtube_response_config_ResponseContext response_context = 1;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_ResponseContext {
   youtube_response_config_GlobalConfigGroup globalConfigGroup = 16;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_GlobalConfigGroup {
   youtube_response_config_ColdConfigGroup coldConfigGroup = 6;
   youtube_response_config_HotConfigGroup hotConfigGroup = 7;
   optional string hot_hash_data = 4;
   optional string cold_hash_data = 5;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_ColdConfigGroup {
-
 }
-
+// Evidence: bundle-response
 message youtube_response_config_HotConfigGroup {
   youtube_response_config_MediaHotConfig mediaHotConfig = 138536474;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_MediaHotConfig {
   youtube_response_config_OnesieHotConfig onesieHotConfig = 146311580;
 }
-
+// Evidence: bundle-response
 message youtube_response_config_OnesieHotConfig {
   bytes clientKey = 1;
   bytes encryptKey = 2;
   int64 keyExpiresInSeconds = 3;
   bool useHotConfigToCreateOnesieRequest = 30;
 }
-
+// Evidence: bundle-response
 message youtube_ump_encrypted_EncryptedInnertubeResponsePart {
   bytes encryptedContent = 1;
   bytes hmac = 2;
   bytes iv = 3;
-  int32 compressionAlgorithm = 4;
+  youtube_ump_encrypted_CompressionAlgorithm compressionAlgorithm = 4;
 }
-
+// Evidence: bundle-response
 message youtube_ump_encrypted_OnesieInnertubeResponse {
   repeated youtube_response_watch_Content contents = 4;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveNext {
+  youtube_observed_next_ImmersiveEnvelope belowPlayerImmersiveLayout = 42;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveEnvelope {
+  youtube_observed_next_ImmersiveOuter field357104971 = 357104971;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveOuter {
+  youtube_observed_next_ImmersiveBody field2 = 2;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveBody {
+  youtube_observed_next_ImmersiveTree field361256913 = 361256913;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveTree {
+  youtube_observed_next_ImmersiveFrame field1 = 1;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveFrame {
+  youtube_observed_next_ImmersiveView field138681066 = 138681066;
+}
+// Evidence: next-captures
+message youtube_observed_next_ImmersiveView {
+  youtube_observed_next_SectionEnvelope field3 = 3;
+}
+// Evidence: next-captures
+message youtube_observed_next_SectionEnvelope {
+  youtube_response_browse_SectionListRenderer sectionListRenderer = 49399797;
 }

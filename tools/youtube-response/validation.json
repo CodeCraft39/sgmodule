@@ -1,7 +1,8 @@
 {
-  "messageTypes": 83,
+  "messageTypes": 91,
+  "recoveredMessageTypes": 83,
   "codecChecks": 332,
-  "behaviorChecks": 25,
+  "behaviorChecks": 40,
   "captures": [
     {
       "id": "20261031_204503",
@@ -21,9 +22,14 @@
   ],
   "adBreak": "pass-through observation only",
   "deviceValidation": "pending",
+  "schemaGeneration": "verified",
+  "runtimeDependency": "@protobuf-ts/runtime@2.11.1",
+  "architectureTestGroups": 12,
+  "architecturePassed": 12,
   "typecheck": "passed",
   "reproducibleBuild": true,
+  "reproducibleAcrossDependencyPaths": true,
   "auditRegressionGroups": 8,
   "auditRegressionPassed": 8,
-  "scriptSha256": "5b1dca6282d277e4cdb6883257d4af082d5cb291417c1beea32f55924574cac1"
+  "scriptSha256": "b84d1d07409f1bbc21b474c2d5bc5573ea0e44dbf1803bbdca9af834d936c367"
 }

@@ -8,7 +8,7 @@ import test from 'node:test';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),api=require(path.resolve(process.argv[2]));
 const response=fs.readFileSync(process.argv[3],'utf8'),request=fs.readFileSync(process.argv[4],'utf8');
-const captureRoot=process.argv[5],{messages,qxNext2026}=api;
+const captureRoot=process.argv[5],{messages,filterImmersivePanels}=api;
 const equal=(a,b)=>assert.deepEqual(Buffer.from(a),Buffer.from(b));
 const INIT='https://r1---test.googlevideo.com/initplayback?ack=1';
 function vint(n){n=BigInt(n);const a=[];do{const b=Number(n&127n);n>>=7n;a.push(b|(n?128:0));}while(n);return Buffer.from(a);}
@@ -108,17 +108,17 @@ test('failed persistence is visible in quiet mode and cannot discard a filtered 
 test('captured modern Next is filtered inside repeated Watch contents with byte-exact siblings',()=>{
  for(const id of ['20261031_204503','20261031_213054','20261031_213333']){
   const raw=fs.readFileSync(path.join(captureRoot,'captures',id,'0/response_body'));
-  const next=zlib.brotliDecompressSync(raw),filtered=Buffer.from(qxNext2026(new Uint8Array(next)).bytes);
+  const next=zlib.brotliDecompressSync(raw),filtered=Buffer.from(filterImmersivePanels(new Uint8Array(next)).bytes);
   const wrapped=Buffer.concat([unknown,field(1,Buffer.concat([unknownChild,field(3,next),unknownChild])),
     field(1,field(3,next)),unknown]);
   const expected=Buffer.concat([unknown,field(1,Buffer.concat([unknownChild,field(3,filtered),unknownChild])),
     field(1,field(3,filtered)),unknown]);
-  const wire=qxNext2026(new Uint8Array(wrapped),'watch');equal(wire.bytes,expected);
+  const wire=filterImmersivePanels(new Uint8Array(wrapped),'watch');equal(wire.bytes,expected);
   assert.equal(wire.removed,id==='20261031_204503'?0:2);
   for(const client of ['qx','sr','surge']){
    const r=run(response,'get_watch',wrapped,{},client);equal(applied(r.result,wrapped),expected);
-   equal(qxNext2026(new Uint8Array(expected),'watch').bytes,expected);
-   assert.equal(qxNext2026(new Uint8Array(expected),'watch').removed,0);
+   equal(filterImmersivePanels(new Uint8Array(expected),'watch').bytes,expected);
+   assert.equal(filterImmersivePanels(new Uint8Array(expected),'watch').removed,0);
    const nexts=values(applied(r.result,wrapped),[1,3]);assert.equal(nexts.length,2);
    for(const n of nexts)assert.equal(values(n,richPath).length,0);
   }
@@ -133,7 +133,7 @@ test('get_watch handles player and legacy Next changes alongside modern payloads
  const watch=Buffer.concat([unknown,field(1,Buffer.concat([field(2,body),field(3,next),unknownChild])),field(1,field(3,legacy)),unknown]);
  for(const client of ['qx','sr']){
   const r=run(response,'get_watch',watch,{},client),out=applied(r.result,watch);
-  assert.equal(qxNext2026(new Uint8Array(out),'watch').removed,0);
+  assert.equal(filterImmersivePanels(new Uint8Array(out),'watch').removed,0);
   assert.equal(values(out,[1,3,...richPath]).length,0);
   const decoded=messages['youtube.response.watch.Watch'].fromBinary(new Uint8Array(out));
   assert.equal(decoded.contents[0].player.adPlacements.length,0);
@@ -160,7 +160,7 @@ test('routine diagnostics require debug; errors remain visible and correlated',(
  for(const client of ['qx','sr']){
   const quiet=run(response,'next',[],{},client);assert.equal(quiet.logs.length,0);
   const debug=run(response,'next',[],{},client,'ok',true);
-  assert(debug.logs.some(l=>l.includes('response-compat-20261031.2')&&l.includes('session=37')));
+  assert(debug.logs.some(l=>l.includes('response-compat-20261101.1')&&l.includes('session=37')));
   const adBreak=run(response,'player/ad_break',[0],{},client,'ok',true);
   assert.deepEqual(Object.keys(adBreak.result),[]);assert(adBreak.logs.some(l=>l.includes('unverified-ad-break-schema')));
  }
