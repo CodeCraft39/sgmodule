@@ -137,5 +137,6 @@
   "legacyWorkerRequestsCaptured": 0,
   "conclusion": "The response-emptying experiment ran but failed native acceptance. Nonempty filtering still works; the captured missing-key response remains ad-bearing.",
   "hypothesis": "QX may treat a zero-length bodyBytes replacement as no override. The HTTP Analyzer may instead retain the original body for this special case; this capture alone cannot distinguish those explanations.",
-  "nextStep": "Disable bootstrapRetry, stop prepare-bootstrap calls and run the isolated public bytes/text completion probe before another YouTube reset trial."
+  "nextStep": "Disable bootstrapRetry, stop prepare-bootstrap calls and run the isolated public bytes/text completion probe before another YouTube reset trial.",
+  "controlledFollowUp": "QX-20261101-213425.json: on the tested QX setup, both empty replacements retain ORIGINAL in Safari and captured HTTP output; nonempty bytes are replaced. Analyzer-only ambiguity is resolved for those controlled cases. Request-stage empty completion remains untested."
 }

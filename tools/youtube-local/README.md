@@ -1,5 +1,11 @@
 # Local playback test — Quantumult X and Shadowrocket
 
+The 21:34 controlled probe confirms that zero-length response replacements left
+the original body intact in Safari as well as the HTTP export. Nonempty byte
+replacement worked. Bootstrap-empty remains rejected. The next isolated test is
+[request-stage echo completion](../youtube-device/echo-probe/README.md), not another
+YouTube reset. See [QX-20261101-213425.json](QX-20261101-213425.json).
+
 The .5 bootstrap-empty branch failed native acceptance in the 21:07 trial:
 the script requested zero bytes, but the HTTP export retained the original
 ad-bearing response and the user saw ads. Disable bootstrapRetry and stop key

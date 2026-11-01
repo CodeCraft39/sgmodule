@@ -1,5 +1,9 @@
 # Controlled QX empty-body check
 
+Completed at 21:34: nonempty replacement worked; both empty replacements left
+ORIGINAL in Safari and the HTTP export. Do not repeat this probe. The next
+request-stage check is described in [../echo-probe/README.md](../echo-probe/README.md).
+
 The YouTube bootstrap experiment failed: its log requested zero bytes, but the
 HTTP export retained the full ad-bearing response. We need to distinguish native
 replacement behavior from HTTP Analyzer's handling of an empty replacement.

@@ -5,6 +5,19 @@ The normal local mode retains .4 behavior. The experiment is disabled unless
 It has not passed a device test. Keep the .4 checkpoint as the known working
 post-refresh baseline.
 
+## 21:34 result: zero-length response replacements are not applied
+
+The controlled bytes probe reproduced the behavior without YouTube. Safari and
+HTTP captures both show REPLACED for nonempty bytes and ORIGINAL for empty bytes
+and empty text. Script logs confirm all three cases ran with 17 input bytes.
+This resolves the Analyzer-only ambiguity for those controlled cases; it does
+not prove that YouTube retries a genuine empty response. See
+[QX-20261101-213425.json](QX-20261101-213425.json).
+
+Keep bootstrapRetry disabled and do not reset keys. The next isolated test is
+[request-stage echo completion](../youtube-device/echo-probe/README.md), using one
+Safari page and three synthetic POST checks. Production scripts are unchanged.
+
 ## 21:07 result: response-emptying experiment failed
 
 Stop this YouTube reset experiment and remove bootstrapRetry=true from the

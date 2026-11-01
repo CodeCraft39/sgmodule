@@ -1,0 +1,49 @@
+{
+  "archive": "2026-11-01-213425.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-213424.log",
+  "client": "Quantumult X",
+  "clientVersion": "1.8.1, previously reported by user",
+  "platform": "iPhone iOS 18, user test setup",
+  "youtubeOpenedDuringTest": false,
+  "httpTransactions": 3,
+  "cases": [
+    {
+      "case": "nonempty",
+      "requestedProperty": "bodyBytes",
+      "scriptInputBytes": 17,
+      "scriptRequestedBytes": 17,
+      "capturedBytes": 17,
+      "capturedBody": "QX-PROBE:REPLACED",
+      "safariReportedBody": "QX-PROBE:REPLACED",
+      "requestedReplacementApplied": true
+    },
+    {
+      "case": "empty-bytes",
+      "requestedProperty": "bodyBytes",
+      "scriptInputBytes": 17,
+      "scriptRequestedBytes": 0,
+      "capturedBytes": 17,
+      "capturedBody": "QX-PROBE:ORIGINAL",
+      "safariReportedBody": "QX-PROBE:ORIGINAL",
+      "requestedReplacementApplied": false
+    },
+    {
+      "case": "empty-text",
+      "requestedProperty": "body",
+      "scriptInputBytes": 17,
+      "scriptRequestedBytes": 0,
+      "capturedBytes": 17,
+      "capturedBody": "QX-PROBE:ORIGINAL",
+      "safariReportedBody": "QX-PROBE:ORIGINAL",
+      "requestedReplacementApplied": false
+    }
+  ],
+  "conclusion": "On this tested setup, nonempty bodyBytes replacement works, while zero-length bodyBytes and empty body text leave the original response intact. Safari and the HTTP export agree, so an Analyzer-only artifact does not explain these controlled cases.",
+  "bootstrapImplication": "The response-stage bootstrap-empty mechanism cannot be accepted on this setup. This does not establish how YouTube would react to a genuine empty response.",
+  "limits": [
+    "Observed on the reported device/QX version and public text fixtures; not a claim about every QX version or content type.",
+    "Request-stage echo completion and native binary fetch forwarding remain unverified."
+  ],
+  "nextProbe": "tools/youtube-device/echo-probe/README.md",
+  "productionScriptChanges": "none"
+}
