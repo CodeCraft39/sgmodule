@@ -1,0 +1,15 @@
+syntax = "proto3";
+package youtube.request.init;
+
+// Reconstructed from the original 2026-07-12 bundle, not recovered Google source.
+// Only fields described by that bundle are declared. The runtime reader retains
+// unknown fields and never encodes or changes the original request bytes.
+message OnesieRequest {
+  EncryptedInnertubeRequest encrypted_innertube_request = 3;
+}
+message EncryptedInnertubeRequest {
+  bytes encrypted_onesie_innertube_request = 2;
+  bytes encrypted_client_key = 5;
+  bytes iv = 6;
+  bytes hmac = 7;
+}

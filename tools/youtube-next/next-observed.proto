@@ -1,0 +1,64 @@
+syntax = "proto2";
+package investigation.next_observed;
+
+// Partial capture reconstruction, not an official or complete InnerTube schema.
+// Field IDs and nesting are wire-verified on the supplied 2026-10-31 captures.
+// Top-level semantic names are corroborated by davidzeng0/innertube at
+// b04d48d000a84befa5d7b018553b04fa4f98ebd8. Generic names remain unresolved.
+// bytes deliberately retain opaque payloads; length-delimited wire format
+// alone cannot distinguish bytes, strings, or messages.
+message NextObserved {
+  optional bytes response_context = 1;
+  optional bytes tracking_params = 13;
+  optional OverlayEnvelope player_overlays = 14;
+  optional CompanionEnvelope companion_ads = 15;
+  optional bytes on_ui_ready = 26;
+  optional ImmersiveEnvelope below_player_immersive_layout = 42;
+  optional bool is_ad_playback = 47; // 1 in ALL three captures; never modified.
+  optional bytes framework_updates = 777;
+}
+message OverlayEnvelope { optional bytes field_62960614 = 62960614; }
+message CompanionEnvelope { optional CompanionBody field_361588638 = 361588638; }
+message CompanionBody { optional bytes field_1 = 1; optional CompanionItem field_2 = 2; }
+message CompanionItem { optional bytes element_renderer = 153515154; }
+
+message ImmersiveEnvelope { optional ImmersiveOuter field_357104971 = 357104971; }
+message ImmersiveOuter { optional bytes field_1 = 1; optional ImmersiveBody field_2 = 2; }
+message ImmersiveBody { optional ImmersiveTree field_361256913 = 361256913; }
+message ImmersiveTree { optional ImmersiveFrame field_1 = 1; }
+message ImmersiveFrame { optional ImmersiveView field_138681066 = 138681066; }
+message ImmersiveView {
+  optional bytes field_1 = 1;
+  optional bytes field_2 = 2;
+  optional SectionEnvelope field_3 = 3;
+  optional bytes field_4 = 4;
+  optional uint64 field_5 = 5; // only wire-type/scalar value, not semantics, verified
+  optional uint64 field_6 = 6;
+  optional bytes field_10 = 10;
+  optional uint64 field_13 = 13;
+  optional uint64 field_22 = 22;
+  optional uint64 field_36 = 36;
+  optional uint64 field_37 = 37;
+  optional bytes field_41 = 41;
+  optional bytes field_999 = 999;
+}
+message SectionEnvelope { optional SectionList section_list_renderer = 49399797; }
+message SectionList {
+  repeated SectionItem contents = 1;
+  optional bytes field_4 = 4;
+  optional uint64 field_37 = 37;
+  optional fixed64 field_38 = 38;
+}
+message SectionItem { optional ItemSection item_section_renderer = 50195462; }
+message ItemSection {
+  repeated Renderer contents = 1;
+  optional bytes field_4 = 4;
+  optional uint64 field_8 = 8;
+}
+message Renderer { optional Element element_renderer = 153515154; }
+message Element { optional ElementContent field_172660663 = 172660663; }
+message ElementContent { optional DataWrapper field_1 = 1; optional Properties field_2 = 2; }
+message DataWrapper { optional DataContext field_168777401 = 168777401; }
+message DataContext { optional bytes field_5 = 5; } // opaque data carrying /pagead/ URLs
+message Properties { optional IdentifierProperties identifier_properties = 183314536; }
+message IdentifierProperties { optional string identifier = 1; }

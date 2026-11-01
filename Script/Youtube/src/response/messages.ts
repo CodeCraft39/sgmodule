@@ -1,0 +1,326 @@
+// Recovered field shapes. Unknown fields are stored by the runtime symbol.
+export interface youtube_component_Label {
+  runs: youtube_component_Run[];
+}
+export interface youtube_component_Run {
+  text: string;
+}
+export interface youtube_component_ResponseContext {
+  serviceTrackingParams: youtube_component_ServiceTrackingParam[];
+}
+export interface youtube_component_ServiceTrackingParam {
+  service: number;
+  params: youtube_component_Param[];
+}
+export interface youtube_component_Param {
+  key: string;
+  value: string;
+}
+export interface youtube_response_browse_Browse {
+  responseContext?: youtube_component_ResponseContext;
+  content?: youtube_response_browse_Content;
+  onResponseReceivedAction?: youtube_response_browse_Content;
+}
+export interface youtube_response_browse_Content {
+  singleColumnResultsRenderer?: youtube_response_browse_SingleColumnResultsRenderer;
+  elementRenderer?: youtube_response_browse_ElementRenderer;
+  sectionListRenderer?: youtube_response_browse_SectionListRenderer;
+}
+export interface youtube_response_browse_SingleColumnResultsRenderer {
+  tabs: youtube_response_browse_BrowseTabSupportedRenderer[];
+}
+export interface youtube_response_browse_BrowseTabSupportedRenderer {
+  tabRenderer?: youtube_response_browse_TabRenderer;
+}
+export interface youtube_response_browse_TabRenderer {
+  content?: youtube_response_browse_Content;
+}
+export interface youtube_response_browse_SectionListRenderer {
+  sectionListSupportedRenderers: youtube_response_browse_SectionListSupportedRenderer[];
+}
+export interface youtube_response_browse_SectionListSupportedRenderer {
+  itemSectionRenderer?: youtube_response_browse_ItemSectionRenderer;
+  shelfRenderer?: youtube_response_browse_ShelfRenderer;
+  musicDescriptionShelfRenderer?: youtube_response_browse_MusicDescriptionShelfRenderer;
+}
+export interface youtube_response_browse_ItemSectionRenderer {
+  richItemContents: youtube_response_browse_RichItemContent[];
+}
+export interface youtube_response_browse_RichItemContent {
+  videoWithContextRenderer?: youtube_response_browse_ElementRenderer;
+}
+export interface youtube_response_browse_ElementRenderer {
+  videoRendererContent?: youtube_response_browse_VideoRendererContent;
+}
+export interface youtube_response_browse_VideoRendererContent {
+  videoInfo?: youtube_response_browse_VideoInfo;
+  renderInfo?: youtube_response_browse_RenderInfo;
+}
+export interface youtube_response_browse_VideoInfo {
+  videoContext?: youtube_response_browse_VideoContext;
+}
+export interface youtube_response_browse_VideoContext {
+  videoContent?: youtube_response_browse_VideoContent;
+}
+export interface youtube_response_browse_VideoContent {
+  timedLyricsRender?: youtube_response_browse_TimedLyricsRender;
+}
+export interface youtube_response_browse_TimedLyricsRender {
+  timedLyricsContent?: youtube_response_browse_TimedLyricsContent;
+}
+export interface youtube_response_browse_TimedLyricsContent {
+  runs: youtube_component_Run[];
+  footerLabel: string;
+}
+export interface youtube_response_browse_RenderInfo {
+  layoutRender?: youtube_response_browse_LayoutRender;
+}
+export interface youtube_response_browse_LayoutRender {
+  eml: string;
+}
+export interface youtube_response_browse_ShelfRenderer {
+  richSectionContent?: youtube_response_browse_RichSectionContent;
+}
+export interface youtube_response_browse_RichSectionContent {
+  reelShelfRenderer?: youtube_response_browse_ReelShelfRenderer;
+}
+export interface youtube_response_browse_ReelShelfRenderer {
+  richItemContents: youtube_response_browse_RichItemContent[];
+}
+export interface youtube_response_browse_MusicDescriptionShelfRenderer {
+  description?: youtube_component_Label;
+  footer?: youtube_component_Label;
+}
+export interface youtube_response_next_Next {
+  content?: youtube_response_next_Content;
+  onResponseReceivedAction?: youtube_response_browse_Content;
+}
+export interface youtube_response_next_Content {
+  nextResult?: youtube_response_next_NextResult;
+}
+export interface youtube_response_next_NextResult {
+  content?: youtube_response_browse_Content;
+}
+export interface youtube_response_search_Search {
+  content?: youtube_response_browse_Content;
+  onResponseReceivedCommand?: youtube_response_search_OnResponseReceivedCommand;
+}
+export interface youtube_response_search_OnResponseReceivedCommand {
+  itemSectionRenderer?: youtube_response_browse_ItemSectionRenderer;
+  appendContinuationItemsAction?: youtube_response_browse_SectionListRenderer;
+}
+export interface youtube_response_shorts_Shorts {
+  entries: youtube_response_shorts_Entry[];
+}
+export interface youtube_response_shorts_Entry {
+  command?: youtube_response_shorts_Command;
+}
+export interface youtube_response_shorts_Command {
+  reelWatchEndpoint?: youtube_response_shorts_ReelWatchEndpoint;
+}
+export interface youtube_response_shorts_ReelWatchEndpoint {
+  overlay?: youtube_response_shorts_Overlay;
+  adClientParams?: youtube_response_shorts_AdClientParams;
+}
+export interface youtube_response_shorts_AdClientParams {
+  isAd: boolean;
+}
+export interface youtube_response_shorts_Overlay {
+  reelPlayerOverlayRenderer?: youtube_response_shorts_ReelPlayerOverlayRenderer;
+}
+export interface youtube_response_shorts_ReelPlayerOverlayRenderer {
+  style: number;
+}
+export interface youtube_response_guide_Guide {
+  labelItems: youtube_response_guide_Item[];
+  iconItems: youtube_response_guide_Item[];
+}
+export interface youtube_response_guide_Item {
+  guideSectionRenderer?: youtube_response_guide_GuideSectionRenderer;
+}
+export interface youtube_response_guide_GuideSectionRenderer {
+  rendererItems: youtube_response_guide_RendererItem[];
+}
+export interface youtube_response_guide_RendererItem {
+  iconRender?: youtube_response_guide_guideEntryRenderer;
+  labelRender?: youtube_response_guide_guideEntryRenderer;
+}
+export interface youtube_response_guide_guideEntryRenderer {
+  browseId: string;
+}
+export interface youtube_response_player_Player {
+  adPlacements: youtube_response_player_AdPlacement[];
+  playabilityStatus?: youtube_response_player_PlayabilityStatus;
+  playbackTracking?: youtube_response_player_PlaybackTracking;
+  captions?: youtube_response_player_Captions;
+  adSlots: youtube_response_player_AdSlot[];
+}
+export interface youtube_response_player_AdPlacement {
+  adPlacementRenderer?: youtube_response_player_AdPlacementRenderer;
+}
+export interface youtube_response_player_AdPlacementRenderer {
+  params: string;
+}
+export interface youtube_response_player_PlayabilityStatus {
+  pictureInPictureRender?: youtube_response_player_PictureInPictureSupportedRenderer;
+  backgroundPlayerRender?: youtube_response_player_BackgroundSupportedRenderer;
+}
+export interface youtube_response_player_PictureInPictureSupportedRenderer {
+  pictureInPictureAbility?: youtube_response_player_PictureInPictureAbility;
+}
+export interface youtube_response_player_BackgroundSupportedRenderer {
+  backgroundAbility?: youtube_response_player_BackgroundAbility;
+}
+export interface youtube_response_player_PictureInPictureAbility {
+  active: boolean;
+  f4: number;
+  f6: number;
+  f8: number;
+}
+export interface youtube_response_player_BackgroundAbility {
+  active: boolean;
+}
+export interface youtube_response_player_PlaybackTracking {
+  videostatsPlaybackUrl?: youtube_response_player_Tracking;
+  videostatsDelayplayUrl?: youtube_response_player_Tracking;
+  videostatsWatchtimeUrl?: youtube_response_player_Tracking;
+  ptrackingUrl?: youtube_response_player_Tracking;
+  qoeUrl?: youtube_response_player_Tracking;
+  atrUrl?: youtube_response_player_Tracking;
+  videostatsEngageUrl?: youtube_response_player_Tracking;
+  pageadViewthroughconversion?: youtube_response_player_Tracking;
+}
+export interface youtube_response_player_Tracking {
+  baseUrl: string;
+}
+export interface youtube_response_player_Captions {
+  playerCaptionsTrackListRenderer?: youtube_response_player_PlayerCaptionsTrackListRenderer;
+}
+export interface youtube_response_player_PlayerCaptionsTrackListRenderer {
+  captionTracks: youtube_response_player_CaptionTrack[];
+  audioTracks: youtube_response_player_AudioTrack[];
+  translationLanguages: youtube_response_player_TranslationLanguage[];
+  defaultAudioTrackIndex?: number;
+  defaultCaptionTrackIndex?: number;
+}
+export interface youtube_response_player_CaptionTrack {
+  baseUrl: string;
+  name?: youtube_component_Label;
+  vssId: string;
+  languageCode: string;
+  kind?: string;
+  rtl?: boolean;
+  isTranslatable: boolean;
+}
+export interface youtube_response_player_AudioTrack {
+  captionTrackIndices: number[];
+  defaultCaptionTrackIndex?: number;
+  forcedCaptionTrackIndex?: number;
+  visibility?: number;
+  hasDefaultTrack?: boolean;
+  hasForcedTrack?: boolean;
+  audioTrackId?: string;
+  captionsInitialState?: number;
+}
+export interface youtube_response_player_TranslationLanguage {
+  languageCode: string;
+  languageName?: youtube_component_Label;
+}
+export interface youtube_response_player_AdSlot {
+  render?: youtube_response_player_AdSlot_Render;
+}
+export interface youtube_response_player_AdSlot_Render {
+
+}
+export interface youtube_response_setting_Setting {
+  settingItems: youtube_response_setting_SettingItem[];
+  collectionItems: youtube_response_setting_SettingItem[];
+}
+export interface youtube_response_setting_SettingItem {
+  backgroundPlayBackSettingRenderer?: youtube_response_setting_BackgroundPlayBackSettingRenderer;
+  settingCategoryCollectionRenderer?: youtube_response_setting_SettingCategoryCollectionRenderer;
+}
+export interface youtube_response_setting_BackgroundPlayBackSettingRenderer {
+  name?: youtube_component_Label;
+  backgroundPlayback: boolean;
+  download: boolean;
+  trackingParams: Uint8Array;
+  downloadQualitySelection: boolean;
+  smartDownload: boolean;
+  icon?: youtube_response_setting_Icon;
+}
+export interface youtube_response_setting_SettingCategoryCollectionRenderer {
+  name?: youtube_component_Label;
+  subSettings: youtube_response_setting_SubSetting[];
+  categoryId: number;
+  icon?: youtube_response_setting_Icon;
+}
+export interface youtube_response_setting_Icon {
+  iconType: number;
+}
+export interface youtube_response_setting_SubSetting {
+  settingBooleanRenderer?: youtube_response_setting_SettingBooleanRenderer;
+}
+export interface youtube_response_setting_SettingBooleanRenderer {
+  title?: youtube_component_Label;
+  description?: youtube_component_Label;
+  enableServiceEndpoint?: youtube_response_setting_ServiceEndpoint;
+  disableServiceEndpoint?: youtube_response_setting_ServiceEndpoint;
+  itemId: number;
+}
+export interface youtube_response_setting_ServiceEndpoint {
+  setClientSettingEndpoint?: youtube_response_setting_SetClientSettingEndpoint;
+}
+export interface youtube_response_setting_SetClientSettingEndpoint {
+  settingData?: youtube_response_setting_SettingData;
+}
+export interface youtube_response_setting_SettingData {
+  clientSettingEnum?: youtube_response_setting_ClientSettingEnum;
+  boolValue: boolean;
+}
+export interface youtube_response_setting_ClientSettingEnum {
+  item: number;
+}
+export interface youtube_response_watch_Watch {
+  contents: youtube_response_watch_Content[];
+}
+export interface youtube_response_watch_Content {
+  player?: youtube_response_player_Player;
+  next?: youtube_response_next_Next;
+}
+export interface youtube_response_config_Config {
+  responseContext?: youtube_response_config_ResponseContext;
+}
+export interface youtube_response_config_ResponseContext {
+  globalConfigGroup?: youtube_response_config_GlobalConfigGroup;
+}
+export interface youtube_response_config_GlobalConfigGroup {
+  coldConfigGroup?: youtube_response_config_ColdConfigGroup;
+  hotConfigGroup?: youtube_response_config_HotConfigGroup;
+  hotHashData?: string;
+  coldHashData?: string;
+}
+export interface youtube_response_config_ColdConfigGroup {
+
+}
+export interface youtube_response_config_HotConfigGroup {
+  mediaHotConfig?: youtube_response_config_MediaHotConfig;
+}
+export interface youtube_response_config_MediaHotConfig {
+  onesieHotConfig?: youtube_response_config_OnesieHotConfig;
+}
+export interface youtube_response_config_OnesieHotConfig {
+  clientKey: Uint8Array;
+  encryptKey: Uint8Array;
+  keyExpiresInSeconds: string;
+  useHotConfigToCreateOnesieRequest: boolean;
+}
+export interface youtube_ump_encrypted_EncryptedInnertubeResponsePart {
+  encryptedContent: Uint8Array;
+  hmac: Uint8Array;
+  iv: Uint8Array;
+  compressionAlgorithm: number;
+}
+export interface youtube_ump_encrypted_OnesieInnertubeResponse {
+  contents: youtube_response_watch_Content[];
+}

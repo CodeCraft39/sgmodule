@@ -1,0 +1,29 @@
+{
+  "messageTypes": 83,
+  "codecChecks": 332,
+  "behaviorChecks": 25,
+  "captures": [
+    {
+      "id": "20261031_204503",
+      "input": 10629,
+      "output": 10629
+    },
+    {
+      "id": "20261031_213054",
+      "input": 155475,
+      "output": 49267
+    },
+    {
+      "id": "20261031_213333",
+      "input": 132541,
+      "output": 49452
+    }
+  ],
+  "adBreak": "pass-through observation only",
+  "deviceValidation": "pending",
+  "typecheck": "passed",
+  "reproducibleBuild": true,
+  "auditRegressionGroups": 8,
+  "auditRegressionPassed": 8,
+  "scriptSha256": "5b1dca6282d277e4cdb6883257d4af082d5cb291417c1beea32f55924574cac1"
+}

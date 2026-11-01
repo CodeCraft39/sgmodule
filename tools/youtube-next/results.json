@@ -1,0 +1,158 @@
+{
+  "checks": 81,
+  "captures": [
+    {
+      "id": "20261031_204503",
+      "compressedBytes": 4137,
+      "inputBytes": 10629,
+      "inputSha256": "7d59382356fb6a7e79e960fa44fdc21be220d8d1c5bb2e9b47b9a7ffa8b41eb9",
+      "topFields": [
+        {
+          "no": 1,
+          "wire": 2,
+          "length": 3746
+        },
+        {
+          "no": 13,
+          "wire": 2,
+          "length": 33
+        },
+        {
+          "no": 14,
+          "wire": 2,
+          "length": 6695
+        },
+        {
+          "no": 47,
+          "wire": 0,
+          "length": 1
+        },
+        {
+          "no": 777,
+          "wire": 2,
+          "length": 140
+        }
+      ],
+      "removed": 0,
+      "outputBytes": 10629,
+      "outputSha256": "7d59382356fb6a7e79e960fa44fdc21be220d8d1c5bb2e9b47b9a7ffa8b41eb9",
+      "logs": [
+        "[QX-NEXT] removed=0 field42=false legacy=false bytes=10629->10629"
+      ],
+      "experimentalOutputBytes": 10629,
+      "experimentalRoundtripExact": true
+    },
+    {
+      "id": "20261031_213054",
+      "compressedBytes": 23840,
+      "inputBytes": 155475,
+      "inputSha256": "59fa27bd3e306697464e422f71c72e0404ac221d84764f7a863f6bc29b7579f5",
+      "topFields": [
+        {
+          "no": 1,
+          "wire": 2,
+          "length": 3746
+        },
+        {
+          "no": 13,
+          "wire": 2,
+          "length": 33
+        },
+        {
+          "no": 14,
+          "wire": 2,
+          "length": 6343
+        },
+        {
+          "no": 15,
+          "wire": 2,
+          "length": 16444
+        },
+        {
+          "no": 26,
+          "wire": 2,
+          "length": 67
+        },
+        {
+          "no": 42,
+          "wire": 2,
+          "length": 121561
+        },
+        {
+          "no": 47,
+          "wire": 0,
+          "length": 1
+        },
+        {
+          "no": 777,
+          "wire": 2,
+          "length": 7254
+        }
+      ],
+      "removed": 1,
+      "outputBytes": 49267,
+      "outputSha256": "9bca1f26931f7408d0815817866e3b994f3cc7b7f6847a2575fdc959f935b872",
+      "logs": [
+        "[QX-NEXT] removed=1 field42=true legacy=false bytes=155475->49267"
+      ],
+      "experimentalOutputBytes": 49267,
+      "experimentalRoundtripExact": false
+    },
+    {
+      "id": "20261031_213333",
+      "compressedBytes": 25146,
+      "inputBytes": 132541,
+      "inputSha256": "eeef1f39cdd6fc9bcea3812c3c6ae78f753c4e5d2f3c719a51ae8779c2110f12",
+      "topFields": [
+        {
+          "no": 1,
+          "wire": 2,
+          "length": 3746
+        },
+        {
+          "no": 13,
+          "wire": 2,
+          "length": 33
+        },
+        {
+          "no": 14,
+          "wire": 2,
+          "length": 6486
+        },
+        {
+          "no": 15,
+          "wire": 2,
+          "length": 16454
+        },
+        {
+          "no": 26,
+          "wire": 2,
+          "length": 67
+        },
+        {
+          "no": 42,
+          "wire": 2,
+          "length": 98474
+        },
+        {
+          "no": 47,
+          "wire": 0,
+          "length": 1
+        },
+        {
+          "no": 777,
+          "wire": 2,
+          "length": 7254
+        }
+      ],
+      "removed": 1,
+      "outputBytes": 49452,
+      "outputSha256": "32ebbacf63cf3fb5c9603decf4c52daed9410b02f0de4952cbf1000f27bf3bf7",
+      "logs": [
+        "[QX-NEXT] removed=1 field42=true legacy=false bytes=132541->49452"
+      ],
+      "experimentalOutputBytes": 49452,
+      "experimentalRoundtripExact": false
+    }
+  ]
+}

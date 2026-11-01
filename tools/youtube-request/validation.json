@@ -1,0 +1,15 @@
+{
+  "typecheck": "passed",
+  "testGroups": 16,
+  "passed": 16,
+  "decoderDifferentialVariants": 100,
+  "reproducibleBuild": true,
+  "fixtures": "synthetic plus pinned original bundle; no live initplayback capture",
+  "deviceValidation": "pending user testing on Quantumult X and Shadowrocket; Surge untested",
+  "tools": {
+    "node": "v22.21.1",
+    "typescript": "Version 5.9.3",
+    "esbuild": "0.25.12"
+  },
+  "scriptSha256": "46983ccbd968a1b24707202669bff0b5b145f5c06991e59e8b30f78215e6f519"
+}
