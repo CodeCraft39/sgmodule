@@ -5,6 +5,42 @@ The normal local mode retains .4 behavior. The experiment is disabled unless
 It has not passed a device test. Keep the .4 checkpoint as the known working
 post-refresh baseline.
 
+## 21:07 result: response-emptying experiment failed
+
+Stop this YouTube reset experiment and remove bootstrapRetry=true from the
+initplayback response URL. The normal local filtering path remains the baseline.
+Session 66 entered bootstrap-empty and requested 1,354,013 -> 0 bytes, but the
+HTTP export retains 1,354,013 bytes. Independent decryption with export 5 finds
+five placement entries and one ad slot still present. The user observed ads.
+Session 71 refreshed keys, but no later playback retry is captured.
+
+This fails native acceptance. It does not prove whether QX ignored the empty
+replacement or its analyzer exported original bytes for an empty output; the
+callback log alone cannot decide that. Use the isolated three-case
+[bytes probe](../youtube-device/bytes-probe/README.md) to compare nonempty bytes,
+empty bytes and empty text, including Safari's actual display. No new YouTube
+key export or reset is needed for that probe. The steps below are retained as
+investigation history, not instructions to repeat the failed trial.
+See [QX-20261101-210707.json](QX-20261101-210707.json).
+
+## 20:53 QX result and the next timing trial
+
+The preparation control succeeded, but log_event 11 refreshed keys before the
+first playback request (40). All seven playback responses authenticated, and
+five reported removing 87 placement entries, five slots and 15 rich items.
+Independent decryption verifies all 12 captured metadata blocks. There were no
+bootstrap-empty or missing-key logs. This validates early-key startup and normal
+filtering, not the empty-response/client-retry experiment. See
+[QX-20261101-205314.json](QX-20261101-205314.json).
+
+For the next trial, keep the same scripts and profile. Let YouTube finish normal
+startup and play/pause a video first. Leave the app running. Start a fresh capture,
+open prepare-bootstrap in Safari, then return to YouTube and immediately select
+a different video without force-quitting it. This changes the timing relative
+to startup telemetry; it does not guarantee that missing keys will precede a
+log_event refresh. Only a recorded bootstrap-empty plus an empty HTTP body and
+subsequent automatic playback can validate that path. Send the same three exports.
+
 ## Device steps
 
 1. Commit/push the rebuilt request/response scripts, updated

@@ -174,5 +174,6 @@
     "experimentOutputBytes": 0,
     "secondMissingKeyResponse": "pass-through; budget used",
     "nativeYouTubeRetry": "still requires device test"
-  }
+  },
+  "deviceFollowUp": "QX-20261101-210707.json: empty-response branch executed but failed native acceptance; no zero-byte response established. Disable this experiment pending the isolated completion probe."
 }

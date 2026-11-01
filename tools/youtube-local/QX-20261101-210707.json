@@ -1,0 +1,141 @@
+{
+  "archive": "2026-11-01-210707.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-210706.log",
+  "keyExport": "yt-local-capture 6.json",
+  "previousKeyExportUsedForDecryption": "yt-local-capture 5.json",
+  "client": "Quantumult X",
+  "build": "20261101.5",
+  "userObservation": "First video had no visible ads; after preparation, resumed paused video and immediately selected another video, where ads appeared",
+  "httpTransactions": 72,
+  "preparationResults": [
+    {
+      "session": 50,
+      "prepared": true
+    },
+    {
+      "session": 51,
+      "prepared": true
+    },
+    {
+      "session": 52,
+      "prepared": true
+    }
+  ],
+  "successfulFilteringBeforeReset": [
+    {
+      "session": 36,
+      "loggedInputBytes": 78782,
+      "loggedOutputBytes": 78512,
+      "capturedOutputMatches": true,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0
+    },
+    {
+      "session": 40,
+      "loggedInputBytes": 1921710,
+      "loggedOutputBytes": 1810857,
+      "capturedOutputMatches": true,
+      "adPlacementsRemoved": 4,
+      "adSlotsRemoved": 1
+    }
+  ],
+  "bootstrap": {
+    "session": 66,
+    "logAction": "bootstrap-empty",
+    "requestedOutputBytes": 0,
+    "capturedResponseBytes": 1354013,
+    "capturedResponseMatchesLoggedOriginalLength": true,
+    "originalHttpStatus": "HTTP/1.1 200 OK",
+    "metadataKeySource": "previous export 5; current export 6 contains a newer pair",
+    "capturedAdPlacements": 5,
+    "capturedAdSlots": 1,
+    "acceptance": "failed; zero-byte native response not established and ads were observed"
+  },
+  "configRefresh": {
+    "session": 71,
+    "persisted": true,
+    "serverKeysMatchFinalExport": true,
+    "changedFromPreviousExport": true
+  },
+  "playbackRequestsAfterBootstrap": [],
+  "independentMetadataVerification": [
+    {
+      "session": 36,
+      "keySource": "previous-export-5",
+      "capturedBytes": 78512,
+      "umpParts": 35,
+      "metadata": [
+        {
+          "part": 29,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacements": 0,
+          "adSlots": 0
+        }
+      ]
+    },
+    {
+      "session": 40,
+      "keySource": "previous-export-5",
+      "capturedBytes": 1810857,
+      "umpParts": 138,
+      "metadata": [
+        {
+          "part": 56,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacements": 0,
+          "adSlots": 0
+        },
+        {
+          "part": 137,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacements": 0,
+          "adSlots": 0
+        }
+      ]
+    },
+    {
+      "session": 66,
+      "keySource": "previous-export-5",
+      "capturedBytes": 1354013,
+      "umpParts": 126,
+      "metadata": [
+        {
+          "part": 58,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacements": 5,
+          "adSlots": 1
+        },
+        {
+          "part": 125,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacements": 0,
+          "adSlots": 0
+        }
+      ]
+    }
+  ],
+  "legacyWorkerRequestsCaptured": 0,
+  "conclusion": "The response-emptying experiment ran but failed native acceptance. Nonempty filtering still works; the captured missing-key response remains ad-bearing.",
+  "hypothesis": "QX may treat a zero-length bodyBytes replacement as no override. The HTTP Analyzer may instead retain the original body for this special case; this capture alone cannot distinguish those explanations.",
+  "nextStep": "Disable bootstrapRetry, stop prepare-bootstrap calls and run the isolated public bytes/text completion probe before another YouTube reset trial."
+}

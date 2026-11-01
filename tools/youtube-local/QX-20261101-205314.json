@@ -1,0 +1,314 @@
+{
+  "archive": "2026-11-01-205314.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-205314.log",
+  "keyExport": "yt-local-capture 5.json",
+  "client": "Quantumult X",
+  "build": "20261101.5",
+  "userObservation": "Videos played automatically without a manual retry",
+  "httpTransactions": 161,
+  "preparation": {
+    "session": 1,
+    "build": "capture-20261101.2",
+    "prepared": true,
+    "youtubeConfigCleared": true,
+    "bootstrapBudgetCleared": true
+  },
+  "configVerification": {
+    "configSession": 11,
+    "firstPlaybackSession": 40,
+    "clientKeyMatchesExport": true,
+    "encryptedKeyMatchesExport": true,
+    "initialConfigRequestOmitsHotHash": true,
+    "laterHeadersMatchServerHash": true,
+    "configPersistedBeforeFirstPlayback": true
+  },
+  "loggedPlayback": [
+    {
+      "verified": 1,
+      "updated": 1,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0,
+      "richItemsRemoved": 0,
+      "panelsRemoved": 0,
+      "session": 40,
+      "inputBytes": 39860,
+      "outputBytes": 39581
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 35,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 48,
+      "inputBytes": 1751430,
+      "outputBytes": 1519306
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 8,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 56,
+      "inputBytes": 2112792,
+      "outputBytes": 1732347
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 4,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 60,
+      "inputBytes": 1151553,
+      "outputBytes": 978442
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 5,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 63,
+      "inputBytes": 1211856,
+      "outputBytes": 974956
+    },
+    {
+      "verified": 1,
+      "updated": 1,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0,
+      "richItemsRemoved": 0,
+      "panelsRemoved": 0,
+      "session": 117,
+      "inputBytes": 113776,
+      "outputBytes": 113592
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 35,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 142,
+      "inputBytes": 1627752,
+      "outputBytes": 1471816
+    }
+  ],
+  "totals": {
+    "verified": 12,
+    "updated": 12,
+    "adPlacementsRemoved": 87,
+    "adSlotsRemoved": 5,
+    "richItemsRemoved": 15,
+    "panelsRemoved": 0
+  },
+  "independentWireVerification": [
+    {
+      "session": 40,
+      "capturedBytes": 39581,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 31,
+      "metadata": [
+        {
+          "part": 25,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 48,
+      "capturedBytes": 1519306,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 126,
+      "metadata": [
+        {
+          "part": 47,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 125,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 56,
+      "capturedBytes": 1732347,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 139,
+      "metadata": [
+        {
+          "part": 47,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 138,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 60,
+      "capturedBytes": 978442,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 125,
+      "metadata": [
+        {
+          "part": 57,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 124,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 63,
+      "capturedBytes": 974956,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 126,
+      "metadata": [
+        {
+          "part": 58,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 125,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 117,
+      "capturedBytes": 113592,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 34,
+      "metadata": [
+        {
+          "part": 28,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 142,
+      "capturedBytes": 1471816,
+      "keyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 128,
+      "metadata": [
+        {
+          "part": 58,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 127,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    }
+  ],
+  "legacyWorkerRequestsCaptured": 0,
+  "adBreakRequestsCaptured": 0,
+  "bootstrapExperiment": {
+    "bootstrapEmptyLogs": 0,
+    "bootstrapPassLogs": 0,
+    "missingKeyLogs": 0,
+    "exercised": false,
+    "reason": "Fresh configuration arrived before the first playback request; all seven playback requests matched the exported key.",
+    "nativeEmptyResponseAndRetry": "Not tested by this run"
+  },
+  "conclusion": "QX acquired keys before first playback and local filtering is confirmed; the empty-response retry experiment was not exercised.",
+  "limits": [
+    "Removal counts are Protobuf entries rather than distinct ads.",
+    "Captured HTTP output authenticates and Player placement/slot fields are empty; original pre-filter ciphertext is not in this export.",
+    "This run does not validate the missing-key empty-response branch or player/ad_break, Shadowrocket, or Surge."
+  ],
+  "nextControlledTrial": "Keep YouTube running after normal startup, pause playback, use the existing prepare-bootstrap action from Safari, then return and immediately select a different video. Check whether a missing-key response actually precedes config refresh; no new code is required for this timing trial."
+}

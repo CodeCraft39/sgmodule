@@ -1,5 +1,18 @@
 # Local playback test — Quantumult X and Shadowrocket
 
+The .5 bootstrap-empty branch failed native acceptance in the 21:07 trial:
+the script requested zero bytes, but the HTTP export retained the original
+ad-bearing response and the user saw ads. Disable bootstrapRetry and stop key
+reset trials. The next diagnostic is the isolated
+[bytes/text completion probe](../youtube-device/bytes-probe/README.md).
+[QX-20261101-210707.json](QX-20261101-210707.json) records the evidence and the
+remaining native-vs-analyzer ambiguity. Normal local filtering remains verified.
+
+The .5 QX run at 20:53 also confirms normal local filtering, with keys received
+before the first playback request. It did not exercise the empty-response retry
+branch. See [QX-20261101-205314.json](QX-20261101-205314.json) and the revised
+warm-app timing trial in [BOOTSTRAP-TEST.md](BOOTSTRAP-TEST.md).
+
 An opt-in bootstrap experiment is now available in build `20261101.5`.
 See [BOOTSTRAP-TEST.md](BOOTSTRAP-TEST.md) for the focused QX test and
 `quantumult-x.bootstrap.conf` for its five rules. Normal local mode keeps the
