@@ -1,0 +1,11 @@
+{
+  "typecheck": "passed",
+  "testGroups": 13,
+  "passed": 13,
+  "reproducibleBuild": true,
+  "profiles": "four generated profiles verified",
+  "productionCheckpoint": "7978e7b962b1fa31de795edf9e873e94bdcb45e2",
+  "productionFiles": "unchanged from checkpoint; existing production regression manifests still apply",
+  "deviceValidation": "pending; native profile loading/export/buffering must be tested on iPad",
+  "scriptSha256": "94d0458840fb718fc3ea4830d456484a272b4b23869a7114b5cce9cc81502981"
+}

@@ -1,0 +1,23 @@
+Capture date/time and timezone:
+iPadOS version:
+YouTube version: 21.32.4
+Quantumult X version: 1.8.1
+Shadowrocket version: 2.2.93
+
+Use the same account/network/video in both phases. Do not include an account email.
+Video title or URL:
+Network and proxy route used:
+
+QX worker-baseline: started / stalled / error; time to first picture; ad observed?
+QX direct-google: started / stalled / error; time to first picture; ad observed?
+QX direct observer disabled (only if needed):
+QX export JSON filenames:
+QX complete HTTP export filename:
+
+Shadowrocket worker-baseline: started / stalled / error; time to first picture; ad observed?
+Shadowrocket direct-google: started / stalled / error; time to first picture; ad observed?
+Shadowrocket direct observer disabled (only if needed):
+Shadowrocket export JSON filenames:
+Shadowrocket complete HTTP export filename:
+
+Capture/probe errors, skipped steps, or missing records:
