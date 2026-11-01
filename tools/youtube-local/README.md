@@ -1,8 +1,21 @@
 # Local playback test — Quantumult X and Shadowrocket
 
-Current request and response build: `20261101.4`. The previous QX run failed
-playback authentication because its cached keys were stale. The new snapshot
-confirms this; no further capability probe is needed.
+An opt-in bootstrap experiment is now available in build `20261101.5`.
+See [BOOTSTRAP-TEST.md](BOOTSTRAP-TEST.md) for the focused QX test and
+`quantumult-x.bootstrap.conf` for its five rules. Normal local mode keeps the
+validated .4 behavior; the experiment is not enabled by `quantumult-x.conf`.
+
+Validated request and response build: `20261101.4`. QX local playback filtering
+is device-verified after key refresh in the 18:16 run: five ad-bearing responses
+reported 84 placement entries, five slot entries and six rich items removed.
+Independent decryption verifies all 11 processed metadata blocks and empty
+placement/slot fields in the captured Player output. See
+[QX-20261101-181644.json](QX-20261101-181644.json).
+
+One startup response (session 36) passed through before fresh keys were available;
+this run does not prove filtering for that bootstrap case. No player/ad_break
+requests were captured. Shadowrocket and Surge local playback remain unverified.
+The earlier stale-key failure and its fix are recorded below.
 
 ## What to do on the iPhone
 
@@ -16,8 +29,9 @@ confirms this; no further capability probe is needed.
 3. Force-quit/reopen YouTube. Play a video that usually shows an ad. Note ads,
    startup, stalls, seeking and switching to another video.
 4. Copy the script record for `/initplayback`. Expect build
-   `response-compat-20261101.4`. First check `reason=config-refresh` on a
-   log_event request, then `event=config-refreshed persisted=true` on its response.
+   `response-compat-20261101.4`. If the cached keys need refreshing, check
+   `reason=config-refresh` on log_event, then
+   `event=config-refreshed persisted=true` on its response.
    Playback requests should reach `reason=key-match`. A successful response logs
    `action=local-body` and `verified` greater than zero. Ad removal additionally
    requires a positive `adPlacementsRemoved`, `adSlotsRemoved`, `richItemsRemoved`

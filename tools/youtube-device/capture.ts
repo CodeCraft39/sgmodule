@@ -4,8 +4,9 @@
 import {isQX} from '../../Script/Youtube/src/request/platform';
 import {sessionSuffix} from '../../Script/Youtube/src/request/diagnostics';
 import type {Host, Headers} from '../../Script/Youtube/src/request/types';
+import {BOOTSTRAP_STORE} from '../../Script/Youtube/src/response/bootstrap';
 
-export const BUILD = 'capture-20261101.1';
+export const BUILD = 'capture-20261101.2';
 export const STORE = 'YTLocalCapture.v1';
 const LIMIT = 32;
 type Status = 'pass' | 'failed' | 'unsupported' | 'unavailable' | 'timeout' | 'not-run';
@@ -198,10 +199,26 @@ export async function runCapture(host: ProbeHost): Promise<void> {
   const log = (value: string) => host.console.log(`[YT-CAPTURE ${BUILD}] ${value}`);
   try {
     const url = host.$request?.url ?? '';
-    const action = url.match(/^https:\/\/example\.com\/yt-local-capture\/(export|reset)(?:[?#]|$)/)?.[1];
+    const action = url.match(/^https:\/\/example\.com\/yt-local-capture\/(export|reset|prepare-bootstrap)(?:[?#]|$)/)?.[1];
     if (action) {
       if (host.$response || (host.$request?.method ?? 'GET').toUpperCase() !== 'GET') { done({}); return; }
-      if (action === 'reset') {
+      if (action === 'prepare-bootstrap') {
+        // Explicit device-test action. Preserve Music and all unrelated data.
+        // No snapshot reset and no key values are returned in this response.
+        let configCleared=false, budgetCleared=false;
+        try {
+          const config=record(JSON.parse(read(host,'YouTubeConfig')??'{}'));
+          delete config.youtube;
+          const budget=record(JSON.parse(read(host,BOOTSTRAP_STORE)??'{"version":1}'));
+          if (budget.version!==1) throw Error('unsupported-budget');
+          delete budget.youtube;
+          if (isQX(host)) {
+            configCleared=host.$prefs?.setValueForKey(JSON.stringify(config),'YouTubeConfig')===true;
+            budgetCleared=host.$prefs?.setValueForKey(JSON.stringify(budget),BOOTSTRAP_STORE)===true;
+          }
+        } catch { /* Report preparation failure; never expose private data. */ }
+        done(jsonResponse(host,{build:BUILD,prepared:configCleared&&budgetCleared,youtubeConfigCleared:configCleared,bootstrapBudgetCleared:budgetCleared},false));
+      } else if (action === 'reset') {
         let ok = false;
         try { ok = write(host, JSON.stringify({format:1, build:BUILD, observations:[]})); } catch { /* Export reset failure safely. */ }
         done(jsonResponse(host, {build:BUILD, reset:ok, scope:STORE}, false));

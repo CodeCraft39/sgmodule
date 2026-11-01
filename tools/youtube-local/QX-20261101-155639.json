@@ -183,5 +183,6 @@
     "publicKeyLifecycleGroups": 6,
     "privatePlaybackReplayGroups": 16,
     "status": "passed; device key refresh still requires testing"
-  }
+  },
+  "followUp": "QX-20261101-181644.json confirms key refresh and local playback filtering after the bootstrap response; this file records the original failed run."
 }

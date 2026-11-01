@@ -26,6 +26,8 @@
   "playbackUnitPassed": 8,
   "keyLifecycleGroups": 6,
   "keyLifecyclePassed": 6,
+  "bootstrapExperimentGroups": 7,
+  "bootstrapExperimentPassed": 7,
   "playbackReplayGroups": 16,
   "playbackReplayPassed": 16,
   "schemaGeneration": "verified",
@@ -37,5 +39,5 @@
   "reproducibleAcrossDependencyPaths": true,
   "auditRegressionGroups": 8,
   "auditRegressionPassed": 8,
-  "scriptSha256": "803982b9e8708f7dcc768a57e35441811d96db9b29c005d6190566697dda0d7c"
+  "scriptSha256": "e9fa095339643d9a80480179b7af31bc6f7ebcd3713f507eecb0c5c3c4a1310b"
 }

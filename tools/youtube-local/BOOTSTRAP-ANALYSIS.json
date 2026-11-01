@@ -1,0 +1,178 @@
+{
+  "capture": "2026-11-01-181644.zip",
+  "scope": "Startup-key investigation",
+  "earlyResponses": [
+    {
+      "session": 7,
+      "path": "/youtubei/v1/guide",
+      "decodedBytes": 8186,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 8,
+      "path": "/youtubei/v1/notification_registration/get_settings",
+      "decodedBytes": 5075,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 9,
+      "path": "/youtubei/v1/att/get",
+      "decodedBytes": 21478,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 10,
+      "path": "/youtubei/v1/att/get",
+      "decodedBytes": 20045,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 11,
+      "path": "/youtubei/v1/browse",
+      "decodedBytes": 151606,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        27,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 13,
+      "path": "/youtubei/v1/notification_registration/set_registration",
+      "decodedBytes": 3842,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 31,
+      "path": "/youtubei/v1/mdx/handoff",
+      "decodedBytes": 3842,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    },
+    {
+      "session": 34,
+      "path": "/youtubei/v1/browse",
+      "decodedBytes": 1009565,
+      "responseContextFields": [
+        6,
+        6,
+        6,
+        6,
+        7,
+        34
+      ],
+      "globalConfigGroups": 0,
+      "onesieKeyPairs": [],
+      "firstTokenPresentAnywhere": false
+    }
+  ],
+  "firstRecordedKeyResponse": {
+    "session": 42,
+    "path": "/youtubei/v1/log_event",
+    "decodedBytes": 32825,
+    "responseContextFields": [
+      16
+    ],
+    "globalConfigGroups": 1,
+    "onesieKeyPairs": [
+      {
+        "clientKeyBytes": 32,
+        "encryptedKeyBytes": 53,
+        "matchesFirstRequest": false
+      }
+    ],
+    "firstTokenPresentAnywhere": false
+  },
+  "originalMissingKeyPolicy": [
+    {
+      "client": "Shadowrocket",
+      "topLevelKeys": [
+        "response"
+      ],
+      "responseStatus": 200,
+      "bodyKind": "Uint8Array",
+      "bodyBytes": 0
+    },
+    {
+      "client": "QX",
+      "topLevelKeys": [
+        "response"
+      ],
+      "responseStatus": 200,
+      "bodyKind": "Uint8Array",
+      "bodyBytes": 0
+    }
+  ],
+  "productionBaseline": "20261101.4 verified after refresh",
+  "candidate": "20261101.5 bootstrapRetry=true; disabled by default",
+  "deviceRetry": "not validated",
+  "conclusion": "No earlier matching keys found. Test a limited response-emptying stimulus rather than assume automatic client retry.",
+  "actualSession36Replay": {
+    "inputBytes": 18178,
+    "normalMode": "pass-through",
+    "experimentOutputBytes": 0,
+    "secondMissingKeyResponse": "pass-through; budget used",
+    "nativeYouTubeRetry": "still requires device test"
+  }
+}

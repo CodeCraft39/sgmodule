@@ -81,6 +81,11 @@ lifecycle = run([a.node, 'tools/youtube-local/key-lifecycle.mjs', str(entry), st
 lifecycle_groups = int(re.search(r'^# tests (\d+)$', lifecycle, re.MULTILINE).group(1))
 assert lifecycle_groups == int(re.search(r'^# pass (\d+)$', lifecycle, re.MULTILINE).group(1))
 report.update(keyLifecycleGroups=lifecycle_groups, keyLifecyclePassed=lifecycle_groups)
+bootstrap = run([a.node, 'tools/youtube-local/bootstrap.mjs', str(entry), str(script)])
+(work / 'bootstrap.tap').write_text(bootstrap + '\n')
+bootstrap_groups = int(re.search(r'^# tests (\d+)$', bootstrap, re.MULTILINE).group(1))
+assert bootstrap_groups == int(re.search(r'^# pass (\d+)$', bootstrap, re.MULTILINE).group(1))
+report.update(bootstrapExperimentGroups=bootstrap_groups, bootstrapExperimentPassed=bootstrap_groups)
 if a.playback_captures:
     replay = run([a.node, 'tools/youtube-local/test.mjs', str(entry), str(script),
                   str(root / 'Script/Youtube/youtube.request.js'), str(a.playback_captures.resolve())])

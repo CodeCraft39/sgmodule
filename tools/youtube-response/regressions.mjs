@@ -160,7 +160,7 @@ test('routine diagnostics require debug; errors remain visible and correlated',(
  for(const client of ['qx','sr']){
   const quiet=run(response,'next',[],{},client);assert.equal(quiet.logs.length,0);
   const debug=run(response,'next',[],{},client,'ok',true);
-  assert(debug.logs.some(l=>l.includes('response-compat-20261101.4')&&l.includes('session=37')));
+  assert(debug.logs.some(l=>l.includes('response-compat-20261101.5')&&l.includes('session=37')));
   const adBreak=run(response,'player/ad_break',[0],{},client,'ok',true);
   assert.deepEqual(Object.keys(adBreak.result),[]);assert(adBreak.logs.some(l=>l.includes('unverified-ad-break-schema')));
  }

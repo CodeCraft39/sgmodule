@@ -12,8 +12,15 @@
     return typeof id === "number" || typeof id === "string" && /^[\w-]{1,80}$/.test(id) ? ` session=${id}` : "";
   }
 
+  // Script/Youtube/src/protobuf/onesie.ts
+  var MAX_PLAYBACK_BYTES = 8 * 1024 * 1024;
+  var MAX_METADATA_BYTES = 8 * 1024 * 1024;
+
+  // Script/Youtube/src/response/bootstrap.ts
+  var BOOTSTRAP_STORE = "YouTubeBootstrap.v1";
+
   // tools/youtube-device/capture.ts
-  var BUILD = "capture-20261101.1";
+  var BUILD = "capture-20261101.2";
   var STORE = "YTLocalCapture.v1";
   var LIMIT = 32;
   function record(value) {
@@ -213,13 +220,28 @@
     const log = (value) => host.console.log(`[YT-CAPTURE ${BUILD}] ${value}`);
     try {
       const url = host.$request?.url ?? "";
-      const action = url.match(/^https:\/\/example\.com\/yt-local-capture\/(export|reset)(?:[?#]|$)/)?.[1];
+      const action = url.match(/^https:\/\/example\.com\/yt-local-capture\/(export|reset|prepare-bootstrap)(?:[?#]|$)/)?.[1];
       if (action) {
         if (host.$response || (host.$request?.method ?? "GET").toUpperCase() !== "GET") {
           done({});
           return;
         }
-        if (action === "reset") {
+        if (action === "prepare-bootstrap") {
+          let configCleared = false, budgetCleared = false;
+          try {
+            const config = record(JSON.parse(read(host, "YouTubeConfig") ?? "{}"));
+            delete config.youtube;
+            const budget = record(JSON.parse(read(host, BOOTSTRAP_STORE) ?? '{"version":1}'));
+            if (budget.version !== 1) throw Error("unsupported-budget");
+            delete budget.youtube;
+            if (isQX(host)) {
+              configCleared = host.$prefs?.setValueForKey(JSON.stringify(config), "YouTubeConfig") === true;
+              budgetCleared = host.$prefs?.setValueForKey(JSON.stringify(budget), BOOTSTRAP_STORE) === true;
+            }
+          } catch {
+          }
+          done(jsonResponse(host, { build: BUILD, prepared: configCleared && budgetCleared, youtubeConfigCleared: configCleared, bootstrapBudgetCleared: budgetCleared }, false));
+        } else if (action === "reset") {
           let ok = false;
           try {
             ok = write(host, JSON.stringify({ format: 1, build: BUILD, observations: [] }));
@@ -242,7 +264,7 @@
       const caps = previous?.capabilities ?? await capabilities(host);
       const input = host.$response ?? host.$request;
       const headers = record(input?.headers);
-      const header = (name) => {
+      const header2 = (name) => {
         const key = Object.keys(headers).find((k) => k.toLowerCase() === name);
         return key && typeof headers[key] === "string" ? headers[key].slice(0, 256) : void 0;
       };
@@ -255,7 +277,7 @@
         session: sessionSuffix(host.$request).trim(),
         method: host.$request?.method ?? "unknown",
         body,
-        headers: { contentType: header("content-type"), contentEncoding: header("content-encoding"), contentLength: header("content-length") },
+        headers: { contentType: header2("content-type"), contentEncoding: header2("content-encoding"), contentLength: header2("content-length") },
         statusCode: host.$response?.statusCode,
         keys: privateConfig.keys,
         keyStatus: privateConfig.status,

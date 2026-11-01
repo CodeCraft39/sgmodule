@@ -13,3 +13,4 @@ export {replaceBytesFields} from '../../Script/Youtube/src/protobuf/edit';
 export {onesieProtocol} from '../../Script/Youtube/src/protobuf/onesie-schema';
 export {UnknownFields} from '../../Script/Youtube/src/protobuf/runtime';
 export {decodeOnesieRequest} from '../../Script/Youtube/src/request/protobuf';
+export {BOOTSTRAP_STORE, claimBootstrap, releaseBootstrap} from '../../Script/Youtube/src/response/bootstrap';

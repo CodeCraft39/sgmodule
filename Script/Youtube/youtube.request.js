@@ -1,7 +1,7 @@
 // Reconstructed Maasea request script. Source: src/request/. Device validation pending.
 (() => {
   // Script/Youtube/src/request/constants.ts
-  var BUILD = "request-compat-20261101.4";
+  var BUILD = "request-compat-20261101.5";
   var CONFIG_KEY = "YouTubeConfig";
   var WORKER_URL = "https://init-stream.maasea.workers.dev/";
 
@@ -205,7 +205,8 @@
         blockShorts: bool(values.blockShorts, false)
       },
       debug: bool(values.debug, false),
-      localPlayback: bool(values.localPlayback, false)
+      localPlayback: bool(values.localPlayback, false),
+      bootstrapRetry: bool(values.bootstrapRetry, false)
     };
   }
 

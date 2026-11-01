@@ -1,0 +1,284 @@
+{
+  "archive": "2026-11-01-181644.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-181644.log",
+  "keyExport": "yt-local-capture 4.json",
+  "client": "Quantumult X",
+  "build": "20261101.4",
+  "userObservation": "No visible ads during this test",
+  "httpTransactions": 116,
+  "legacyWorkerRequestsCaptured": 0,
+  "adBreakRequestsCaptured": 0,
+  "configCheck": {
+    "session": 42,
+    "decodedBytes": 32825,
+    "clientKeyMatchesExport": true,
+    "encryptedKeyMatchesExport": true,
+    "hotHashPresent": true,
+    "refreshRequestOmitsHotHash": true,
+    "laterHeadersMatchServerHash": true,
+    "pairChangedFromStaleExport": true
+  },
+  "loggedPlayback": [
+    {
+      "verified": 1,
+      "updated": 1,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0,
+      "richItemsRemoved": 0,
+      "panelsRemoved": 0,
+      "session": 43,
+      "inputBytes": 13070,
+      "outputBytes": 12862
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 35,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 2,
+      "panelsRemoved": 0,
+      "session": 46,
+      "inputBytes": 718942,
+      "outputBytes": 562300
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 8,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 1,
+      "panelsRemoved": 0,
+      "session": 53,
+      "inputBytes": 757298,
+      "outputBytes": 601616
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 20,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 1,
+      "panelsRemoved": 0,
+      "session": 63,
+      "inputBytes": 1015478,
+      "outputBytes": 820927
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 4,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 1,
+      "panelsRemoved": 0,
+      "session": 73,
+      "inputBytes": 1593197,
+      "outputBytes": 1454176
+    },
+    {
+      "verified": 2,
+      "updated": 2,
+      "adPlacementsRemoved": 17,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 1,
+      "panelsRemoved": 0,
+      "session": 84,
+      "inputBytes": 1213019,
+      "outputBytes": 1001180
+    }
+  ],
+  "totals": {
+    "verified": 11,
+    "updated": 11,
+    "adPlacementsRemoved": 84,
+    "adSlotsRemoved": 5,
+    "richItemsRemoved": 6,
+    "panelsRemoved": 0
+  },
+  "independentWireVerification": [
+    {
+      "session": 36,
+      "capturedBytes": 18178,
+      "requestKeyMatchesExport": false,
+      "requestAuthenticates": false,
+      "umpParts": 22,
+      "metadata": [
+        {
+          "part": 15,
+          "authenticated": false
+        }
+      ]
+    },
+    {
+      "session": 43,
+      "capturedBytes": 12862,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 9,
+      "metadata": [
+        {
+          "part": 4,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 46,
+      "capturedBytes": 562300,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 99,
+      "metadata": [
+        {
+          "part": 36,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 98,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 53,
+      "capturedBytes": 601616,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 123,
+      "metadata": [
+        {
+          "part": 60,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 122,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 63,
+      "capturedBytes": 820927,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 119,
+      "metadata": [
+        {
+          "part": 46,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 116,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 73,
+      "capturedBytes": 1454176,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 136,
+      "metadata": [
+        {
+          "part": 61,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 135,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    },
+    {
+      "session": 84,
+      "capturedBytes": 1001180,
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "umpParts": 121,
+      "metadata": [
+        {
+          "part": 53,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        },
+        {
+          "part": 120,
+          "authenticated": true,
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacementsRemaining": 0,
+          "adSlotsRemaining": 0
+        }
+      ]
+    }
+  ],
+  "conclusion": "Local playback ad removal confirmed after configuration refresh; all 11 processed captured metadata blocks authenticate and their Player ad-placement/ad-slot fields are empty.",
+  "bootstrapException": "Session 36 invalidated mismatched keys and passed its response through with key-missing before config refresh. Its metadata does not authenticate with the later exported key and was not filtered by this script.",
+  "limits": [
+    "Removal counts are Protobuf entries, not a count of distinct ads or videos.",
+    "HTTP bodies are post-script; logged before-removal counts are correlated with authenticated output, not independently recovered from original ciphertext.",
+    "This run does not validate cold-start filtering before key acquisition, player/ad_break handling, Shadowrocket or Surge.",
+    "Original media-frame preservation was proven in the offline replay; original pre-rewrite media bytes are not available for comparison in this device export."
+  ]
+}

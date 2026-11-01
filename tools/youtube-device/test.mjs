@@ -150,3 +150,23 @@ test('blocked WASM and random APIs are reported without blocking playback',async
  const c=JSON.parse(r.store[STORE]).observations[0].capabilities;
  assert.equal(c.wasm,'failed');assert.equal(c.randomValues,'failed');assert(!r.logs.join('').includes('restricted'));
 });
+
+test('explicit QX bootstrap preparation clears only YouTube keys and its suppression budget',async()=>{
+ const other={clientKey:'MUSIC-PRIVATE',encryptKey:'MUSIC-TOKEN'};
+ const store={YouTubeConfig:JSON.stringify({youtube:{clientKey:'YOUTUBE-PRIVATE'},youtubeMusic:other,metadata:{keep:true}}),
+  'YouTubeBootstrap.v1':JSON.stringify({version:1,youtube:true,youtubeMusic:true}),[STORE]:'retained-snapshot',otherPreference:'keep'};
+ const r=host({url:'https://example.com/yt-local-capture/prepare-bootstrap',store});r.h.$request.method='GET';await runCapture(r.h);
+ assert.equal(exported(r.done[0]).prepared,true);const after=JSON.parse(store.YouTubeConfig);
+ assert.equal(after.youtube,undefined);assert.deepEqual(after.youtubeMusic,other);assert.deepEqual(after.metadata,{keep:true});
+ assert.equal(JSON.parse(store['YouTubeBootstrap.v1']).youtube,undefined);assert.equal(JSON.parse(store['YouTubeBootstrap.v1']).youtubeMusic,true);
+ assert.equal(store[STORE],'retained-snapshot');assert.equal(store.otherPreference,'keep');assert.deepEqual(r.requests,[]);
+ assert(!JSON.stringify(r.done).includes('PRIVATE'));
+});
+test('bootstrap preparation requires explicit GET and reports storage failure without exposing keys',async()=>{
+ const url='https://example.com/yt-local-capture/prepare-bootstrap';
+ const post=await run({url});assert.deepEqual(Object.keys(post.done[0]),[]);assert.deepEqual(post.writes,[]);
+ for(const mode of ['throw','false']){
+  const r=host({url,mode});r.h.$request.method='GET';await runCapture(r.h);assert.equal(exported(r.done[0]).prepared,false);
+  assert.equal(r.store.YouTubeConfig,config);assert(!JSON.stringify(r.done).includes('PRIVATE'));
+ }
+});

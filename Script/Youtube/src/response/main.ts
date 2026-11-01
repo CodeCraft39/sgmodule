@@ -5,13 +5,14 @@ import {platformKey, endpoint as requestEndpoint} from '../request/core';
 import {decodeBase64} from '../request/base64';
 import {rewriteOnesie, OnesieError} from '../protobuf/onesie';
 import {webPlaybackRuntime, playbackDeadline} from '../protobuf/web-playback';
+import {claimBootstrap, releaseBootstrap} from './bootstrap';
 import type {WebPlaybackHost} from '../protobuf/web-playback';
 import {normalizeConfig} from '../request/config';
 import {sessionSuffix} from '../request/diagnostics';
-import type {Host} from '../request/types';
+import type {Host, Headers} from '../request/types';
 import type {AdCache, State} from './types';
 
-interface ResponseHost extends Host, WebPlaybackHost { $response?: {body?: unknown; bodyBytes?: unknown} }
+interface ResponseHost extends Host, WebPlaybackHost { $response?: {body?: unknown; bodyBytes?: unknown; statusCode?: number; headers?: Headers} }
 function emptyCache(): AdCache {
   return {whiteNo:[],blackNo:[],whiteEml:[],blackEml:['inline_injection_entrypoint_layout.eml'],dirty:false};
 }
@@ -31,7 +32,7 @@ export async function runResponse(host: ResponseHost): Promise<void> {
   const route = requestEndpoint(host.$request?.url ?? '') === 'initplayback' ? 'initplayback' :
     host.$request?.url.match(/^https?:\/\/[^/]+\/youtubei\/v1\/([^?#]+)/)?.[1] ?? 'other';
   const session = sessionSuffix(host.$request);
-  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261101.4] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
+  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261101.5] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
   try {
     const opts = options(host);
     const endpoint = endpointFor(route);
@@ -60,13 +61,30 @@ export async function runResponse(host: ResponseHost): Promise<void> {
     let output: Uint8Array | undefined, removed: number | undefined;
     if (local) {
       const cachedKey = state.config[platformKey(host.$request?.headers ?? {})]?.clientKey;
-      if (!cachedKey) throw new OnesieError('key-missing');
+      if (!cachedKey) {
+        if (opts.bootstrapRetry) {
+          const claim = claimBootstrap(host,platformKey(host.$request?.headers??{}),raw??{},body);
+          if (claim === 'claimed') {
+            log('bootstrap-empty',`reason=key-missing bytes=${body.length}->0`);
+            finish(qx ? {bodyBytes:new Uint8Array(0).buffer} : {body:new Uint8Array(0)}); return;
+          }
+          log('bootstrap-pass',`reason=${claim}`);
+        }
+        throw new OnesieError('key-missing');
+      }
+      let successfulMetadata = false;
       const result = await playbackDeadline(host,async () => {
         const runtime = await webPlaybackRuntime(host,decodeBase64(cachedKey));
-        return rewriteOnesie(body,runtime,plain => onesieEndpoint.process(plain,opts.worker,state,
-          platformKey(host.$request?.headers ?? {})).output);
+        return rewriteOnesie(body,runtime,plain => {
+          successfulMetadata = true;
+          return onesieEndpoint.process(plain,opts.worker,state,platformKey(host.$request?.headers??{})).output;
+        });
       });
       output = result.output;
+      if (opts.bootstrapRetry && successfulMetadata) {
+        const released = releaseBootstrap(host,platformKey(host.$request?.headers??{}));
+        if (released !== 'clear') log('bootstrap',`budget=${released}`);
+      }
       if (opts.debug) log(output?'local-body':'local-pass',`bytes=${body.length}->${output?.length??body.length} verified=${result.verified} updated=${result.changed} parts=${result.parts} adPlacementsRemoved=${state.filterStats!.adPlacements} adSlotsRemoved=${state.filterStats!.adSlots} richItemsRemoved=${state.filterStats!.richItems} panelsRemoved=${state.filterStats!.panels}`);
     } else {
       ({output, removed} = endpoint!.process(body, opts.worker, state, platformKey(host.$request?.headers ?? {})));
