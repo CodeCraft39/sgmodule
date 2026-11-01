@@ -22,6 +22,10 @@
   ],
   "adBreak": "pass-through observation only",
   "deviceValidation": "pending",
+  "playbackUnitGroups": 7,
+  "playbackUnitPassed": 7,
+  "playbackReplayGroups": 16,
+  "playbackReplayPassed": 16,
   "schemaGeneration": "verified",
   "runtimeDependency": "@protobuf-ts/runtime@2.11.1",
   "architectureTestGroups": 12,
@@ -31,5 +35,5 @@
   "reproducibleAcrossDependencyPaths": true,
   "auditRegressionGroups": 8,
   "auditRegressionPassed": 8,
-  "scriptSha256": "b84d1d07409f1bbc21b474c2d5bc5573ea0e44dbf1803bbdca9af834d936c367"
+  "scriptSha256": "3da0caa7a1a916e78435e42c1ac5854063e6a305e4bfe6e794ed896c9ef8770f"
 }

@@ -1,3 +1,8 @@
+Current opt-in local playback candidate: build `20261101.2`. See
+[../youtube-local/README.md](../youtube-local/README.md) for the short QX test steps
+and the authenticated capture results. The existing default profile below keeps
+the legacy Worker path; use the new local profile when testing server removal.
+
 # Paired YouTube script reconstruction
 
 Current builds: `request-compat-20261101.1` and `response-compat-20261101.1`.

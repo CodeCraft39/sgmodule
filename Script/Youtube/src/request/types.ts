@@ -8,7 +8,7 @@ export interface WorkerParams {
   blockImmersive: boolean;
   blockShorts: boolean;
 }
-export interface Options { worker: WorkerParams; debug: boolean }
+export interface Options { worker: WorkerParams; debug: boolean; localPlayback: boolean }
 export interface RequestInput {
   url: string;
   headers: Headers;

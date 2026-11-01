@@ -32,5 +32,6 @@ export function options(host: Host): Options {
       blockShorts: bool(values.blockShorts, false),
     },
     debug: bool(values.debug, false),
+    localPlayback: bool(values.localPlayback, false),
   };
 }

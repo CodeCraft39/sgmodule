@@ -1,3 +1,8 @@
+Build `request-compat-20261101.2` adds explicit `localPlayback=true` pass-through
+for initplayback. Use it with the rebuilt response script and the local profile
+in [../youtube-local/README.md](../youtube-local/README.md). Default behavior
+without that flag remains the legacy mode described below.
+
 # Request-script reconstruction and QX compatibility candidate
 
 Build `request-compat-20261101.1` shares generated schema definitions and a bounded

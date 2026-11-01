@@ -17,6 +17,25 @@ function varint(value: number): Uint8Array {
   return new Uint8Array(out);
 }
 
+// Replace existing unique bytes/message fields. Unknown siblings and the
+// original tag encodings remain exact. Cryptographic envelope edits must not
+// silently ignore a missing field or ambiguous duplicate.
+export function replaceBytesFields(bytes: Uint8Array, replacements: ReadonlyMap<number, Uint8Array>): Uint8Array {
+  const seen = new Set<number>(), parts: Uint8Array[] = [];
+  for (const field of readFields(bytes)) {
+    const value = replacements.get(field.no);
+    if (value === undefined) { parts.push(field.raw); continue; }
+    if (field.wire !== 2 || seen.has(field.no)) throw Error('protobuf-ambiguous-replacement');
+    seen.add(field.no);
+    parts.push(field.tag, varint(value.length), value);
+  }
+  if (seen.size !== replacements.size) throw Error('protobuf-missing-replacement');
+  const output = new Uint8Array(parts.reduce((n, part) => n + part.length, 0));
+  let p = 0;
+  for (const part of parts) { output.set(part, p); p += part.length; }
+  return output;
+}
+
 // Edit only matching length-delimited messages. Keep the original tag bytes,
 // all untouched fields and their ordering, including duplicates and groups.
 // A failed traversal throws before the caller can publish any partial output.

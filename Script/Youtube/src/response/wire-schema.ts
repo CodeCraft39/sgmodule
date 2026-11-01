@@ -5,6 +5,7 @@ export const wirePaths = {
   watchNext: [1, 3],
   rendererLayout: [153515154, 172660663, 2, 183314536, 1],
   rendererData: [153515154, 172660663, 1, 168777401, 5],
+  onesieNext: [4, 3],
 } as const;
 export const legacyNextFields = [7, 8] as const;
 export const endpointMessages = {

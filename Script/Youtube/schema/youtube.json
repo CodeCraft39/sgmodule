@@ -18,6 +18,13 @@
         "20261031_213333"
       ],
       "note": "The immersive view is used for lossless wire traversal. Optional edges express navigable structure, not established Google cardinality."
+    },
+    "capture-init-20261101": {
+      "archive": "2026-11-01-124630.zip",
+      "record": 12,
+      "decodedResponseBytes": 2004890,
+      "decodedResponseSha256": "88d46c67e1e71c4ca3064c7378d1ad72032277ed70e94f598a983d67af282fb2",
+      "note": "Request and both type-25 response blocks authenticate using the matching private session export. No private keys or payloads are committed."
     }
   },
   "enums": {
@@ -1557,6 +1564,33 @@
         "videoContext",
         "videoContent"
       ]
+    },
+    "onesieNext": {
+      "root": "youtube.ump.encrypted.OnesieInnertubeResponse",
+      "path": [
+        "contents",
+        "next"
+      ]
     }
+  },
+  "onesieProtocol": {
+    "evidence": "capture-init-20261101",
+    "parts": {
+      "header": 10,
+      "data": 11
+    },
+    "headerTypes": {
+      "encryptedResponsePart": 25
+    },
+    "headerFields": {
+      "type": 1
+    },
+    "statusFields": {
+      "proxyStatus": 1,
+      "httpStatus": 2
+    },
+    "okProxyStatus": 1,
+    "okHttpStatus": 200,
+    "encryptedMessage": "youtube.ump.encrypted.EncryptedInnertubeResponsePart"
   }
 }

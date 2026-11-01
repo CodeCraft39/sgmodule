@@ -16,6 +16,7 @@ for name in ['node', 'typescript', 'esbuild']:
     p.add_argument('--' + name, required=True)
 p.add_argument('--dependency-dir', type=Path, required=True)
 p.add_argument('--work-dir', type=Path, required=True)
+p.add_argument('--playback-captures', type=Path, help='Optional normalized private playback archive from tools/youtube-local/prepare.py')
 p.add_argument('--captures', type=Path, required=True, help='Output root of tools/youtube-next/prepare.py')
 a = p.parse_args()
 work = a.work_dir.resolve()
@@ -69,6 +70,19 @@ architecture_passed = int(re.search(r'^# pass (\d+)$', architecture, re.MULTILIN
 assert architecture_groups == architecture_passed
 file = root / 'tools/youtube-response/validation.json'
 report = json.loads(file.read_text())
+unit = run([a.node, 'tools/youtube-local/unit.mjs', str(entry)])
+(work / 'playback-unit.tap').write_text(unit + '\n')
+unit_groups = int(re.search(r'^# tests (\d+)$', unit, re.MULTILINE).group(1))
+assert unit_groups == int(re.search(r'^# pass (\d+)$', unit, re.MULTILINE).group(1))
+report.update(playbackUnitGroups=unit_groups, playbackUnitPassed=unit_groups)
+if a.playback_captures:
+    replay = run([a.node, 'tools/youtube-local/test.mjs', str(entry), str(script),
+                  str(root / 'Script/Youtube/youtube.request.js'), str(a.playback_captures.resolve())])
+    (work / 'playback-replay.tap').write_text(replay + '\n')
+    replay_groups = int(re.search(r'^# tests (\d+)$', replay, re.MULTILINE).group(1))
+    assert replay_groups == int(re.search(r'^# pass (\d+)$', replay, re.MULTILINE).group(1))
+    report.update(playbackReplayGroups=replay_groups, playbackReplayPassed=replay_groups)
+
 report.update(schemaGeneration='verified', runtimeDependency='@protobuf-ts/runtime@2.11.1', architectureTestGroups=architecture_groups, architecturePassed=architecture_passed, typecheck='passed', reproducibleBuild=True, reproducibleAcrossDependencyPaths=True, auditRegressionGroups=groups,
               auditRegressionPassed=passed, scriptSha256=hashlib.sha256(script.read_bytes()).hexdigest())
 file.write_text(json.dumps(report, indent=2) + '\n')

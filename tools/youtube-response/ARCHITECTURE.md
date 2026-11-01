@@ -1,3 +1,8 @@
+> Local playback extension (build 20261101.2): see [../youtube-local/README.md](../youtube-local/README.md).
+> The generated set now has eight artifacts, including protocol constants in
+> src/protobuf/onesie-schema.ts. Onesie code uses native crypto/compression and
+> reuses the same typed handlers. The chronology below records the preceding refactor.
+
 # Maintained YouTube source architecture
 
 Refactor dated 1 November 2026, following checkpoint `f77e408`. Device tests were

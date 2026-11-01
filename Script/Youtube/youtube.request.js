@@ -1,7 +1,7 @@
 // Reconstructed Maasea request script. Source: src/request/. Device validation pending.
 (() => {
   // Script/Youtube/src/request/constants.ts
-  var BUILD = "request-compat-20261101.1";
+  var BUILD = "request-compat-20261101.2";
   var CONFIG_KEY = "YouTubeConfig";
   var WORKER_URL = "https://init-stream.maasea.workers.dev/";
 
@@ -200,7 +200,8 @@
         blockImmersive: bool(values.blockImmersive, true),
         blockShorts: bool(values.blockShorts, false)
       },
-      debug: bool(values.debug, false)
+      debug: bool(values.debug, false),
+      localPlayback: bool(values.localPlayback, false)
     };
   }
 
@@ -268,6 +269,11 @@
         return;
       }
       const opts = options(host);
+      if (route === "initplayback" && opts.localPlayback) {
+        if (opts.debug) log(`endpoint=initplayback action=pass reason=local-playback${sessionText}`);
+        finish({});
+        return;
+      }
       stage = "config";
       const raw = qx ? host.$prefs?.valueForKey(CONFIG_KEY) : host.$persistentStore?.read(CONFIG_KEY);
       const config = loadConfig(raw);

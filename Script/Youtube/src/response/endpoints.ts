@@ -10,7 +10,7 @@ type Route = keyof typeof endpointMessages;
 interface Result { output?: Uint8Array; removed?: number }
 interface Endpoint { process(body: Uint8Array, params: WorkerParams, state: State, key: PlatformKey): Result }
 type Handler<T> = (message: T, params: WorkerParams, state: State, key: PlatformKey) => boolean;
-function bind<T extends object>(codec: IMessageType<T>, handler: Handler<T>, container?: 'next' | 'watch'): Endpoint {
+function bind<T extends object>(codec: IMessageType<T>, handler: Handler<T>, container?: 'next' | 'watch' | 'onesie'): Endpoint {
   return {process(body, params, state, key) {
     const wire = container ? filterImmersivePanels(body, container) : undefined;
     // The immersive schema is a lossless wire view of modern Next. Decode the
@@ -38,3 +38,6 @@ const endpoints = {
 export function endpointFor(route: string): Endpoint | undefined {
   return Object.prototype.hasOwnProperty.call(endpoints, route) ? endpoints[route as Route] : undefined;
 }
+
+export const onesieEndpoint: Endpoint = bind(messages['youtube.ump.encrypted.OnesieInnertubeResponse'],
+  (message, params, state) => processWatch({contents:message.contents}, params, state), 'onesie');

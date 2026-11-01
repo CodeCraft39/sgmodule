@@ -1,0 +1,67 @@
+{
+  "archive": "2026-11-01-124630.zip",
+  "requestBytes": 6291,
+  "requestKeyMatch": true,
+  "requestAuthentication": "passed",
+  "responseWireBytes": 2005864,
+  "responseDecodedBytes": 2004890,
+  "responseSha256": "88d46c67e1e71c4ca3064c7378d1ad72032277ed70e94f598a983d67af282fb2",
+  "umpParts": 140,
+  "verifiedBlocks": 2,
+  "modifiedBlocks": 2,
+  "outputBytes": 1876067,
+  "metadata": [
+    {
+      "part": 55,
+      "before": 358300,
+      "after": 76455,
+      "beforeCounts": {
+        "players": 1,
+        "nexts": 0,
+        "adPlacements": 5,
+        "adSlots": 1
+      },
+      "afterCounts": {
+        "players": 1,
+        "nexts": 0,
+        "adPlacements": 0,
+        "adSlots": 0
+      }
+    },
+    {
+      "part": 139,
+      "before": 1205827,
+      "after": 1041953,
+      "beforeCounts": {
+        "players": 0,
+        "nexts": 1,
+        "adPlacements": 0,
+        "adSlots": 0
+      },
+      "afterCounts": {
+        "players": 0,
+        "nexts": 1,
+        "adPlacements": 0,
+        "adSlots": 0
+      }
+    }
+  ],
+  "unknownFieldValues": "preserved in filtered message round trips",
+  "mediaAndOtherFrames": "byte-exact",
+  "next": [
+    {
+      "record": "15",
+      "input": 12160,
+      "output": 12160,
+      "removed": 0
+    },
+    {
+      "record": "16",
+      "input": 266475,
+      "output": 202476,
+      "removed": 1
+    }
+  ],
+  "actualDeviceFiltering": "pending user validation; crypto/compression capability probe already passed on QX",
+  "shadowrocketSurge": "legacy mode regression-tested offline; local native capability/device checks pending"
+}

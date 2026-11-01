@@ -144,6 +144,15 @@ def generate(source):
         assert data['message'] in by_name
         paths.append(f'  {json.dumps(route)}: {json.dumps(data["message"])},')
     paths.append('} as const;')
+    protocol = dict(source['onesieProtocol'])
+    assert protocol.pop('evidence') in source['evidence']
+    encrypted = by_name[protocol.pop('encryptedMessage')]
+    protocol['encryptedFields'] = {f['name']: f['no'] for f in encrypted['fields']}
+    for group in ['parts', 'headerTypes']:
+        assert all(isinstance(n, int) and 0 <= n < 2**32 for n in protocol[group].values())
+    for group in ['headerFields', 'statusFields', 'encryptedFields']:
+        assert all(isinstance(n, int) and 0 < n < 2**29 for n in protocol[group].values())
+    protocol_source = banner + 'export const onesieProtocol = ' + json.dumps(protocol, indent=2) + ' as const;\n'
     request_fields = [banner, 'export const requestFields = {']
     for m in source['requestMessages']:
         request_fields.append(f'  {m["name"].split(".")[-1]}: ' + '{' + ', '.join(f'{f["name"]}: {f["no"]}' for f in m['fields']) + '},')
@@ -174,6 +183,7 @@ def generate(source):
         'Script/Youtube/src/request/messages.ts': '\n'.join(request_shapes) + '\n',
         'Script/Youtube/src/response/schema.ts': '\n'.join(codecs) + '\n',
         'Script/Youtube/src/response/wire-schema.ts': '\n'.join(paths) + '\n',
+        'Script/Youtube/src/protobuf/onesie-schema.ts': protocol_source,
         'Script/Youtube/src/request/schema.ts': '\n'.join(request_fields) + '\n',
         'Script/Youtube/schema/response.proto': '\n'.join(proto) + '\n',
         'Script/Youtube/schema/onesie-request.proto': '\n'.join(onesie) + '\n',

@@ -36,6 +36,10 @@ export function run(host: Host): void {
   try {
     if (!request || route === 'other') { finish({}); return; }
     const opts = options(host);
+    if (route === 'initplayback' && opts.localPlayback) {
+      if (opts.debug) log(`endpoint=initplayback action=pass reason=local-playback${sessionText}`);
+      finish({}); return;
+    }
     stage = 'config';
     const raw = qx ? host.$prefs?.valueForKey(CONFIG_KEY) : host.$persistentStore?.read(CONFIG_KEY);
     const config = loadConfig(raw);
