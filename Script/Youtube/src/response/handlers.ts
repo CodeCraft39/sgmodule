@@ -3,7 +3,7 @@ import {messages} from './schema';
 import {UnknownFields, encodeBase64} from '../protobuf/runtime';
 import {visitType} from '../protobuf/visit';
 import type * as M from './messages';
-import type {AdCache, State, UnknownField} from './types';
+import type {AdCache, State, UnknownField, FilterStats} from './types';
 import type {PlatformKey, WorkerParams} from '../request/types';
 
 const itemSection = messages['youtube.response.browse.ItemSectionRenderer'];
@@ -44,19 +44,21 @@ function rendererIsAd(item: M.youtube_response_browse_RichItemContent, cache: Ad
   });
   return ad;
 }
-export function filterRichItems<T extends object>(message: T, codec: IMessageType<T>, cache: AdCache): boolean {
+export function filterRichItems<T extends object>(message: T, codec: IMessageType<T>, cache: AdCache, stats?: FilterStats): boolean {
   let changed = false;
   visitType(message, codec, itemSection, node => {
     const items = node.richItemContents;
     for (let i = items.length - 1; i >= 0; i--) if (rendererIsAd(items[i], cache)) {
       items.splice(i, 1); changed = true;
+      if (stats) stats.richItems++;
     }
   });
   return changed;
 }
 const languages = {de:'Deutsch',ru:'Русский',fr:'Français',fil:'Filipino',ko:'한국어',ja:'日本語',en:'English',vi:'Tiếng Việt',
   'zh-Hant':'中文（繁體）','zh-Hans':'中文（简体）',und:'@VirgilClyne'};
-export function processPlayer(message: M.youtube_response_player_Player, captionLang: string): void {
+export function processPlayer(message: M.youtube_response_player_Player, captionLang: string, stats?: FilterStats): void {
+  if (stats) { stats.adPlacements += message.adPlacements.length; stats.adSlots += message.adSlots.length; }
   message.adPlacements.length = 0;
   message.adSlots.length = 0;
   if (message.playbackTracking) delete message.playbackTracking.pageadViewthroughconversion;
@@ -124,17 +126,21 @@ export function processSettings(message: M.youtube_response_setting_Setting): bo
 export function processWatch(message: M.youtube_response_watch_Watch, params: WorkerParams, state: State): boolean {
   let changed = false;
   for (const item of message.contents) {
-    if (item.player) { processPlayer(item.player, params.captionLang); changed = true; }
-    if (item.next) changed = filterRichItems(item.next, messages['youtube.response.next.Next'], state.adCache) || changed;
+    if (item.player) { processPlayer(item.player, params.captionLang, state.filterStats); changed = true; }
+    if (item.next) changed = filterRichItems(item.next, messages['youtube.response.next.Next'], state.adCache, state.filterStats) || changed;
   }
   return changed;
 }
 export function processConfig(message: M.youtube_response_config_Config, state: State, key: PlatformKey): boolean {
-  const cfg = message.responseContext?.globalConfigGroup?.hotConfigGroup?.mediaHotConfig?.onesieHotConfig;
+  const group = message.responseContext?.globalConfigGroup;
+  const cfg = group?.hotConfigGroup?.mediaHotConfig?.onesieHotConfig;
   if (cfg?.clientKey.length && cfg.encryptKey.length) {
-    const next = {clientKey:encodeBase64(cfg.clientKey),encryptKey:encodeBase64(cfg.encryptKey)};
+    if (state.localPlayback && cfg.clientKey.length !== 32) return false;
+    const next = {clientKey:encodeBase64(cfg.clientKey),encryptKey:encodeBase64(cfg.encryptKey),
+      ...(state.localPlayback && group?.hotHashData ? {hotHashData:group.hotHashData} : {})};
     const current = state.config[key];
-    if (current?.clientKey !== next.clientKey || current.encryptKey !== next.encryptKey) state.config[key] = next;
+    if (current?.clientKey !== next.clientKey || current?.encryptKey !== next.encryptKey ||
+        state.localPlayback && current?.hotHashData !== next.hotHashData) state.config[key] = next;
   }
   return false;
 }

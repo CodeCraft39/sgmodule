@@ -31,7 +31,7 @@ export async function runResponse(host: ResponseHost): Promise<void> {
   const route = requestEndpoint(host.$request?.url ?? '') === 'initplayback' ? 'initplayback' :
     host.$request?.url.match(/^https?:\/\/[^/]+\/youtubei\/v1\/([^?#]+)/)?.[1] ?? 'other';
   const session = sessionSuffix(host.$request);
-  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261101.2] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
+  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261101.4] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
   try {
     const opts = options(host);
     const endpoint = endpointFor(route);
@@ -54,7 +54,8 @@ export async function runResponse(host: ResponseHost): Promise<void> {
     const loadedConfig: unknown = load('YouTubeConfig');
     const config = normalizeConfig(loadedConfig);
     if (JSON.stringify(config) !== JSON.stringify(loadedConfig)) log('recover','event=cache-invalid-shape key=YouTubeConfig');
-    const state: State = {adCache:adCache ?? emptyCache(),config};
+    const state: State = {adCache:adCache ?? emptyCache(),config,localPlayback:opts.localPlayback,
+      ...(local ? {filterStats:{adPlacements:0,adSlots:0,richItems:0,panels:0}} : {})};
     const beforeConfig = JSON.stringify(state.config);
     let output: Uint8Array | undefined, removed: number | undefined;
     if (local) {
@@ -66,7 +67,7 @@ export async function runResponse(host: ResponseHost): Promise<void> {
           platformKey(host.$request?.headers ?? {})).output);
       });
       output = result.output;
-      if (opts.debug) log(output?'local-body':'local-pass',`bytes=${body.length}->${output?.length??body.length} verified=${result.verified} updated=${result.changed} parts=${result.parts}`);
+      if (opts.debug) log(output?'local-body':'local-pass',`bytes=${body.length}->${output?.length??body.length} verified=${result.verified} updated=${result.changed} parts=${result.parts} adPlacementsRemoved=${state.filterStats!.adPlacements} adSlotsRemoved=${state.filterStats!.adSlots} richItemsRemoved=${state.filterStats!.richItems} panelsRemoved=${state.filterStats!.panels}`);
     } else {
       ({output, removed} = endpoint!.process(body, opts.worker, state, platformKey(host.$request?.headers ?? {})));
     }
@@ -74,15 +75,25 @@ export async function runResponse(host: ResponseHost): Promise<void> {
       try {
         const text = JSON.stringify(value);
         const ok = qx ? host.$prefs?.setValueForKey(text,key) : host.$persistentStore?.write(text,key);
-        if (ok === false || (qx && ok === undefined)) log('persist','event=storage-write-failed key='+key);
-      } catch { log('persist','event=storage-write-failed key='+key); }
+        if (ok === false || (qx && ok === undefined)) {
+          log('persist','event=storage-write-failed key='+key); return false;
+        }
+        return true;
+      } catch { log('persist','event=storage-write-failed key='+key); return false; }
     };
-    if (state.adCache.dirty || JSON.stringify(state.config) !== beforeConfig) {
+    const configChanged = JSON.stringify(state.config) !== beforeConfig;
+    if (state.adCache.dirty || configChanged) {
       if (state.adCache.dirty) {
         const {dirty, ...cache} = state.adCache;
         save('YouTubeAdvertiseInfo',{version:'1.0',...cache});
       }
-      save('YouTubeConfig',state.config);
+      // Awaited playback processing must not overwrite keys refreshed by a
+      // concurrent config/log_event response with its unchanged old snapshot.
+      if (!opts.localPlayback || configChanged) {
+        const persisted = save('YouTubeConfig',state.config);
+        if (opts.debug && opts.localPlayback && configChanged)
+          log('keys',`event=config-refreshed persisted=${persisted} hashBound=${!!state.config[platformKey(host.$request?.headers??{})]?.hotHashData}`);
+      }
     }
     if (opts.debug && !local) log(output?'body':'pass',`bytes=${body.length}->${output?.length??body.length} removed=${removed??'legacy'}`);
     if (!output) finish({});

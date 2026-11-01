@@ -1,7 +1,7 @@
 // Reconstructed Maasea request script. Source: src/request/. Device validation pending.
 (() => {
   // Script/Youtube/src/request/constants.ts
-  var BUILD = "request-compat-20261101.2";
+  var BUILD = "request-compat-20261101.4";
   var CONFIG_KEY = "YouTubeConfig";
   var WORKER_URL = "https://init-stream.maasea.workers.dev/";
 
@@ -146,13 +146,16 @@
     if (route === "other") return { ...base, action: "pass", reason: "unhandled-endpoint" };
     const cached = config[key];
     if (route === "log_event") {
+      const needsConfig = input.localPlayback ? !(cached?.clientKey && cached.encryptKey && cached.hotHashData && cached.hotHashData === header(input.headers, "x-youtube-hot-hash-data")) : !cached?.clientKey;
       const headers = { ...input.headers };
       for (const name of Object.keys(headers)) {
         const lower = name.toLowerCase();
-        if (lower === "content-encoding" && !input.preserveBodyEncoding || !cached?.clientKey && lower === "x-youtube-hot-hash-data") delete headers[name];
+        if (lower === "content-encoding" && !input.preserveBodyEncoding || needsConfig && lower === "x-youtube-hot-hash-data") delete headers[name];
       }
-      return { ...base, action: "headers", reason: cached?.clientKey ? "cache-present" : "cache-missing", headers };
+      return { ...base, action: "headers", reason: input.localPlayback ? needsConfig ? "config-refresh" : "cache-validated" : cached?.clientKey ? "cache-present" : "cache-missing", headers };
     }
+    if (input.localPlayback && input.bodyBytes === void 0)
+      return { ...base, action: "pass", reason: "body-unavailable" };
     let reason = "cache-missing";
     if (cached?.clientKey && cached.encryptKey) {
       reason = "body-unavailable";
@@ -160,6 +163,7 @@
         const requestKey = decodeOnesieRequest(input.bodyBytes).encryptedInnertubeRequest?.encryptedClientKey;
         const cacheKey = decodeBase64(cached.encryptKey);
         if (requestKey && requestKey.length === cacheKey.length && requestKey.every((v, i) => v === cacheKey[i])) {
+          if (input.localPlayback) return { ...base, action: "pass", reason: "key-match" };
           return { ...base, action: "redirect", reason: "key-match", redirectUrl: workerUrl(cached.clientKey, input.url, input.params) };
         }
         reason = "key-mismatch";
@@ -167,7 +171,7 @@
     }
     const changed = !!cached, updated = { ...config };
     if (changed) delete updated[key];
-    return { ...base, action: "empty", reason, changed, config: changed ? updated : config };
+    return { ...base, action: input.localPlayback ? "pass" : "empty", reason, changed, config: changed ? updated : config };
   }
 
   // Script/Youtube/src/request/options.ts
@@ -263,17 +267,14 @@
     const route = endpoint(request?.url ?? "");
     const sessionText = sessionSuffix(request);
     let stage = "arguments";
+    let local = false;
     try {
       if (!request || route === "other") {
         finish({});
         return;
       }
       const opts = options(host);
-      if (route === "initplayback" && opts.localPlayback) {
-        if (opts.debug) log(`endpoint=initplayback action=pass reason=local-playback${sessionText}`);
-        finish({});
-        return;
-      }
+      local = opts.localPlayback;
       stage = "config";
       const raw = qx ? host.$prefs?.valueForKey(CONFIG_KEY) : host.$persistentStore?.read(CONFIG_KEY);
       const config = loadConfig(raw);
@@ -286,7 +287,8 @@
         bodyBytes: body,
         config,
         params: opts.worker,
-        preserveBodyEncoding: qx
+        preserveBodyEncoding: qx || local,
+        localPlayback: local
       });
       let persisted = "not-needed";
       if (decision.changed) {
@@ -300,12 +302,13 @@
       }
       if (persisted === "failed") log(`endpoint=${route} event=storage-write-failed${sessionText}`);
       if (opts.debug) {
-        log(`endpoint=${route} action=${decision.action} reason=${decision.reason} bodyBytes=${body?.length ?? "unavailable"} cache=${persisted}${sessionText}`);
+        log(`endpoint=${route} action=${decision.action} reason=${decision.reason} bodyBytes=${body?.length ?? "unavailable"} cache=${persisted}${local ? " mode=local" : ""}${sessionText}`);
         log(`output=${qx && decision.action === "redirect" ? "http-307" : decision.action} binary=${body !== void 0}${sessionText}`);
       }
       finish(completion(decision, qx));
     } catch {
-      log(`endpoint=${route} action=${qx && route === "initplayback" ? "empty" : "pass"} reason=processing-error stage=${stage}${sessionText}`);
+      const echo = qx && route === "initplayback" && !local;
+      log(`endpoint=${route} action=${echo ? "empty" : "pass"} reason=processing-error stage=${stage}${sessionText}`);
       const fallback = {
         action: "empty",
         reason: "processing-error",
@@ -313,7 +316,7 @@
         config: {},
         changed: false
       };
-      finish(qx && route === "initplayback" ? completion(fallback, true) : {});
+      finish(echo ? completion(fallback, true) : {});
     }
   }
 

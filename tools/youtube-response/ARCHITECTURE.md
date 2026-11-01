@@ -1,4 +1,4 @@
-> Local playback extension (build 20261101.2): see [../youtube-local/README.md](../youtube-local/README.md).
+> Local playback extension (current request/response build 20261101.4): see [../youtube-local/README.md](../youtube-local/README.md).
 > The generated set now has eight artifacts, including protocol constants in
 > src/protobuf/onesie-schema.ts. Onesie code uses native crypto/compression and
 > reuses the same typed handlers. The chronology below records the preceding refactor.

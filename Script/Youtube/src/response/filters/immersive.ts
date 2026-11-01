@@ -14,9 +14,10 @@ function contains(bytes: Uint8Array, text: string): boolean {
 // The schema supplies field numbers. This predicate is shared by native clients.
 function isObservedAdPanel(item: Uint8Array): boolean {
   // Product panel: 2026-10-31 captures. Buttoned panel: 2026-11-01
-  // record 16, with ad-click/view URLs in the same observed data container.
+  // record 16. Content lockup: 2026-11-01 15:56 capture, record 48.
+  // Each observed layout also requires /pagead/ in its expected data container.
   const identifiers = ['panel_product_feed_standard_layout.eml-fe',
-    'panel_text_icon_center_image_buttoned_layout.eml-fe'];
+    'panel_text_icon_center_image_buttoned_layout.eml-fe', 'panel_content_lockup.eml-fe'];
   const layout = selectMessages(item, wirePaths.rendererLayout).some(bytes => identifiers.some(identifier =>
     bytes.length >= identifier.length &&
     [...identifier].every((ch, i) => bytes[i] === ch.charCodeAt(0)) &&

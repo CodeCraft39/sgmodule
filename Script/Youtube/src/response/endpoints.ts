@@ -13,6 +13,7 @@ type Handler<T> = (message: T, params: WorkerParams, state: State, key: Platform
 function bind<T extends object>(codec: IMessageType<T>, handler: Handler<T>, container?: 'next' | 'watch' | 'onesie'): Endpoint {
   return {process(body, params, state, key) {
     const wire = container ? filterImmersivePanels(body, container) : undefined;
+    if (state.filterStats && wire) state.filterStats.panels += wire.removed;
     // The immersive schema is a lossless wire view of modern Next. Decode the
     // bundled legacy view only when it has relevant fields (or Watch players).
     if (container === 'next' && wire?.hasImmersive && !wire.hasLegacy)

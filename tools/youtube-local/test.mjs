@@ -148,7 +148,7 @@ test('bounds, malformed envelopes, duplicates and unknown compression reject saf
 test('native response adapters return filtered bytes locally without any external request',async()=>{
  for(const client of ['qx','surge']){
   const r=await runNative(responseScript,{client}),out=r.result.bodyBytes??r.result.body;assert(out);
-  assert(r.logs.some(l=>l.includes('local-body')&&l.includes('verified=2')&&l.includes('updated=2')));
+  assert(r.logs.some(l=>l.includes('local-body')&&l.includes('verified=2')&&l.includes('updated=2')&&l.includes('adPlacementsRemoved=5')&&l.includes('adSlotsRemoved=1')));
   const list=api.readUmp(new Uint8Array(out));assert.equal(counts(await plainPart(list[55])).adSlots,0);
   assert.equal(JSON.parse(r.store.YouTubeConfig).youtube.clientKey,savedKey.clientKey);
  }
@@ -170,7 +170,7 @@ test('storage errors cannot discard an authenticated filtered body',async()=>{
 test('local request mode preserves request and configuration and does not hand off to Worker',async()=>{
  for(const client of ['qx','surge']){
   const r=await runNative(requestScript,{client});assert.deepEqual(Object.keys(r.result),[]);assert.equal(r.writes.length,0);
-  assert(r.logs.some(l=>l.includes('reason=local-playback')));
+  assert(r.logs.some(l=>l.includes('reason=key-match')&&l.includes('mode=local')));
  }
 });
 

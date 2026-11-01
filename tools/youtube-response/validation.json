@@ -22,8 +22,10 @@
   ],
   "adBreak": "pass-through observation only",
   "deviceValidation": "pending",
-  "playbackUnitGroups": 7,
-  "playbackUnitPassed": 7,
+  "playbackUnitGroups": 8,
+  "playbackUnitPassed": 8,
+  "keyLifecycleGroups": 6,
+  "keyLifecyclePassed": 6,
   "playbackReplayGroups": 16,
   "playbackReplayPassed": 16,
   "schemaGeneration": "verified",
@@ -35,5 +37,5 @@
   "reproducibleAcrossDependencyPaths": true,
   "auditRegressionGroups": 8,
   "auditRegressionPassed": 8,
-  "scriptSha256": "3da0caa7a1a916e78435e42c1ac5854063e6a305e4bfe6e794ed896c9ef8770f"
+  "scriptSha256": "803982b9e8708f7dcc768a57e35441811d96db9b29c005d6190566697dda0d7c"
 }

@@ -1,6 +1,6 @@
 export type Headers = Record<string, string>;
 export type PlatformKey = 'youtube' | 'youtubeMusic';
-export interface KeyConfig { clientKey?: string; encryptKey?: string; [key: string]: unknown }
+export interface KeyConfig { clientKey?: string; encryptKey?: string; hotHashData?: string; [key: string]: unknown }
 export interface YouTubeConfig { youtube?: KeyConfig; youtubeMusic?: KeyConfig; [key: string]: unknown }
 export interface WorkerParams {
   captionLang: string;
@@ -17,6 +17,7 @@ export interface RequestInput {
   params: WorkerParams;
   // A QX header-only rewrite must not change the body's representation metadata.
   preserveBodyEncoding?: boolean;
+  localPlayback?: boolean;
 }
 export interface Decision {
   action: 'pass' | 'headers' | 'redirect' | 'empty';

@@ -56,3 +56,25 @@ test('synthetic authentication failure rejects before decrypting/filtering',asyn
  const cipher=fields.find(f=>f.no===1).data;cipher[0]^=1;
  await assert.rejects(api.rewriteOnesie(data,runtime,()=>assert.fail('must not filter invalid MAC')),e=>e.code==='authentication-failed');
 });
+
+// Build a minimal wire fixture independently from the filtering implementation.
+function pbInteger(n){const out=[];do{const byte=n%128;n=Math.floor(n/128);out.push(byte|(n?128:0));}while(n);return Buffer.from(out);}
+function pbBytes(no,data){return Buffer.concat([pbInteger(no*8+2),pbInteger(data.length),Buffer.from(data)]);}
+function wrap(path,data){return path.reduceRight((b,no)=>pbBytes(no,b),Buffer.from(data));}
+test('observed panel layouts require the ad marker and preserve ordinary items and unknown siblings',()=>{
+ const layouts=['panel_product_feed_standard_layout.eml-fe','panel_text_icon_center_image_buttoned_layout.eml-fe','panel_content_lockup.eml-fe'];
+ const rootUnknown=pbBytes(777,Buffer.from('opaque-root-sibling'));
+ const organic=Buffer.concat([wrap(api.wirePaths.rendererLayout,Buffer.from('panel_content_lockup.eml-fe')),wrap(api.wirePaths.rendererData,Buffer.from('/normal/content'))]);
+ for(const layout of layouts){
+  const ad=Buffer.concat([wrap(api.wirePaths.rendererLayout,Buffer.from(layout+'|variant')),wrap(api.wirePaths.rendererData,Buffer.from('/pagead/aclk'))]);
+  const parent=api.wirePaths.immersiveItems.slice(0,-1),itemNo=api.wirePaths.immersiveItems.at(-1);
+  const input=Buffer.concat([rootUnknown,wrap(parent,Buffer.concat([pbBytes(itemNo,ad),pbBytes(itemNo,organic)]))]);
+  const expected=Buffer.concat([rootUnknown,wrap(parent,pbBytes(itemNo,organic))]);
+  const result=api.filterImmersivePanels(new Uint8Array(input));
+  assert.equal(result.removed,1);assert.deepEqual(Buffer.from(result.bytes),expected);
+  const noMarker=wrap(api.wirePaths.immersiveItems,Buffer.concat([wrap(api.wirePaths.rendererLayout,Buffer.from(layout)),wrap(api.wirePaths.rendererData,Buffer.from('/normal/content'))]));
+  const untouched=api.filterImmersivePanels(new Uint8Array(noMarker));assert.equal(untouched.removed,0);assert.deepEqual(Buffer.from(untouched.bytes),noMarker);
+ }
+ const unknownLayout=wrap(api.wirePaths.immersiveItems,Buffer.concat([wrap(api.wirePaths.rendererLayout,Buffer.from('panel_ordinary.eml-fe')),wrap(api.wirePaths.rendererData,Buffer.from('/pagead/aclk'))]));
+ assert.equal(api.filterImmersivePanels(new Uint8Array(unknownLayout)).removed,0);
+});

@@ -75,6 +75,12 @@ unit = run([a.node, 'tools/youtube-local/unit.mjs', str(entry)])
 unit_groups = int(re.search(r'^# tests (\d+)$', unit, re.MULTILINE).group(1))
 assert unit_groups == int(re.search(r'^# pass (\d+)$', unit, re.MULTILINE).group(1))
 report.update(playbackUnitGroups=unit_groups, playbackUnitPassed=unit_groups)
+lifecycle = run([a.node, 'tools/youtube-local/key-lifecycle.mjs', str(entry), str(script),
+                 str(root / 'Script/Youtube/youtube.request.js')])
+(work / 'key-lifecycle.tap').write_text(lifecycle + '\n')
+lifecycle_groups = int(re.search(r'^# tests (\d+)$', lifecycle, re.MULTILINE).group(1))
+assert lifecycle_groups == int(re.search(r'^# pass (\d+)$', lifecycle, re.MULTILINE).group(1))
+report.update(keyLifecycleGroups=lifecycle_groups, keyLifecyclePassed=lifecycle_groups)
 if a.playback_captures:
     replay = run([a.node, 'tools/youtube-local/test.mjs', str(entry), str(script),
                   str(root / 'Script/Youtube/youtube.request.js'), str(a.playback_captures.resolve())])

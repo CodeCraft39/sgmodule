@@ -33,13 +33,11 @@ export function run(host: Host): void {
   const route = endpoint(request?.url ?? '');
   const sessionText = sessionSuffix(request);
   let stage = 'arguments';
+  let local = false;
   try {
     if (!request || route === 'other') { finish({}); return; }
     const opts = options(host);
-    if (route === 'initplayback' && opts.localPlayback) {
-      if (opts.debug) log(`endpoint=initplayback action=pass reason=local-playback${sessionText}`);
-      finish({}); return;
-    }
+    local = opts.localPlayback;
     stage = 'config';
     const raw = qx ? host.$prefs?.valueForKey(CONFIG_KEY) : host.$persistentStore?.read(CONFIG_KEY);
     const config = loadConfig(raw);
@@ -48,7 +46,7 @@ export function run(host: Host): void {
     const body = route === 'initplayback' ? bytes(qx ? request.bodyBytes ?? request.body : request.body ?? request.bodyBytes) : undefined;
     stage = 'decision';
     const decision = processRequest({url: request.url, headers: request.headers ?? {}, bodyBytes: body,
-      config, params: opts.worker, preserveBodyEncoding: qx});
+      config, params: opts.worker, preserveBodyEncoding: qx || local, localPlayback: local});
     let persisted = 'not-needed';
     if (decision.changed) {
       const serialized = JSON.stringify(decision.config);
@@ -59,7 +57,7 @@ export function run(host: Host): void {
     }
     if (persisted === 'failed') log(`endpoint=${route} event=storage-write-failed${sessionText}`);
     if (opts.debug) {
-      log(`endpoint=${route} action=${decision.action} reason=${decision.reason} bodyBytes=${body?.length ?? 'unavailable'} cache=${persisted}${sessionText}`);
+      log(`endpoint=${route} action=${decision.action} reason=${decision.reason} bodyBytes=${body?.length ?? 'unavailable'} cache=${persisted}${local?' mode=local':''}${sessionText}`);
       log(`output=${qx && decision.action === 'redirect' ? 'http-307' : decision.action} binary=${body !== undefined}${sessionText}`);
     }
     finish(completion(decision, qx));
@@ -67,9 +65,10 @@ export function run(host: Host): void {
     // In QX analyze-echo mode there is no upstream pass-through contract. Use
     // the same empty-response fallback as the original missing-key path and
     // leave stored keys unchanged. Surge-compatible errors pass through.
-    log(`endpoint=${route} action=${qx && route === 'initplayback' ? 'empty' : 'pass'} reason=processing-error stage=${stage}${sessionText}`);
+    const echo = qx && route === 'initplayback' && !local;
+    log(`endpoint=${route} action=${echo ? 'empty' : 'pass'} reason=processing-error stage=${stage}${sessionText}`);
     const fallback: Decision = {action: 'empty', reason: 'processing-error',
       platformKey: platformKey(request?.headers ?? {}), config: {}, changed: false};
-    finish(qx && route === 'initplayback' ? completion(fallback, true) : {});
+    finish(echo ? completion(fallback, true) : {});
   }
 }

@@ -26,14 +26,26 @@ export function processRequest(input: RequestInput): Decision {
   if (route === 'other') return {...base, action: 'pass', reason: 'unhandled-endpoint'};
   const cached = config[key];
   if (route === 'log_event') {
+    // A hash sent by the app only establishes what the app has cached. Local
+    // filtering may retain an older key pair. Trust suppression of hot config
+    // only when our pair was received with this same server-provided hash.
+    const needsConfig = input.localPlayback
+      ? !(cached?.clientKey && cached.encryptKey && cached.hotHashData &&
+          cached.hotHashData === header(input.headers, 'x-youtube-hot-hash-data'))
+      : !cached?.clientKey;
     const headers = {...input.headers};
     for (const name of Object.keys(headers)) {
       const lower = name.toLowerCase();
       if ((lower === 'content-encoding' && !input.preserveBodyEncoding) ||
-        (!cached?.clientKey && lower === 'x-youtube-hot-hash-data')) delete headers[name];
+        (needsConfig && lower === 'x-youtube-hot-hash-data')) delete headers[name];
     }
-    return {...base, action: 'headers', reason: cached?.clientKey ? 'cache-present' : 'cache-missing', headers};
+    return {...base, action: 'headers', reason: input.localPlayback
+      ? needsConfig ? 'config-refresh' : 'cache-validated'
+      : cached?.clientKey ? 'cache-present' : 'cache-missing', headers};
   }
+  // An absent body is not evidence that a valid local key pair is stale.
+  if (input.localPlayback && input.bodyBytes === undefined)
+    return {...base, action:'pass', reason:'body-unavailable'};
   let reason = 'cache-missing';
   if (cached?.clientKey && cached.encryptKey) {
     reason = 'body-unavailable';
@@ -41,6 +53,7 @@ export function processRequest(input: RequestInput): Decision {
       const requestKey = decodeOnesieRequest(input.bodyBytes).encryptedInnertubeRequest?.encryptedClientKey;
       const cacheKey = decodeBase64(cached.encryptKey);
       if (requestKey && requestKey.length === cacheKey.length && requestKey.every((v, i) => v === cacheKey[i])) {
+        if (input.localPlayback) return {...base, action:'pass', reason:'key-match'};
         return {...base, action: 'redirect', reason: 'key-match', redirectUrl: workerUrl(cached.clientKey, input.url, input.params)};
       }
       reason = 'key-mismatch';
@@ -50,5 +63,5 @@ export function processRequest(input: RequestInput): Decision {
   // and all unknown configuration properties when invalidating this platform.
   const changed = !!cached, updated = {...config};
   if (changed) delete updated[key];
-  return {...base, action: 'empty', reason, changed, config: changed ? updated : config};
+  return {...base, action: input.localPlayback ? 'pass' : 'empty', reason, changed, config: changed ? updated : config};
 }

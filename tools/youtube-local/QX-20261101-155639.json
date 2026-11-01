@@ -1,0 +1,187 @@
+{
+  "archive": "2026-11-01-155639.zip",
+  "clientReportedByUser": "Quantumult X",
+  "userObservation": "First video showed ads; subsequent videos did not",
+  "httpTransactions": 98,
+  "scriptExecutionLogsPresent": false,
+  "legacyWorkerRequestsCaptured": 0,
+  "playbackResponses": [
+    {
+      "record": "36",
+      "bytes": 80852,
+      "umpParts": 40,
+      "encryptedType25Blocks": 1
+    },
+    {
+      "record": "46",
+      "bytes": 2204494,
+      "umpParts": 141,
+      "encryptedType25Blocks": 2
+    },
+    {
+      "record": "61",
+      "bytes": 550104,
+      "umpParts": 76,
+      "encryptedType25Blocks": 2
+    },
+    {
+      "record": "71",
+      "bytes": 1514415,
+      "umpParts": 106,
+      "encryptedType25Blocks": 2
+    }
+  ],
+  "playbackKeys": "All four requests use the same encrypted client key; it differs from both earlier exported snapshots",
+  "playbackDecryption": "The new snapshot also contains stale keys; the matching keys for this run remain unavailable. The stale pair authenticates the earlier archive.",
+  "adBreakRecords": [
+    "69",
+    "76",
+    "78"
+  ],
+  "adBreakFiltering": "No filtering added; response context plus command envelope differs from ordinary Player",
+  "standaloneNext": [
+    {
+      "record": "48",
+      "inputBytes": 153439,
+      "previousOutputBytes": 153439,
+      "patchedOutputBytes": 99938,
+      "removed": 1,
+      "outputSha256": "d7f4b87fb88cbf9b0d9319cde04c8be99e5b0329817c7af3141caa9e0b571f9b",
+      "adaptersEqual": true,
+      "idempotent": true
+    },
+    {
+      "record": "49",
+      "inputBytes": 245032,
+      "previousOutputBytes": 245032,
+      "patchedOutputBytes": 245032,
+      "removed": 0,
+      "outputSha256": "01dd5409178003b717b2194ba2222df0714dfa0765251c09a749b90943f50e5e",
+      "adaptersEqual": true,
+      "idempotent": true
+    }
+  ],
+  "confirmedChange": "Content-lockup ad panel recognized only with /pagead/ in the expected data container",
+  "firstVideoAdCause": "The first response passed through because authentication with the stale cached key failed; all four playback responses failed in the same way.",
+  "deviceFiltering": "All four playback responses in the supplied run failed authentication; corrected key refresh and filtering require a new QX test.",
+  "separateTunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-155639.log",
+  "separateTunnelLogContainsScriptDiagnostics": true,
+  "loggedPlaybackResults": [
+    {
+      "session": "36",
+      "request": "local-playback pass-through",
+      "response": "authentication-failed pass-through"
+    },
+    {
+      "session": "46",
+      "request": "local-playback pass-through",
+      "response": "authentication-failed pass-through"
+    },
+    {
+      "session": "61",
+      "request": "local-playback pass-through",
+      "response": "authentication-failed pass-through"
+    },
+    {
+      "session": "71",
+      "request": "local-playback pass-through",
+      "response": "authentication-failed pass-through"
+    }
+  ],
+  "logLevel": "The provided Error-level export contains the required script diagnostics; no level change needed for this diagnosis",
+  "captureStage": "Response bodies can be post-script: session 49 log records 356692 -> 245032 bytes and the archive contains the 245032-byte result",
+  "keyRefreshFinding": "Confirmed stale cache: current snapshot is unchanged from both earlier exports, authenticates the earlier capture, but matches none of the four current playback requests. Previous local mode skipped invalidation and retained hot-hash suppression.",
+  "nextStep": "Publish and refresh both build .4 scripts, keep the five rules and Error log level, retain stale cache, then capture one controlled QX run including HTTP, tunnel log and key export.",
+  "currentKeyExport": "yt-local-capture 3.json",
+  "currentExportMatchesBothEarlierSnapshots": true,
+  "cachedKeyAuthenticatesEarlierArchive": true,
+  "keyReplay": {
+    "playbackRequests": [
+      {
+        "session": 36,
+        "encryptedKeyMatches": false,
+        "requestAuthenticates": false,
+        "responseBlocksChecked": 1,
+        "responseBlocksAuthenticate": false,
+        "oldScriptRetainsStaleKey": true,
+        "patchedScriptInvalidatesStaleKey": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 46,
+        "encryptedKeyMatches": false,
+        "requestAuthenticates": false,
+        "responseBlocksChecked": 2,
+        "responseBlocksAuthenticate": false,
+        "oldScriptRetainsStaleKey": true,
+        "patchedScriptInvalidatesStaleKey": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 61,
+        "encryptedKeyMatches": false,
+        "requestAuthenticates": false,
+        "responseBlocksChecked": 2,
+        "responseBlocksAuthenticate": false,
+        "oldScriptRetainsStaleKey": true,
+        "patchedScriptInvalidatesStaleKey": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 71,
+        "encryptedKeyMatches": false,
+        "requestAuthenticates": false,
+        "responseBlocksChecked": 2,
+        "responseBlocksAuthenticate": false,
+        "oldScriptRetainsStaleKey": true,
+        "patchedScriptInvalidatesStaleKey": true,
+        "requestBodyPreserved": true
+      }
+    ],
+    "logEvents": [
+      {
+        "session": 7,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 44,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 65,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 66,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 97,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      },
+      {
+        "session": 98,
+        "oldScriptRetainsHotHash": true,
+        "patchedScriptRequestsFreshConfig": true,
+        "requestBodyPreserved": true
+      }
+    ]
+  },
+  "fix": "Build 20261101.4 validates playback request keys, invalidates mismatches, requests hot config until the key pair is bound to the current server hash, and prevents filtered responses from republishing unchanged configuration snapshots.",
+  "offlineValidation": {
+    "publicPlaybackGroups": 8,
+    "publicKeyLifecycleGroups": 6,
+    "privatePlaybackReplayGroups": 16,
+    "status": "passed; device key refresh still requires testing"
+  }
+}

@@ -1,7 +1,8 @@
 # Local playback test — Quantumult X and Shadowrocket
 
-The supplied capture was sufficient. No more capability probes are needed for
-this QX device before the first local filtering test.
+Current request and response build: `20261101.4`. The previous QX run failed
+playback authentication because its cached keys were stale. The new snapshot
+confirms this; no further capability probe is needed.
 
 ## What to do on the iPhone
 
@@ -15,19 +16,68 @@ this QX device before the first local filtering test.
 3. Force-quit/reopen YouTube. Play a video that usually shows an ad. Note ads,
    startup, stalls, seeking and switching to another video.
 4. Copy the script record for `/initplayback`. Expect build
-   `response-compat-20261101.2`, `action=local-body`, `verified` greater than zero,
-   and `updated` greater than zero on an ad-bearing response. `local-pass` can be
-   a valid no-op; an ad-free interval alone is not proof.
-5. Send that script record and the playback result. If playback fails or ads
-   remain, retain a private HTTP capture of that run, as you did for this archive.
+   `response-compat-20261101.4`. First check `reason=config-refresh` on a
+   log_event request, then `event=config-refreshed persisted=true` on its response.
+   Playback requests should reach `reason=key-match`. A successful response logs
+   `action=local-body` and `verified` greater than zero. Ad removal additionally
+   requires a positive `adPlacementsRemoved`, `adSlotsRemoved`, `richItemsRemoved`
+   or `panelsRemoved` count; `updated` alone can be a PiP/background change.
+   `local-pass` can be a valid no-op. An ad-free interval alone is not proof.
+5. Keep the log level at Error: it preserved the required script diagnostics in
+   the previous run. Send the HTTP ZIP and the separate QX tunnel log from this
+   run, plus the key export afterward if using the already installed export rule.
+   Do not reset or clear YouTubeConfig before this test: it must exercise recovery
+   from the known stale cache. Keep the same five installed rules and MITM hosts.
 
-This test needs no example.com URL. The old export/reset rules can be removed.
-If you wish to clear their private snapshots first, use the old reset rule before
-removing it. Keep your capture ZIPs and key JSON private.
+The export-only diagnostic rule can remain during this investigation; it does
+not replace the playback handlers. After the playback run, open the literal
+`https://example.com/yt-local-capture/export` in Safari and retain the JSON
+privately. Do not enable the earlier request/response capture observers, which
+would overlap the production scripts. The temporary export rule and its MITM
+host can be removed after the key issue is device-validated.
+
+## QX 15:56 run: playback filtering failed authentication
+
+The separate Error-level tunnel log contains the script diagnostics. All four
+initplayback responses (sessions 36, 46, 61, 71) passed through with
+`authentication-failed`; later ad-free playback is not evidence of local
+filtering. Browse and Next processing did execute. The HTTP archive can contain
+post-script bodies: session 49 was reduced from 356,692 to 245,032 bytes on device,
+and replaying that captured result is correctly a no-op.
+
+Session 48 contains a separate content-lockup ad panel. Response build
+`20261101.3` removes it offline (153,439 to 99,938 bytes), with ordinary panels
+and unknown siblings covered by tests. This does not fix or explain the playback
+key failure. See `QX-20261101-155639.json` for the measured results.
+
+The export `yt-local-capture 3.json` confirms that QX still stored the same
+32-byte client key and 53-byte encrypted key as both earlier snapshots. Those
+keys authenticate the earlier archive, but match none of the four new requests
+and authenticate none of their seven encrypted response blocks. The .2 local
+request path returned before Maasea's key comparison/invalidation; all six
+log_event requests retained the app's hot-hash header and returned no new keys.
+
+Build .4 restores request-key comparison in local mode and invalidates only the
+selected app's mismatched cache. It requests hot configuration until the stored
+pair is associated with the current server-provided hot hash; legacy records
+without that association therefore refresh on the next log_event. Config
+responses save the pair and its optional hash together. If a server omits the
+hash, processing can still use the keys, but the next log_event requests config
+again. Local errors keep the original request/response. Filtering no longer
+republishes unchanged YouTubeConfig snapshots, preventing awaited playback from
+overwriting newer keys. The existing legacy mode retains its previous behavior.
+
+The captured four request bodies now trigger mismatch invalidation in offline
+replay, and all six captured log_event headers request fresh config. Six public
+lifecycle test groups cover stale-cache recovery, hash association, encoding,
+storage errors, legacy acquisition and concurrent refresh. They use a synthetic
+config response; Google returning fresh keys and the first video's ordering still
+need a QX run. A request that completes before keys arrive can still pass through.
 
 ## Then test Shadowrocket
 
-After the QX run, disconnect QX and connect Shadowrocket. Disable overlapping
+After QX key refresh and playback filtering are validated, disconnect QX and
+connect Shadowrocket. Disable overlapping
 YouTube modules and the earlier capture observers, then import this directory's
 `shadowrocket.sgmodule`. Refresh both script resources. MITM must remain enabled
 with the trusted certificate and the listed hosts.
@@ -43,8 +93,9 @@ example.com URL is required before attempting this test.
 ## What changed
 
 `localPlayback=true` is an explicit opt-in on both scripts. The request handler
-passes initplayback through to Google without redirecting it or invalidating
-keys. The response handler verifies/decrypts supported Onesie metadata, reuses
+passes initplayback through to Google without redirecting it, checking the
+request key and invalidating a mismatched app cache. The response handler
+verifies/decrypts supported Onesie metadata, reuses
 our existing typed filters, recompresses/re-encrypts it with a fresh IV and HMAC,
 and rebuilds UMP framing. It makes no fetch to Maasea or another processing server.
 It still uses the runtime YouTubeConfig keys acquired by config/log_event.
@@ -72,7 +123,8 @@ unfiltered. Key rotation can cause a response's key to differ from the currently
 cached key; authentication then fails open. Testing video switches and key
 refresh is part of the remaining device work.
 
-The standalone `/next` filter additionally recognizes the captured buttoned
+The standalone `/next` filter additionally recognizes the captured content-lockup
+panel from the 15:56 QX run, as well as the earlier buttoned
 panel layout, together with `/pagead/` inside its expected data container. That
 capture contains ad-click URLs and advertiser data. Ordinary buttoned panels
 without the ad marker are retained. This is not a blanket layout blacklist.
@@ -137,7 +189,7 @@ python3 tools/youtube-response/check.py \
   --playback-captures /private/tmp/maasea-local-work/replay
 ```
 
-The seven public playback unit groups need no private files and run as part of
-the paired checker. The additional 16 playback replay groups use the private
+The eight public playback unit groups and six public key-lifecycle groups need
+no private files and run as part of the paired checker. The additional 16 playback replay groups use the private
 normalized capture. Existing codec/handler/audit checks also run. Only non-secret
 lengths, counts and response hashes are saved in the repository.
