@@ -19,5 +19,5 @@ assert b'/private/tmp/' not in script.read_bytes()
 tap=run([a.node,'tools/youtube-device/runtime-probe/test.mjs',str(script)]);(work/'tests.tap').write_text(tap)
 groups=int(re.search(r'^# tests (\d+)$',tap,re.M)[1]);assert groups==int(re.search(r'^# pass (\d+)$',tap,re.M)[1])
 for k,digest in before.items():assert hashlib.sha256((root/f'Script/Youtube/youtube.{k}.js').read_bytes()).hexdigest()==digest
-report={'build':'runtime-probe-20261102.1','typecheck':'passed','testGroups':groups,'passed':groups,'reproducibleBuild':True,'productionFiles':'unchanged','productionBundleHashes':before,'deviceValidation':'pending Auto/WebView/JSC public-vector test','scriptSha256':hashlib.sha256(script.read_bytes()).hexdigest()}
+report={'build':'runtime-probe-20261102.2','typecheck':'passed','testGroups':groups,'passed':groups,'reproducibleBuild':True,'productionFiles':'unchanged','productionBundleHashes':before,'deviceValidation':'pending Auto/WebView/JSC public-vector test','scriptSha256':hashlib.sha256(script.read_bytes()).hexdigest()}
 (root/'tools/youtube-device/runtime-probe/validation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

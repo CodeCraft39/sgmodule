@@ -1,0 +1,87 @@
+{
+  "client": "Shadowrocket",
+  "probeBuild": "runtime-probe-20261102.1",
+  "export": "yt-runtime-probe.json",
+  "tunnelLog": "PacketTunnel-20261102195208.log",
+  "results": [
+    {
+      "build": "runtime-probe-20261102.1",
+      "client": "Shadowrocket",
+      "engineRequested": "auto",
+      "error": "probe-failed"
+    },
+    {
+      "build": "runtime-probe-20261102.1",
+      "client": "Shadowrocket",
+      "engineRequested": "webview",
+      "error": "probe-failed"
+    },
+    {
+      "build": "runtime-probe-20261102.1",
+      "client": "Shadowrocket",
+      "role": "response",
+      "engineRequested": "jsc",
+      "availability": {
+        "cryptoPresent": false,
+        "subtlePresent": false,
+        "subtleMethods": {
+          "importKey": false,
+          "verify": false,
+          "sign": false,
+          "decrypt": false,
+          "encrypt": false
+        },
+        "randomValues": false,
+        "setTimeout": true,
+        "clearTimeout": true,
+        "compressionStream": false,
+        "decompressionStream": false,
+        "secureContext": null,
+        "nativeUtilities": {
+          "$utils": "object",
+          "$crypto": "undefined",
+          "CryptoJS": "undefined"
+        },
+        "productionApiPreconditions": false
+      },
+      "tests": {
+        "aesCtr": "unavailable",
+        "hmacSha256": "unavailable",
+        "gzip": "unavailable",
+        "brotli": "unavailable",
+        "br": "unavailable",
+        "subtlePresent": false,
+        "randomValuesPresent": false,
+        "randomValues": "unavailable",
+        "wasm": "pass",
+        "textEncoderPresent": false,
+        "textDecoderPresent": false,
+        "elapsedMs": 5
+      }
+    }
+  ],
+  "proven": [
+    "JSC exposes both timer functions and the empty-module WASM test passes.",
+    "JSC exposes no Web Crypto/random-values API or Compression Streams in this response-script context.",
+    "JSC lacks native TextEncoder/TextDecoder; the project already uses its own UTF-8 adapter.",
+    "Auto and WebView reached the diagnostic but returned probe-failed; no API availability or public-vector result survived for them."
+  ],
+  "limits": [
+    "The generic Auto/WebView diagnostic failure is not evidence that their crypto/compression APIs are absent.",
+    "The exact failing property/operation in Auto/WebView cannot be recovered from this .1 JSON or tunnel log.",
+    "No engine selection or production runtime fix can be declared successful from this run."
+  ],
+  "probeRepair": {
+    "build": "runtime-probe-20261102.2",
+    "changes": [
+      "Guard host and native member access individually; retain successful observations if another read fails.",
+      "Bind public-vector API calls to their native receiver and record safe failing API paths and error classes.",
+      "Preserve the availability snapshot when public-vector execution fails.",
+      "Report Reflect.get/Object.values presence without depending on Reflect for introspection.",
+      "Inventory native utility member names without logging values or invoking utility functions."
+    ],
+    "productionScripts": "unchanged",
+    "deviceValidation": "updated .2 probe needs one repeat of the same Safari matrix",
+    "offlineTestGroupsPassed": 18
+  }
+}

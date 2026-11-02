@@ -182,13 +182,116 @@
     }
   };
 
+  // tools/youtube-device/runtime-probe/api-snapshot.ts
+  function errorName(error) {
+    try {
+      const name = error?.name;
+      return typeof name === "string" && /^[A-Za-z][A-Za-z0-9]{0,47}$/.test(name) ? name : "Error";
+    } catch {
+      return "Error";
+    }
+  }
+  function apiSnapshot(host) {
+    const readFailures = [];
+    const callFailures = [];
+    function read(value, name, path) {
+      if (value === void 0 || value === null) return void 0;
+      try {
+        return Object(value)[name];
+      } catch (error) {
+        readFailures.push({ path, errorName: errorName(error) });
+        return void 0;
+      }
+    }
+    const crypto = read(host, "crypto", "crypto");
+    const subtle = read(crypto, "subtle", "crypto.subtle");
+    const names = ["importKey", "verify", "sign", "decrypt", "encrypt"];
+    const methods = {};
+    for (const name of names) methods[name] = read(subtle, name, "crypto.subtle." + name);
+    const random = read(crypto, "getRandomValues", "crypto.getRandomValues");
+    const set = read(host, "setTimeout", "setTimeout"), clear = read(host, "clearTimeout", "clearTimeout");
+    const compress = read(host, "CompressionStream", "CompressionStream");
+    const decompress = read(host, "DecompressionStream", "DecompressionStream");
+    const secure = read(host, "isSecureContext", "isSecureContext");
+    const wasm = read(host, "WebAssembly", "WebAssembly");
+    const module = read(wasm, "Module", "WebAssembly.Module"), instance = read(wasm, "Instance", "WebAssembly.Instance");
+    const utilities = {};
+    for (const name of ["$utils", "$crypto", "CryptoJS"]) utilities[name] = read(host, name, name);
+    const reflect = read(host, "Reflect", "Reflect"), object = read(host, "Object", "Object");
+    const nativeUtilityMemberNames = {};
+    for (const [name, value] of Object.entries(utilities)) {
+      if (!value || !["object", "function"].includes(typeof value)) continue;
+      try {
+        nativeUtilityMemberNames[name] = Object.getOwnPropertyNames(value).filter((key) => /^[A-Za-z_$][A-Za-z0-9_$]{0,63}$/.test(key)).sort().slice(0, 80);
+      } catch (error) {
+        readFailures.push({ path: name + ".memberNames", errorName: errorName(error) });
+      }
+    }
+    const subtleMethods = {};
+    for (const name of names) subtleMethods[name] = typeof methods[name] === "function";
+    const nativeUtilities = {};
+    for (const name of ["$utils", "$crypto", "CryptoJS"]) nativeUtilities[name] = typeof utilities[name];
+    const availability = {
+      cryptoPresent: !!crypto,
+      subtlePresent: !!subtle,
+      subtleMethods,
+      randomValues: typeof random === "function",
+      setTimeout: typeof set === "function",
+      clearTimeout: typeof clear === "function",
+      compressionStream: typeof compress === "function",
+      decompressionStream: typeof decompress === "function",
+      secureContext: typeof secure === "boolean" ? secure : null,
+      nativeUtilities,
+      intrinsics: { reflectGet: typeof read(reflect, "get", "Reflect.get") === "function", objectValues: typeof read(object, "values", "Object.values") === "function" },
+      nativeUtilityMemberNames,
+      productionApiPreconditions: typeof set === "function" && typeof clear === "function" && typeof random === "function" && names.every((name) => subtleMethods[name]),
+      readFailures,
+      callFailures
+    };
+    function bound(value, receiver, path, asynchronous = false) {
+      if (typeof value !== "function") return void 0;
+      const failed = (error) => {
+        callFailures.push({ path, errorName: errorName(error) });
+        throw error;
+      };
+      return (...args) => {
+        try {
+          const result = Function.prototype.apply.call(value, receiver, args);
+          return asynchronous ? Promise.resolve(result).catch(failed) : result;
+        } catch (error) {
+          return failed(error);
+        }
+      };
+    }
+    const boundMethods = {};
+    for (const name of names) boundMethods[name] = bound(methods[name], subtle, "crypto.subtle." + name, true);
+    const safeHost = {
+      $done() {
+      },
+      console: { log() {
+      } },
+      crypto: crypto ? {
+        subtle: subtle ? boundMethods : void 0,
+        getRandomValues: bound(random, crypto, "crypto.getRandomValues")
+      } : void 0,
+      setTimeout: bound(set, host, "setTimeout"),
+      clearTimeout: bound(clear, host, "clearTimeout"),
+      CompressionStream: compress,
+      DecompressionStream: decompress,
+      TextEncoder: read(host, "TextEncoder", "TextEncoder"),
+      TextDecoder: read(host, "TextDecoder", "TextDecoder"),
+      WebAssembly: wasm ? { Module: module, Instance: instance } : void 0
+    };
+    return { availability, host: safeHost };
+  }
+
   // tools/youtube-device/runtime-probe/main.ts
-  var BUILD = "runtime-probe-20261102.1";
+  var BUILD = "runtime-probe-20261102.2";
   var FIXTURE = "https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/echo-probe/upstream.txt";
   function page() {
     return `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shadowrocket runtime check</title>
 <style>body{font:17px system-ui;margin:24px}button,a{font:inherit}pre{white-space:pre-wrap;word-break:break-word}</style>
-<h2>Shadowrocket runtime check</h2><p>Public test vectors only. Leave Shadowrocket on; YouTube can stay closed.</p>
+<h2>Shadowrocket runtime check</h2><p>Build: ${BUILD}</p><p>Public test vectors only. Leave Shadowrocket on; YouTube can stay closed.</p>
 <button id="run">Check Auto, WebView and JSC</button> <a id="save" hidden download="yt-runtime-probe.json">Save results JSON</a><pre id="out"></pre>
 <script>
 const run=document.getElementById('run'),out=document.getElementById('out'),save=document.getElementById('save');
@@ -206,24 +309,6 @@ if(download)URL.revokeObjectURL(download);download=URL.createObjectURL(new Blob(
 save.href=download;save.hidden=false;run.disabled=false;
 };
 <\/script>`;
-  }
-  function availability(host) {
-    const api = host.crypto?.subtle;
-    const method = (name) => !!api && typeof Reflect.get(Object(api), name) === "function";
-    const subtleMethods = { importKey: method("importKey"), verify: method("verify"), sign: method("sign"), decrypt: method("decrypt"), encrypt: method("encrypt") };
-    const result = {
-      cryptoPresent: !!host.crypto,
-      subtlePresent: !!api,
-      subtleMethods,
-      randomValues: typeof host.crypto?.getRandomValues === "function",
-      setTimeout: typeof host.setTimeout === "function",
-      clearTimeout: typeof host.clearTimeout === "function",
-      compressionStream: typeof host.CompressionStream === "function",
-      decompressionStream: typeof host.DecompressionStream === "function",
-      secureContext: typeof host.isSecureContext === "boolean" ? host.isSecureContext : null,
-      nativeUtilities: { $utils: typeof host.$utils, $crypto: typeof host.$crypto, CryptoJS: typeof host.CryptoJS }
-    };
-    return { ...result, productionApiPreconditions: result.setTimeout && result.clearTimeout && result.randomValues && Object.values(subtleMethods).every(Boolean) };
   }
   function outputHeaders(input = {}) {
     const output = {};
@@ -256,13 +341,20 @@ save.href=download;save.hidden=false;run.disabled=false;
       return;
     }
     try {
-      const apis = availability(host), tests = await capabilities(host);
-      const result = { build: BUILD, client, role: "response", engineRequested: engine, availability: apis, tests };
-      host.console.log(`[YT-RUNTIME ${BUILD}] client=${client} engineRequested=${engine} result=${JSON.stringify({ availability: apis, tests })}`);
+      const snapshot = apiSnapshot(host);
+      let tests;
+      let probeError;
+      try {
+        tests = await capabilities(snapshot.host);
+      } catch (error) {
+        probeError = { stage: "public-vector-checks", errorName: errorName(error) };
+      }
+      const result = { build: BUILD, client, role: "response", engineRequested: engine, availability: snapshot.availability, tests, probeError };
+      host.console.log(`[YT-RUNTIME ${BUILD}] client=${client} engineRequested=${engine} result=${JSON.stringify({ availability: snapshot.availability, tests, probeError })}`);
       const body = utf8.encode(JSON.stringify(result));
       done({ headers: outputHeaders(host.$response.headers), ...isQX(host) ? { bodyBytes: body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength) } : { body } });
-    } catch {
-      const body = utf8.encode(JSON.stringify({ build: BUILD, client, engineRequested: engine, error: "probe-failed" }));
+    } catch (error) {
+      const body = utf8.encode(JSON.stringify({ build: BUILD, client, engineRequested: engine, error: "probe-failed", probeError: { stage: "snapshot-or-output", errorName: errorName(error) } }));
       done({ headers: outputHeaders(host.$response.headers), ...isQX(host) ? { bodyBytes: body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength) } : { body } });
     }
   }

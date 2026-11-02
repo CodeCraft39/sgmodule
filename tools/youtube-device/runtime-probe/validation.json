@@ -1,8 +1,8 @@
 {
-  "build": "runtime-probe-20261102.1",
+  "build": "runtime-probe-20261102.2",
   "typecheck": "passed",
-  "testGroups": 11,
-  "passed": 11,
+  "testGroups": 18,
+  "passed": 18,
   "reproducibleBuild": true,
   "productionFiles": "unchanged",
   "productionBundleHashes": {
@@ -10,5 +10,5 @@
     "response": "033976f14ee0ee8df98baace22f442b9bc33aab46126bdddcddf4e744f2060ad"
   },
   "deviceValidation": "pending Auto/WebView/JSC public-vector test",
-  "scriptSha256": "f9b8b8808a0c50858e0d32c2727809e152cda90eeaefc327697198ed6f25508a"
+  "scriptSha256": "f9fe90cbd369638f9f7b236bfd2600548f9305a9e5b874a623ee594bf1b96da9"
 }

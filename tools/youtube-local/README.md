@@ -24,7 +24,11 @@ acceptance: keys matched, but six playback response callbacks passed through
 with unsupported-crypto and none performed local filtering. Four ad_break calls
 were also observed without payload bodies. The next step is the public-vector
 [runtime probe](../youtube-device/runtime-probe/shadowrocket.sgmodule) across
-Auto, WebView and JSC; do not infer that an engine setting alone fixes it.
+Auto, WebView and JSC. The [first matrix](SR-RUNTIME-20261102-195208.json) confirms
+missing JSC crypto/compression APIs but Auto/WebView diagnostics failed without
+retaining the cause. Probe .2 now isolates property/call failures and preserves
+partial results; those two engines still need native evidence. Do not infer that
+an engine setting alone fixes it.
 Surge remains untested.
 
 ## Why the QX transport changed
