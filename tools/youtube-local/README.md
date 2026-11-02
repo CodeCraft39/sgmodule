@@ -1,7 +1,8 @@
 # Local YouTube playback
 
-Current build: **request/response 20261101.6**. QX normal local playback and the
-forced missing-key recovery path are native-verified for the captured runs.
+Current candidate: **request/response 20261102.7**. Native validation is pending
+for this build. Earlier **20261101.6** QX normal local playback and forced
+missing-key recovery are verified for the captured runs below.
 
 - [09:24 run](QX-20261102-092452.json): five native fetch/filter/echo pairs; logs
   record 31 placement entries, four slots and 11 rich items removed. The final
@@ -22,13 +23,16 @@ diagnostic assets after the device configuration no longer references them.
 The [first Shadowrocket local run](SR-20261102-191430.json) failed native
 acceptance: keys matched, but six playback response callbacks passed through
 with unsupported-crypto and none performed local filtering. Four ad_break calls
-were also observed without payload bodies. The next step is the public-vector
-[runtime probe](../youtube-device/runtime-probe/shadowrocket.sgmodule) across
-Auto, WebView and JSC. The [first matrix](SR-RUNTIME-20261102-195208.json) confirms
-missing JSC crypto/compression APIs but Auto/WebView diagnostics failed without
-retaining the cause. Probe .2 now isolates property/call failures and preserves
-partial results; those two engines still need native evidence. Do not infer that
-an engine setting alone fixes it.
+were also observed without payload bodies. The
+[second runtime matrix](SR-RUNTIME-20261102-201841.json) retains valid .2 tunnel
+results despite the stale .1 Safari page: Auto/WebView expose secure randomness
+but no crypto.subtle; JSC lacks both. Auto/WebView also reject the probe's bound
+timer invocation. A repeated capability matrix is unnecessary before trying .7.
+The candidate bundles maintained portable AES/HMAC and gzip, uses detached timers,
+and keeps the native backend on complete Web Crypto hosts. Use explicit
+`engine=webview` in [the Shadowrocket test profile](shadowrocket.sgmodule).
+Native secure randomness, timer behavior, memory use and real filtering still
+need validation; API presence alone establishes none of these.
 Surge remains untested.
 
 ## Why the QX transport changed
@@ -81,11 +85,22 @@ is observed but unfiltered pending a real binary response and schema evidence.
 ## Shared processing and limits
 
 The generated protocol constants are in `src/protobuf/onesie-schema.ts`;
-`onesie.ts` and `web-playback.ts` implement bounded framing, authentication,
-crypto and compression. The existing typed endpoint handlers filter decrypted
+`onesie.ts` implements bounded framing and authenticated rewrite orchestration.
+`playback-runtime.ts` selects native `web-playback.ts` or maintained portable
+primitives in `portable-playback.ts`. The existing typed endpoint handlers filter decrypted
 metadata. Unknown field values survive typed serialization; untouched wire
 fields and media frames retain exact bytes. Changed metadata receives a fresh
 IV and HMAC. Only supported type-25 encrypted-response-part headers are handled.
+
+Both bundles contain the integrity-pinned `@noble/ciphers`, `@noble/hashes` and
+`pako` dependencies listed alongside the Protobuf runtime in
+[dependencies.json](../youtube-response/dependencies.json). The device downloads
+no runtime libraries and local mode calls no Worker. Native getRandomValues
+remains mandatory; no weak RNG fallback is provided. Gzip uses the public Pako
+streaming API with 64 KiB output chunks, CRC/trailer validation and an 8 MiB limit.
+Brotli remains native-only. The three-second deadline rejects late results before
+publishing bytes or persisting state, but cannot interrupt synchronous JavaScript;
+input/output bounds limit work, not exact CPU time or native memory consumption.
 
 The response-hook path passes the original response on errors. The QX echo
 candidate instead completes the entire transaction: key failures return empty
@@ -100,7 +115,7 @@ optional diagnostics. Keep private captures/keys out of the repository.
 ## Reproduce offline
 
 Use Node 22.21.1, TypeScript 5.9.3, esbuild 0.25.12 and the pinned
-`@protobuf-ts/runtime` described in [the response build docs](../youtube-response/README.md).
+build dependencies described in [the response build docs](../youtube-response/README.md).
 All downloads, dependencies, private extracts and intermediates belong in
 `/private/tmp/`, with no global installations or persistent environment changes.
 Delete the temporary directories after finishing.
@@ -137,3 +152,23 @@ Protocol references checked during reconstruction:
 
 The failed .5 test instructions in [BOOTSTRAP-TEST.md](BOOTSTRAP-TEST.md) are
 historical. Do not activate the retired bootstrap profile.
+
+## Candidate .7 offline evidence
+
+The paired checker passes the original 332 codec and 40 behavior comparisons,
+three Next golden captures, request/echo/key lifecycle/architecture regressions,
+strict TypeScript and reproducible builds across dependency directories. Sixteen
+portable-runtime groups cover public AES vectors, independent native crypto
+interoperability, full 128-bit counter carry, authentication rejection, secure RNG
+requirements, gzip CRC/truncation/expansion limits and detached/deadline timers.
+The shipped response bundle filters a synthetic encrypted Player without subtle,
+streams, native UTF-8 encoders or BigInt. All three original captured Next bodies
+also reproduce their golden results inside synthetic encrypted wrappers under
+both backends; unaffected frames and opaque fields remain exact.
+
+These synthetic wrappers do not constitute a new native encrypted playback
+replay. The later QX/SR uploads were unavailable for the final .7 replay; historical
+native reports remain evidence for their recorded builds only. Shadowrocket .7
+needs real local-body logs with positive verified/updated counters and real ad
+removal; ad-free intervals alone are insufficient. QX also needs a short .7
+regression test because the shared bundle and timer invocation changed.

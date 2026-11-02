@@ -41,13 +41,7 @@ async function transform(stream: CodecStream, bytes: Uint8Array): Promise<Uint8A
   const write = (async () => { await writer.write(bytes); await writer.close(); })();
   const [out] = await Promise.all([read,write]); return out;
 }
-export async function webPlaybackRuntime(host: WebPlaybackHost, key: Uint8Array): Promise<PlaybackRuntime> {
-  const api = host.crypto?.subtle;
-  if (key.length !== 32) throw new OnesieError('key-invalid');
-  if (!api || !host.crypto?.getRandomValues || ['importKey','verify','sign','decrypt','encrypt'].some(name =>
-    typeof Reflect.get(api,name) !== 'function')) throw new OnesieError('unsupported-crypto');
-  const aes = await api.importKey('raw',key.subarray(0,16),{name:'AES-CTR'},false,['encrypt','decrypt']);
-  const hmac = await api.importKey('raw',key.subarray(16),{name:'HMAC',hash:{name:'SHA-256'}},false,['sign','verify']);
+export function webCompressionCodec(host: WebPlaybackHost) {
   const codec = async (bytes: Uint8Array, algorithm: number, encode: boolean) => {
     if (bytes.length > MAX_METADATA_BYTES) throw new OnesieError('size-limit');
     if (algorithm === Compression.NONE) return bytes;
@@ -58,7 +52,18 @@ export async function webPlaybackRuntime(host: WebPlaybackHost, key: Uint8Array)
     try { stream = new Constructor(format); } catch { throw new OnesieError('unsupported-compression'); }
     return transform(stream,bytes);
   };
+  return codec;
+}
+export async function webPlaybackRuntime(host: WebPlaybackHost, key: Uint8Array): Promise<PlaybackRuntime> {
+  const api = host.crypto?.subtle;
+  if (key.length !== 32) throw new OnesieError('key-invalid');
+  if (!api || !host.crypto?.getRandomValues || ['importKey','verify','sign','decrypt','encrypt'].some(name =>
+    typeof Reflect.get(api,name) !== 'function')) throw new OnesieError('unsupported-crypto');
+  const aes = await api.importKey('raw',key.subarray(0,16),{name:'AES-CTR'},false,['encrypt','decrypt']);
+  const hmac = await api.importKey('raw',key.subarray(16),{name:'HMAC',hash:{name:'SHA-256'}},false,['sign','verify']);
+  const codec = webCompressionCodec(host);
   return {
+    backend:'webcrypto',
     async decrypt(cipher,signature,iv) {
       if (!await api.verify('HMAC',hmac,signature,append(cipher,iv))) throw new OnesieError('authentication-failed');
       return new Uint8Array(await api.decrypt({name:'AES-CTR',counter:iv,length:128},aes,cipher));
@@ -75,10 +80,16 @@ export async function webPlaybackRuntime(host: WebPlaybackHost, key: Uint8Array)
 }
 export async function playbackDeadline<T>(host: WebPlaybackHost, work: () => Promise<T>): Promise<T> {
   if (!host.setTimeout || !host.clearTimeout) throw new OnesieError('unsupported-crypto');
+  const schedule=host.setTimeout,cancel=host.clearTimeout;
+  const started=Date.now();
   let timer: unknown;
   try {
-    return await Promise.race([work(),new Promise<never>((_resolve,reject) => {
-      timer = host.setTimeout!(() => reject(new OnesieError('timeout')),3000);
+    const result = await Promise.race([work(),new Promise<never>((_resolve,reject) => {
+      timer = schedule(() => reject(new OnesieError('timeout')),3000);
     })]);
-  } finally { if (timer !== undefined) host.clearTimeout(timer); }
+    // Synchronous portable work cannot be interrupted by a JS timer. Discard a
+    // late result before the caller can publish bytes or persist filter state.
+    if (Date.now()-started>=3000) throw new OnesieError('timeout');
+    return result;
+  } finally { if (timer !== undefined) cancel(timer); }
 }

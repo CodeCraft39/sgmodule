@@ -8,7 +8,7 @@ sys.dont_write_bytecode = True
 
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root / 'tools/youtube-response'))
-from dependency import verify, bundle_banner
+from dependency import verify, bundle_banner, esbuild_aliases
 parser = argparse.ArgumentParser()
 parser.add_argument('--esbuild', required=True)
 parser.add_argument('--dependency-dir', required=True, type=Path)
@@ -21,6 +21,6 @@ assert hashlib.sha256(fixture.read_bytes()).hexdigest() == '3ecca15e06e76a317200
 subprocess.run([args.esbuild, str(root / 'Script/Youtube/src/request/entry.ts'),
     '--bundle', '--format=iife', '--target=es2020', '--charset=utf8',
     '--minify-whitespace', '--legal-comments=none',
-    '--alias:@protobuf-ts/runtime=' + str(package / 'build/es2015/index.js'),
-    '--banner:js=' + bundle_banner(package,'// YouTube Enhance request. Source: src/request/. QX echo device validation pending.'),
+    *esbuild_aliases(args.dependency_dir),
+    '--banner:js=' + bundle_banner(package,'// YouTube Enhance request. Source: src/request/. Native integration evidence: tools/youtube-local/.'),
     '--outfile=' + str(args.out)], check=True, cwd=root)

@@ -1,6 +1,6 @@
 # YouTube request source and adapters
 
-Current build: **request-compat-20261101.6**. Readable TypeScript under
+Current build: **request-compat-20261102.7**. Readable TypeScript under
 `Script/Youtube/src/request/` builds `Script/Youtube/youtube.request.js`.
 This is equivalent reconstructed source, not Maasea's original TypeScript.
 The pinned original bundle remains in `fixtures/upstream.request.js` for parity.
@@ -16,8 +16,12 @@ change was needed for this behavior. Use the normal
 [QX echo profile](../youtube-local/quantumult-x.echo.conf) after disarming the
 completed temporary bootstrap probe. The first Shadowrocket local run acquired
 matching keys but passed playback responses with unsupported-crypto; see
-[the native failure report](../youtube-local/SR-20261102-191430.json). Runtime
-capability probing is next. Surge remains untested.
+[the native failure report](../youtube-local/SR-20261102-191430.json). The
+[second runtime matrix](../youtube-local/SR-RUNTIME-20261102-201841.json) establishes
+that WebView lacks crypto.subtle but exposes secure randomness. Candidate .7
+bundles maintained portable AES/HMAC and gzip, and changes timer invocation.
+Use the updated local test profile with `engine=webview`; native .7 validation is
+pending on SR and QX. Surge remains untested.
 
 ## Behavior
 
@@ -77,8 +81,8 @@ Maasea. Current counts/hashes are in the request/response validation manifests.
 Earlier private playback archives were unavailable for the .6 replay; historical
 reports are retained without claiming that those checks ran again.
 
-Both bundles now include the same pinned `@protobuf-ts/runtime` because the QX
-request adapter calls the shared response core. The runtime is bundled locally;
+Both bundles include pinned Protobuf, Noble AES/HMAC and Pako gzip dependencies
+because the QX request adapter calls the shared response core. The runtime is bundled locally;
 the device downloads no package. License/copyright notices are retained. Follow
 [dependency preparation](../youtube-response/README.md) for the pinned tools and
 runtime. All tools, libraries and intermediates must be in `/private/tmp/`, with

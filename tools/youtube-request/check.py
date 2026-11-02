@@ -14,7 +14,7 @@ sys.dont_write_bytecode = True
 
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root / 'tools/youtube-response'))
-from dependency import verify
+from dependency import verify, esbuild_aliases, type_paths, pins
 parser = argparse.ArgumentParser()
 parser.add_argument('--node', required=True)
 parser.add_argument('--typescript', required=True, help='Path to lib/tsc.js')
@@ -42,7 +42,7 @@ versions = {
 }
 tsconfig = work / 'tsconfig.request.json'
 tsconfig.write_text(json.dumps({'extends': str(root / 'tools/youtube-request/tsconfig.json'),
-    'compilerOptions': {'paths': {'@protobuf-ts/runtime':[str(package / 'build/types/index.d.ts')]}}}))
+    'compilerOptions': {'paths': type_paths(args.dependency_dir)}}))
 run([args.node, args.typescript, '-p', str(tsconfig)])
 run([sys.executable, 'tools/youtube-request/build.py', '--esbuild', args.esbuild, '--dependency-dir', str(args.dependency_dir)])
 run([sys.executable, 'tools/youtube-request/build.py', '--esbuild', args.esbuild,
@@ -50,7 +50,7 @@ run([sys.executable, 'tools/youtube-request/build.py', '--esbuild', args.esbuild
 output = root / 'Script/Youtube/youtube.request.js'
 assert output.read_bytes() == (work / 'request.reproduced.js').read_bytes(), 'Non-reproducible output'
 run([args.esbuild, 'tools/youtube-request/test-entry.ts', '--bundle', '--platform=node',
-     '--format=cjs', '--alias:@protobuf-ts/runtime='+str(package / 'build/es2015/index.js'), '--outfile=' + str(work / 'test-entry.cjs')])
+     '--format=cjs', *esbuild_aliases(args.dependency_dir), '--outfile=' + str(work / 'test-entry.cjs')])
 tap = run([args.node, 'tools/youtube-request/test.mjs', str(work / 'test-entry.cjs'), str(output)])
 (work / 'test.tap').write_text(tap + '\n')
 tests = int(re.search(r'^# tests (\d+)$', tap, re.MULTILINE).group(1))
@@ -61,7 +61,8 @@ report = {
     'decoderDifferentialVariants': 100, 'reproducibleBuild': True,
     'fixtures': 'synthetic plus pinned original bundle; QX echo tests run by paired checker',
     'runtimeDependency': '@protobuf-ts/runtime@2.11.1',
-    'deviceValidation': 'pending user testing on Quantumult X and Shadowrocket; Surge untested',
+    'bundledDependencies': {name:pin['version'] for name,pin in pins().items()},
+    'deviceValidation': 'build .7 portable runtime and detached timers pending native testing; historical .6 QX verified; Surge untested',
     'tools': versions,
     'scriptSha256': hashlib.sha256(output.read_bytes()).hexdigest(),
 }

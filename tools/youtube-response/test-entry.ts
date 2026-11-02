@@ -15,3 +15,6 @@ export {UnknownFields} from '../../Script/Youtube/src/protobuf/runtime';
 export {decodeOnesieRequest} from '../../Script/Youtube/src/request/protobuf';
 export {echoHeaders} from '../../Script/Youtube/src/request/qx-echo';
 export {echoLeaseKey, acquireEchoLease, releaseEchoLease} from '../../Script/Youtube/src/request/echo-lease';
+
+export {createPlaybackRuntime} from '../../Script/Youtube/src/protobuf/playback-runtime';
+export {portablePlaybackRuntime, portableGzip} from '../../Script/Youtube/src/protobuf/portable-playback';

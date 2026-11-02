@@ -1,12 +1,16 @@
-Current request/response build: **20261101.6**. Normal QX local fetch/filter/echo
-and the forced missing-key fallback are native-verified. The
-[12:40 run](../youtube-local/QX-20261102-124053.json) shows a real empty 200 followed
-by direct get_watch for the same video, filtered Player output and successful
-media delivery. Keys refreshed afterward. This uses the shared response core;
-legacy SR/Surge defaults are unchanged. Shadowrocket local playback failed its
-[first native run](../youtube-local/SR-20261102-191430.json) with unsupported-crypto;
-Auto/WebView/JSC capability probing is next. Surge remains untested. The sections below retain the original reconstruction and
-compatibility findings; references to .1 describe legacy/default mode.
+Current candidate: **20261102.7**, pending native testing. Historical .6 QX
+normal playback and forced missing-key recovery remain verified for their captures.
+The [second Shadowrocket matrix](../youtube-local/SR-RUNTIME-20261102-201841.json)
+retains .2 tunnel evidence despite a stale .1 page: WebView exposes native secure
+randomness but lacks crypto.subtle, and the bound timer call fails. The candidate
+adds maintained portable AES/HMAC and bounded gzip, uses detached timers and keeps
+the native backend on complete Web Crypto hosts. Follow the updated WebView test
+profile. Sixteen new offline groups pass, including the original captured Next
+bodies in synthetic encrypted wrappers. Real .7 Shadowrocket playback and a QX
+regression check remain required; Surge is untested. See
+[local playback](../youtube-local/README.md) for exact limits.
+The sections below retain original reconstruction and compatibility findings;
+references to .1 describe legacy/default mode.
 
 # Paired YouTube script reconstruction
 
@@ -110,7 +114,7 @@ or borrowing Player field numbers is not justified by that evidence.
 - `filters/immersive.ts`: client-independent product-panel filtering for standalone
   and embedded Next; field paths come from generated schema constants.
 - `main.ts`: native binary adapters, shared storage, output and safe diagnostics.
-- `dependencies.json`: pinned @protobuf-ts/runtime 2.11.1 with archive integrity.
+- `dependencies.json`: pinned Protobuf runtime, Noble ciphers/hashes and Pako with archive integrity.
   The extracted opaque runtime has been removed. The upstream dependency is
   prepared only in /private/tmp and bundled at build time.
 

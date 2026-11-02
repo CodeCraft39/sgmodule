@@ -5,5 +5,32 @@
     "sha256": "3bb18cb373565b5c95e466c1db76e4b1d8166b62276a15e3547c36f9e25b502b",
     "source": "https://github.com/timostamm/protobuf-ts/tree/v2.11.1/packages/runtime",
     "license": "Apache-2.0 AND BSD-3-Clause"
+  },
+  "@noble/ciphers": {
+    "version": "2.4.0",
+    "url": "https://registry.npmjs.org/@noble/ciphers/-/ciphers-2.4.0.tgz",
+    "sha256": "4a398bcc280c8742d474f9162f6d3c153e52ab1078e8ab592b4720410fb3c3e9",
+    "archive": "ciphers.tgz",
+    "directory": "ciphers",
+    "license": "MIT",
+    "source": "git+https://github.com/paulmillr/noble-ciphers.git"
+  },
+  "@noble/hashes": {
+    "version": "2.4.0",
+    "url": "https://registry.npmjs.org/@noble/hashes/-/hashes-2.4.0.tgz",
+    "sha256": "e1946149b780017b2564fcc092cb01c04e1d7f20627d0296c17da8868f4436dc",
+    "archive": "hashes.tgz",
+    "directory": "hashes",
+    "license": "MIT",
+    "source": "git+https://github.com/paulmillr/noble-hashes.git"
+  },
+  "pako": {
+    "version": "3.0.3",
+    "url": "https://registry.npmjs.org/pako/-/pako-3.0.3.tgz",
+    "sha256": "50623ace3ae006597034b699a643bd5295fb064eab6fcd12b6587e7292f977aa",
+    "archive": "pako.tgz",
+    "directory": "pako",
+    "license": "(MIT AND Zlib)",
+    "source": "https://github.com/nodeca/pako"
   }
 }

@@ -6,7 +6,8 @@ import {decodeBase64} from './base64';
 import {normalizeConfig} from './config';
 import {sessionSuffix} from './diagnostics';
 import {acquireEchoLease, echoLeaseKey, releaseEchoLease} from './echo-lease';
-import {webPlaybackRuntime, playbackDeadline} from '../protobuf/web-playback';
+import {playbackDeadline} from '../protobuf/web-playback';
+import {createPlaybackRuntime} from '../protobuf/playback-runtime';
 import {OnesieError, MAX_PLAYBACK_BYTES} from '../protobuf/onesie';
 import {runResponse} from '../response/main';
 import type {ResponseHost} from '../response/main';
@@ -86,7 +87,7 @@ export async function runQxEcho(base: Host, opts: Options, config: YouTubeConfig
       try { clientKey=decodeBase64(pair.clientKey!); }
       catch { throw new OnesieError('key-invalid'); }
       runtime=await playbackDeadline(host,async()=>{
-        const value=await webPlaybackRuntime(host,clientKey);
+        const value=await createPlaybackRuntime(host,clientKey);
         await value.decrypt(envelope.encryptedOnesieInnertubeRequest,envelope.hmac,envelope.iv);
         return value;
       });

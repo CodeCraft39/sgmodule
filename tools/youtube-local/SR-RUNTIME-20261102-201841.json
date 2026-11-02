@@ -1,0 +1,93 @@
+{
+  "client": "Shadowrocket",
+  "tunnelLog": "PacketTunnel-20261102201841.log",
+  "export": "yt-runtime-probe 2.json",
+  "exportBuild": "runtime-probe-20261102.1",
+  "loggedProbeBuild": "runtime-probe-20261102.2",
+  "versionMismatch": {
+    "summaryAccepted": false,
+    "reason": "The .1 page expected .1 replies and labelled .2 results fetch-or-probe-failed.",
+    "tunnelResultsUsable": true,
+    "loggedEngines": [
+      "auto",
+      "webview",
+      "jsc"
+    ]
+  },
+  "autoAndWebview": {
+    "cryptoPresent": true,
+    "subtlePresent": false,
+    "subtleMethods": {
+      "importKey": false,
+      "verify": false,
+      "sign": false,
+      "decrypt": false,
+      "encrypt": false
+    },
+    "randomValues": true,
+    "setTimeout": true,
+    "clearTimeout": true,
+    "compressionStream": true,
+    "decompressionStream": true,
+    "secureContext": false,
+    "nativeUtilityMemberNames": {
+      "$utils": [
+        "geoip",
+        "gzip",
+        "ipasn",
+        "ipaso",
+        "ungzip"
+      ]
+    },
+    "intrinsics": {
+      "reflectGet": true,
+      "objectValues": true
+    },
+    "readFailures": [],
+    "callFailures": [
+      {
+        "path": "setTimeout",
+        "errorName": "TypeError"
+      }
+    ],
+    "probeError": {
+      "stage": "public-vector-checks",
+      "errorName": "TypeError"
+    }
+  },
+  "jsc": {
+    "cryptoPresent": false,
+    "subtlePresent": false,
+    "randomValues": false,
+    "setTimeout": true,
+    "clearTimeout": true,
+    "compressionStream": false,
+    "decompressionStream": false,
+    "wasm": "pass",
+    "textEncoderPresent": false,
+    "textDecoderPresent": false
+  },
+  "proven": [
+    "The tunnel log retains .2 capability observations for all three requested engines despite the stale .1 page.",
+    "Auto and WebView expose getRandomValues but no crypto.subtle; this fails the .6 native runtime preconditions.",
+    "Auto and WebView public-vector execution stops at a setTimeout TypeError; it does not produce a complete vector report.",
+    "JSC lacks the native random-values API required by either crypto backend."
+  ],
+  "candidate": {
+    "build": "20261102.7",
+    "changes": [
+      "Bundle pinned maintained AES-128-CTR/HMAC-SHA256 primitives and bounded streaming gzip for hosts lacking a complete native subtle API.",
+      "Keep native secure randomness mandatory; select WebView for the Shadowrocket local test profile.",
+      "Invoke timer functions detached and reject synchronous results that exceed the processing budget.",
+      "Retain the existing native crypto backend when all required APIs are present."
+    ],
+    "deviceValidation": "Pending Shadowrocket playback and a QX regression check; no repeat capability matrix required."
+  },
+  "limits": [
+    "API presence is not proof of successful native encryption/compression or playback filtering.",
+    "The timer receiver is a candidate explanation; detached timers have offline coverage and still need native validation.",
+    "The .7 replay of original Next bodies uses synthetic encrypted wrappers; no new private native encrypted playback replay was run.",
+    "Brotli still requires a supported native compression/decompression stream.",
+    "This report summarizes observations recorded during log inspection; it retains no private bodies, keys or identifiers."
+  ]
+}

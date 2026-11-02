@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 sys.dont_write_bytecode = True
-from dependency import verify, bundle_banner
+from dependency import verify, bundle_banner, esbuild_aliases
 
 root = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
@@ -17,5 +17,5 @@ subprocess.run([sys.executable, 'tools/youtube-response/generate.py', '--check']
 banner = bundle_banner(package,'// YouTube Enhance response. Source: src/response/. Native integration evidence: tools/youtube-local/.')
 subprocess.run([a.esbuild, str(root / 'Script/Youtube/src/response/entry.ts'), '--bundle',
     '--format=iife', '--target=es2020', '--charset=utf8', '--minify-whitespace', '--legal-comments=none',
-    '--alias:@protobuf-ts/runtime=' + str(package / 'build/es2015/index.js'),
+    *esbuild_aliases(a.dependency_dir),
     '--banner:js=' + banner, '--outfile=' + str(a.out)], cwd=root, check=True)

@@ -6,11 +6,17 @@
   "reproducibleBuild": true,
   "fixtures": "synthetic plus pinned original bundle; QX echo tests run by paired checker",
   "runtimeDependency": "@protobuf-ts/runtime@2.11.1",
-  "deviceValidation": "pending user testing on Quantumult X and Shadowrocket; Surge untested",
+  "bundledDependencies": {
+    "@protobuf-ts/runtime": "2.11.1",
+    "@noble/ciphers": "2.4.0",
+    "@noble/hashes": "2.4.0",
+    "pako": "3.0.3"
+  },
+  "deviceValidation": "build .7 portable runtime and detached timers pending native testing; historical .6 QX verified; Surge untested",
   "tools": {
     "node": "v22.21.1",
     "typescript": "Version 5.9.3",
     "esbuild": "0.25.12"
   },
-  "scriptSha256": "0ed8621ed4917f027740ac219e159f0d4521cafd641190e80e9f54d62fac6530"
+  "scriptSha256": "9a4602dc97ec26b52eea88a653b9ac1e995ff3cf50f855044d2706154c09ef92"
 }

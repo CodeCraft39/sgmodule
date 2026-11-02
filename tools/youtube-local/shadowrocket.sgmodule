@@ -1,13 +1,14 @@
 #!name=YouTube local playback test
-# Native run 2026-11-02 19:14 failed with unsupported-crypto; see SR-20261102-191430.json.
-# Diagnose with tools/youtube-device/runtime-probe/shadowrocket.sgmodule before another playback trial.
+# Build 20261102.7: portable AES/HMAC/gzip; native playback validation pending.
+# WebView exposes secure randomness in the runtime probe; JSC does not.
+# Disable the runtime probe module during this playback trial.
 # Disable overlapping YouTube modules and earlier capture observers.
 # The export-only diagnostic reads this client's key store; it does not observe playback.
 [Script]
-yt.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player(?:/ad_break)?|search|reel/reel_watch_sequence|guide|account/get_setting|get_watch|log_event|config)(?:\?.*)?$,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"captionLang":"off","blockUpload":true,"blockImmersive":true,"blockShorts":false,"debug":true,"localPlayback":true}"
-yt.init.request = type=http-request,pattern=^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^#]*&)?ack(?:=|&|$),requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.request.js,argument="{"debug":true,"localPlayback":true}"
-yt.event = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event(?:\?.*)?$,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.request.js,argument="{"debug":true,"localPlayback":true}"
-yt.init.response = type=http-response,pattern=^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^#]*&)?ack(?:=|&|$),requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"captionLang":"off","blockUpload":true,"blockImmersive":true,"blockShorts":false,"debug":true,"localPlayback":true}"
+yt.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player(?:/ad_break)?|search|reel/reel_watch_sequence|guide|account/get_setting|get_watch|log_event|config)(?:\?.*)?$,requires-body=1,max-size=-1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"captionLang":"off","blockUpload":true,"blockImmersive":true,"blockShorts":false,"debug":true,"localPlayback":true}"
+yt.init.request = type=http-request,pattern=^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^#]*&)?ack(?:=|&|$),requires-body=1,max-size=-1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.request.js,argument="{"debug":true,"localPlayback":true}"
+yt.event = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event(?:\?.*)?$,requires-body=1,max-size=-1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.request.js,argument="{"debug":true,"localPlayback":true}"
+yt.init.response = type=http-response,pattern=^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^#]*&)?ack(?:=|&|$),requires-body=1,max-size=-1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"captionLang":"off","blockUpload":true,"blockImmersive":true,"blockShorts":false,"debug":true,"localPlayback":true}"
 
 yt.capture.export = type=http-request,pattern=^https:\/\/example\.com\/yt-local-capture\/export(?:\?.*)?$,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/capture.js
 

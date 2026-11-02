@@ -1,7 +1,7 @@
-> Current build: **20261101.6**. [Local playback](../youtube-local/README.md)
+> Current candidate: **20261102.7**, pending native testing. [Local playback](../youtube-local/README.md)
 > and [QX echo test](../youtube-local/QX-ECHO-TEST.md) document current behavior.
 > Request and response bundles share the typed response core, public runtime and
-> native Onesie crypto/compression. `request/qx-echo.ts` owns QX HTTP transport;
+> native or portable Onesie crypto/compression. `request/qx-echo.ts` owns QX HTTP transport;
 > `ResponseContext` supplies the transaction key snapshot/runtime and reports
 > failure without duplicating filtering logic. No initplayback response hook is
 > installed with that adapter. It is opt-in; other profiles retain their behavior.
@@ -145,3 +145,16 @@ Ad-free intervals alone are insufficient evidence of successful filtering.
 After device tests pass, review removal of the historical
 `Script/Youtube/youtube.response.qx.js` experiment and its obsolete build/test
 helpers. Keep the capture provenance and useful regression evidence.
+
+## Portable playback runtime (.7)
+
+`playback-runtime.ts` selects the existing native backend when crypto.subtle and
+all required methods are available. Otherwise `portable-playback.ts` uses pinned
+Noble AES-128-CTR/HMAC-SHA256 and Pako streaming gzip. Both backends use the same
+protocol, authenticate before decryption and preserve unknown data through the
+same filter core. Native secure randomness is always required; WebView exposes
+that API in the SR probe, while JSC does not. Brotli remains native-only.
+Dependency preparation verifies archive integrity and extracted files, and both
+bundles retain license notices. No library is fetched on the device. This is an
+explicit supported backend, with independent vectors and interoperability tests,
+not a second ad-filter implementation. Native .7 acceptance is still pending.

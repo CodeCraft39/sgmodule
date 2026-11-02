@@ -4,7 +4,8 @@ import {options} from '../request/options';
 import {platformKey, endpoint as requestEndpoint} from '../request/core';
 import {decodeBase64} from '../request/base64';
 import {rewriteOnesie, OnesieError} from '../protobuf/onesie';
-import {webPlaybackRuntime, playbackDeadline} from '../protobuf/web-playback';
+import {playbackDeadline} from '../protobuf/web-playback';
+import {createPlaybackRuntime} from '../protobuf/playback-runtime';
 import type {PlaybackRuntime} from '../protobuf/onesie';
 import type {WebPlaybackHost} from '../protobuf/web-playback';
 import {normalizeConfig} from '../request/config';
@@ -37,7 +38,7 @@ export async function runResponse(host: ResponseHost, context: ResponseContext =
   const route = requestEndpoint(host.$request?.url ?? '') === 'initplayback' ? 'initplayback' :
     host.$request?.url.match(/^https?:\/\/[^/]+\/youtubei\/v1\/([^?#]+)/)?.[1] ?? 'other';
   const session = sessionSuffix(host.$request);
-  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261101.6] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
+  const log = (action: string, detail: string) => host.console.log(`[YT-RESPONSE response-compat-20261102.7] client=${qx?'QX':'Surge-compatible'} endpoint=${route} action=${action} ${detail}${session}`);
   try {
     const opts = options(host);
     const endpoint = endpointFor(route);
@@ -65,15 +66,17 @@ export async function runResponse(host: ResponseHost, context: ResponseContext =
     const beforeConfig = JSON.stringify(state.config);
     let output: Uint8Array | undefined, removed: number | undefined;
     if (local) {
+      let backend='unknown';
       const cachedKey = state.config[platformKey(host.$request?.headers ?? {})]?.clientKey;
       if (!cachedKey) throw new OnesieError('key-missing');
       const result = await playbackDeadline(host,async () => {
-        const runtime = context.playbackRuntime ?? await webPlaybackRuntime(host,decodeBase64(cachedKey));
+        const runtime = context.playbackRuntime ?? await createPlaybackRuntime(host,decodeBase64(cachedKey));
+        backend=runtime.backend??'custom';
         return rewriteOnesie(body,runtime,plain =>
           onesieEndpoint.process(plain,opts.worker,state,platformKey(host.$request?.headers??{})).output);
       });
       output = result.output;
-      if (opts.debug) log(output?'local-body':'local-pass',`bytes=${body.length}->${output?.length??body.length} verified=${result.verified} updated=${result.changed} parts=${result.parts} adPlacementsRemoved=${state.filterStats!.adPlacements} adSlotsRemoved=${state.filterStats!.adSlots} richItemsRemoved=${state.filterStats!.richItems} panelsRemoved=${state.filterStats!.panels}`);
+      if (opts.debug) log(output?'local-body':'local-pass',`bytes=${body.length}->${output?.length??body.length} verified=${result.verified} updated=${result.changed} parts=${result.parts} adPlacementsRemoved=${state.filterStats!.adPlacements} adSlotsRemoved=${state.filterStats!.adSlots} richItemsRemoved=${state.filterStats!.richItems} panelsRemoved=${state.filterStats!.panels} runtime=${backend}`);
     } else {
       ({output, removed} = endpoint!.process(body, opts.worker, state, platformKey(host.$request?.headers ?? {})));
     }

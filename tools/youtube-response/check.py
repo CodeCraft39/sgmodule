@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 sys.dont_write_bytecode = True
-from dependency import verify
+from dependency import verify, esbuild_aliases, type_paths, pins
 
 root = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
@@ -37,7 +37,7 @@ package = verify(a.dependency_dir)
 run([sys.executable, 'tools/youtube-response/generate.py', '--check'])
 tsconfig = work / 'tsconfig.response.json'
 tsconfig.write_text(json.dumps({'extends': str(root / 'tools/youtube-response/tsconfig.json'),
-    'compilerOptions': {'paths': {'@protobuf-ts/runtime': [str(package / 'build/types/index.d.ts')]}},
+    'compilerOptions': {'paths': type_paths(a.dependency_dir)},
     'include':[str(root / 'Script/Youtube/src/response/**/*.ts'), str(root / 'tools/youtube-response/type-contracts.ts')]}))
 run([a.node, a.typescript, '-p', str(tsconfig)])
 run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild, '--dependency-dir', str(a.dependency_dir)])
@@ -48,7 +48,9 @@ assert script.read_bytes() == (work / 'response.reproduced.js').read_bytes()
 assert b'/private/tmp/' not in script.read_bytes(), 'Build embeds a temporary dependency path'
 alternate = work / 'alternate-dependency-location'
 alternate.mkdir(exist_ok=True)
-shutil.copyfile(a.dependency_dir / 'runtime.tgz', alternate / 'runtime.tgz')
+for pin in pins().values():
+    archive = pin.get('archive','runtime.tgz')
+    shutil.copyfile(a.dependency_dir / archive, alternate / archive)
 run([sys.executable, 'tools/youtube-response/dependency.py', '--directory', str(alternate)])
 run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild,
      '--dependency-dir', str(alternate), '--out', str(work / 'response.alternate.js')])
@@ -60,7 +62,7 @@ assert request_script.read_bytes() == (work / 'request.alternate.js').read_bytes
 assert b'/private/tmp/' not in request_script.read_bytes()
 entry = work / 'test-entry.cjs'
 run([a.esbuild, 'tools/youtube-response/test-entry.ts', '--bundle', '--platform=node',
-     '--format=cjs', '--alias:@protobuf-ts/runtime=' + str(package / 'build/es2015/index.js'), '--outfile=' + str(entry)])
+     '--format=cjs', *esbuild_aliases(a.dependency_dir), '--outfile=' + str(entry)])
 run([a.node, 'tools/youtube-response/test.mjs', str(entry), str(script), str(a.captures.resolve())])
 tap = run([a.node, 'tools/youtube-response/regressions.mjs', str(entry), str(script),
            str(root / 'Script/Youtube/youtube.request.js'), str(a.captures.resolve())])
@@ -91,8 +93,14 @@ echo = run([a.node, 'tools/youtube-local/qx-echo.mjs', str(entry), str(request_s
 echo_groups = int(re.search(r'^# tests (\d+)$', echo, re.MULTILINE).group(1))
 assert echo_groups == int(re.search(r'^# pass (\d+)$', echo, re.MULTILINE).group(1))
 report.update(qxEchoGroups=echo_groups, qxEchoPassed=echo_groups,
-              deviceValidation='build .6 fetch/echo transport and native startup retry pending; historical keyed QX filtering recorded separately',
+              deviceValidation='build .7 portable runtime and detached timers pending device validation; .6 QX evidence recorded separately',
               privatePlaybackReplay='not run; supply --playback-captures with matching normalized capture and keys')
+portable = run([a.node, 'tools/youtube-local/portable-runtime.mjs', str(entry), str(script), str(a.captures.resolve())])
+(work / 'portable-runtime.tap').write_text(portable + '\n')
+portable_groups = int(re.search(r'^# tests (\d+)$', portable, re.MULTILINE).group(1))
+assert portable_groups == int(re.search(r'^# pass (\d+)$', portable, re.MULTILINE).group(1))
+report.update(portableRuntimeGroups=portable_groups, portableRuntimePassed=portable_groups,
+              portableCaptureReplay='three original Next captures reproduce golden outputs under both backends in synthetic encrypted wrappers; no new native playback replay')
 if a.playback_captures:
     replay = run([a.node, 'tools/youtube-local/test.mjs', str(entry), str(script),
                   str(root / 'Script/Youtube/youtube.request.js'), str(a.playback_captures.resolve())])
@@ -101,7 +109,7 @@ if a.playback_captures:
     assert replay_groups == int(re.search(r'^# pass (\d+)$', replay, re.MULTILINE).group(1))
     report.update(playbackReplayGroups=replay_groups, playbackReplayPassed=replay_groups, privatePlaybackReplay='passed on supplied normalized captures')
 
-report.update(schemaGeneration='verified', runtimeDependency='@protobuf-ts/runtime@2.11.1', architectureTestGroups=architecture_groups, architecturePassed=architecture_passed, typecheck='passed', reproducibleBuild=True, reproducibleAcrossDependencyPaths=True, auditRegressionGroups=groups,
+report.update(schemaGeneration='verified', runtimeDependency='@protobuf-ts/runtime@2.11.1', bundledDependencies={name:pin['version'] for name,pin in pins().items()}, architectureTestGroups=architecture_groups, architecturePassed=architecture_passed, typecheck='passed', reproducibleBuild=True, reproducibleAcrossDependencyPaths=True, auditRegressionGroups=groups,
               auditRegressionPassed=passed, scriptSha256=hashlib.sha256(script.read_bytes()).hexdigest())
 file.write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

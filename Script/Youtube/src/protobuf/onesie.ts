@@ -9,6 +9,7 @@ export class OnesieError extends Error {
     'authentication-failed' | 'invalid-envelope' | 'invalid-ump' | 'size-limit' | 'timeout') { super(code); }
 }
 export interface PlaybackRuntime {
+  readonly backend?: 'webcrypto' | 'portable';
   decrypt(cipher: Uint8Array, hmac: Uint8Array, iv: Uint8Array): Promise<Uint8Array>;
   encrypt(plain: Uint8Array): Promise<{cipher: Uint8Array; hmac: Uint8Array; iv: Uint8Array}>;
   decompress(bytes: Uint8Array, algorithm: number): Promise<Uint8Array>;
