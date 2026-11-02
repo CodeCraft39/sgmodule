@@ -1,7 +1,12 @@
 # Local YouTube playback
 
-Current candidate: **request/response build 20261101.6**. The next QX test is the
-[request-stage playback test](QX-ECHO-TEST.md), using
+Current build: **request/response 20261101.6**. Normal QX request-stage playback
+passed the [2 November capture](QX-20261102-092452.json): five native fetch/filter/echo
+transactions, no reported ads/stalls, and independent before/after decryption of
+the final pair. Logs record 31 placement entries, four slots and 11 rich items
+removed. Missing-key empty-response/retry remains untested because configuration
+refreshed before the next playback request. The
+[request-stage playback steps](QX-ECHO-TEST.md) use
 [quantumult-x.echo.conf](quantumult-x.echo.conf). It replaces the overlapping
 YouTube rules; refreshing scripts alone is insufficient.
 
@@ -40,11 +45,14 @@ Maasea's Worker. The new local profile does not contact that service.
 | [20:53](QX-20261101-205314.json) | Normal keyed filtering verified again; no bootstrap branch executed. |
 | [21:07](QX-20261101-210707.json) | Response-hook empty replacement failed; original ad-bearing body remained and ads appeared. |
 | [21:34](QX-20261101-213425.json) | Controlled Safari probe: nonempty bytes replaced correctly; empty bytes/text retained the original response. |
+| [2 Nov 09:24](QX-20261102-092452.json) | Five real Google POST/fetch/filter/echo pairs verified; 518 unaffected frames exact. Final pair independently decrypts to zero placements/slots. Missing-key branch did not run. |
 | [21:57](QX-20261101-215745.json) | Request-stage echo: actual zero-byte response, exact binary input/output, public GET fetch round trip. |
 
-The .6 adapter has offline integration coverage, but no native playback result
-yet. Real Google POST forwarding, native fetch re-entry and YouTube retry require
-the next device test. Ad-free periods alone remain insufficient evidence.
+The .6 normal transport is now native-verified in this run: exact POST forwarding,
+filtered full-response completion and no observed fetch recursion. The warm reset
+succeeded, but key refresh won the race; YouTube retry after a genuine empty
+response remains untested. Do not repeat the same timing trial expecting it to
+guarantee that branch. Ad-free periods alone remain insufficient evidence.
 Shadowrocket local playback and Surge remain unverified. `/player/ad_break` is
 observed but unfiltered pending a real binary response and schema evidence.
 

@@ -1,7 +1,71 @@
+# Deterministic missing-key diagnostic — bootstrap-probe-20261102.1
+
+The temporary profile is
+`../youtube-device/bootstrap-probe/quantumult-x.conf`. It replaces only the QX
+playback script URL with bootstrap-probe.js and adds arm/status/cancel control
+URLs. API responses, log_event and key exports retain their production handlers.
+The builder embeds the exact validated production request bundle. Neither
+production script is changed and no source is fetched/evaluated at runtime.
+
+1. Publish the diagnostic source, builder, tests, validation and bootstrap-probe.js.
+   Refresh that resource after installing the temporary profile.
+2. Keep QX on, Shadowrocket off and logging at Error. Play/pause a video; leave
+   YouTube running. Start a fresh HTTP capture.
+3. Open `https://example.com/yt-local-capture/bootstrap-probe/arm` in Safari.
+   Require `armed: true`. Arming leaves keys intact and expires after ten minutes.
+4. Return to YouTube and select a different video exactly once. Do not tap retry,
+   select another video or restart either app for about 60 seconds.
+5. Open `https://example.com/yt-local-capture/bootstrap-probe/status`. Require
+   `state: completed`, `emptyCompletionRequested: true` and
+   `initialConfigReadMasked: true` for a valid injected test; these flags describe
+   the requested completion, not proof of native delivery or automatic retry.
+6. Open `https://example.com/yt-local-capture/export`, save its private JSON and
+   save HTTP ZIP/tunnel log. Copy the status JSON and note whether the selected
+   video recovered automatically, stalled or showed ads.
+7. Open `https://example.com/yt-local-capture/bootstrap-probe/cancel`, require
+   `cancelled: true`, and restore `quantumult-x.echo.conf` for normal use. If
+   playback stalled, retain the evidence before force-quitting/reopening YouTube.
+
+The wrapper consumes a matched YouTube POST, clears only the actual YouTube
+configuration entry and makes the production handler's first config read see
+that missing entry. A concurrent refresh remains intact in real preferences.
+Subsequent requests delegate normally. Music and unrelated settings remain.
+This forces the real production missing-key branch; it does not directly invent
+an empty response. Confirm exactly one `YT-BOOTSTRAP ... action=force-missing-key`
+in the native log: QX preferences provide no atomic cross-script lock.
+
+Acceptance requires the app-facing capture to contain the actual empty 200,
+fresh-key acquisition, and automatic retry/recovery with authenticated filtering.
+No manual retry is allowed as evidence of automatic recovery. If it fails, the
+capture supplies a concrete failure for the next fix; one run cannot guarantee
+all variants. Remove this diagnostic asset/profile after the gap is validated.
+
+Reproduce with the pinned Node/TypeScript/esbuild tools exclusively in
+`/private/tmp/`, then remove that temporary directory:
+
+```sh
+python3 tools/youtube-device/bootstrap-probe/check.py \
+  --node /private/tmp/maasea-tools/node/node-v22.21.1-darwin-arm64/bin/node \
+  --typescript /private/tmp/maasea-tools/typescript/package/lib/tsc.js \
+  --esbuild /private/tmp/maasea-tools/esbuild/package/bin/esbuild \
+  --work-dir /private/tmp/maasea-tools/probe-check
+```
+
+---
+
 # QX request-stage playback test — build 20261101.6
 
-The isolated echo checks passed. This test now checks the actual YouTube path.
-It is a QX-only opt-in; existing Shadowrocket/Surge profiles keep their behavior.
+The 2 November run passed normal QX playback: five real Google binary POSTs were
+fetched, filtered and echoed successfully. The final pair independently verifies
+four placements/one slot removed and three rich items removed. All 518 unaffected
+UMP frames across the five pairs are byte-exact. See
+[QX-20261102-092452.json](QX-20261102-092452.json).
+
+The reset action succeeded, but log_event refreshed keys before the next playback
+POST. Missing-key empty completion/client retry was **not exercised**. Do not
+repeat phase B expecting timing alone to guarantee it; deterministic diagnostic
+coverage is needed to validate that remaining branch. The steps below retain the
+procedure that produced this evidence. Existing SR/Surge profiles are unchanged.
 
 ## Publish and configure
 
@@ -68,8 +132,10 @@ unknown/media preservation, concurrent-key isolation, header normalization,
 timeouts, error/redirect handling and recursion detection in mocked hosts.
 The three original Next captures still match their golden outputs.
 
-Real Google binary POST forwarding, native fetch re-entry, native buffering/
-latency and YouTube's automatic retry after bootstrap are **not yet established**.
+Real Google binary POST forwarding and full-response completion are now
+native-verified for this run, with no observed fetch recursion or playback
+failures. Forced re-entry, native timeout/memory boundaries and YouTube's
+automatic retry after bootstrap are **not yet established**.
 The earlier private playback archives are no longer available at their supplied
 Downloads paths, so their 16 replay checks were not rerun for .6. Historical
 results remain in the JSON reports; the current validation manifest does not

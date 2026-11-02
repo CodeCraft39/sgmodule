@@ -1,0 +1,16 @@
+{
+  "build": "bootstrap-probe-20261102.1",
+  "typecheck": "passed",
+  "testGroups": 13,
+  "passed": 13,
+  "reproducibleBuild": true,
+  "productionBundleEmbeddedByteExact": true,
+  "productionBundleHashes": {
+    "request": "0ed8621ed4917f027740ac219e159f0d4521cafd641190e80e9f54d62fac6530",
+    "response": "033976f14ee0ee8df98baace22f442b9bc33aab46126bdddcddf4e744f2060ad"
+  },
+  "productionFiles": "unchanged",
+  "runtimeNetworkCodeLoading": false,
+  "deviceValidation": "forced missing-key completion and automatic retry pending",
+  "scriptSha256": "6d0f8d3319ef3c941c9a9800bbff157feebbd9845c407917b9c997143fb77187"
+}

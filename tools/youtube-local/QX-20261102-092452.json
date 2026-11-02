@@ -1,0 +1,280 @@
+{
+  "archive": "2026-11-02-092452.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-02-092451.log",
+  "keyExport": "yt-local-capture.json",
+  "client": "Quantumult X",
+  "build": "20261101.6",
+  "userObservation": "No ads, stalls or playback failures observed",
+  "httpTransactions": 86,
+  "appPlaybackPostTransactions": 5,
+  "nativeUpstreamFetchTransactions": 5,
+  "legacyWorkerRequestsCaptured": 0,
+  "adBreakRequestsCaptured": 0,
+  "loggedPlayback": [
+    {
+      "inputBytes": 103493,
+      "outputBytes": 103220,
+      "verified": 1,
+      "updated": 1,
+      "parts": 36,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0,
+      "richItemsRemoved": 0,
+      "panelsRemoved": 0,
+      "session": 35
+    },
+    {
+      "inputBytes": 2080598,
+      "outputBytes": 1871677,
+      "verified": 2,
+      "updated": 2,
+      "parts": 140,
+      "adPlacementsRemoved": 6,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 39
+    },
+    {
+      "inputBytes": 2032588,
+      "outputBytes": 1841815,
+      "verified": 2,
+      "updated": 2,
+      "parts": 135,
+      "adPlacementsRemoved": 4,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 2,
+      "panelsRemoved": 0,
+      "session": 47
+    },
+    {
+      "inputBytes": 2073999,
+      "outputBytes": 1728601,
+      "verified": 2,
+      "updated": 2,
+      "parts": 127,
+      "adPlacementsRemoved": 17,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 55
+    },
+    {
+      "inputBytes": 1058735,
+      "outputBytes": 765895,
+      "verified": 2,
+      "updated": 2,
+      "parts": 89,
+      "adPlacementsRemoved": 4,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0,
+      "session": 79
+    }
+  ],
+  "loggedTotals": {
+    "verified": 9,
+    "updated": 9,
+    "adPlacementsRemoved": 31,
+    "adSlotsRemoved": 4,
+    "richItemsRemoved": 11,
+    "panelsRemoved": 0
+  },
+  "transportAndFrameVerification": [
+    {
+      "appSession": 35,
+      "upstreamFetchSession": 36,
+      "exactMethodUrlAndRequestBody": true,
+      "requestBytes": 6952,
+      "upstreamBytes": 103493,
+      "filteredBytes": 103220,
+      "umpParts": 36,
+      "changedMetadataParts": [
+        30
+      ],
+      "unchangedFrameCount": 35,
+      "allOtherFramesByteExact": true,
+      "otherEnvelopeFieldsByteExact": true,
+      "changedIvIsFresh": true,
+      "upstreamAndAppStatus": 200
+    },
+    {
+      "appSession": 39,
+      "upstreamFetchSession": 40,
+      "exactMethodUrlAndRequestBody": true,
+      "requestBytes": 6967,
+      "upstreamBytes": 2080598,
+      "filteredBytes": 1871677,
+      "umpParts": 140,
+      "changedMetadataParts": [
+        55,
+        139
+      ],
+      "unchangedFrameCount": 138,
+      "allOtherFramesByteExact": true,
+      "otherEnvelopeFieldsByteExact": true,
+      "changedIvIsFresh": true,
+      "upstreamAndAppStatus": 200
+    },
+    {
+      "appSession": 47,
+      "upstreamFetchSession": 48,
+      "exactMethodUrlAndRequestBody": true,
+      "requestBytes": 7067,
+      "upstreamBytes": 2032588,
+      "filteredBytes": 1841815,
+      "umpParts": 135,
+      "changedMetadataParts": [
+        55,
+        134
+      ],
+      "unchangedFrameCount": 133,
+      "allOtherFramesByteExact": true,
+      "otherEnvelopeFieldsByteExact": true,
+      "changedIvIsFresh": true,
+      "upstreamAndAppStatus": 200
+    },
+    {
+      "appSession": 55,
+      "upstreamFetchSession": 56,
+      "exactMethodUrlAndRequestBody": true,
+      "requestBytes": 6851,
+      "upstreamBytes": 2073999,
+      "filteredBytes": 1728601,
+      "umpParts": 127,
+      "changedMetadataParts": [
+        59,
+        126
+      ],
+      "unchangedFrameCount": 125,
+      "allOtherFramesByteExact": true,
+      "otherEnvelopeFieldsByteExact": true,
+      "changedIvIsFresh": true,
+      "upstreamAndAppStatus": 200
+    },
+    {
+      "appSession": 79,
+      "upstreamFetchSession": 80,
+      "exactMethodUrlAndRequestBody": true,
+      "requestBytes": 6718,
+      "upstreamBytes": 1058735,
+      "filteredBytes": 765895,
+      "umpParts": 89,
+      "changedMetadataParts": [
+        60,
+        88
+      ],
+      "unchangedFrameCount": 87,
+      "allOtherFramesByteExact": true,
+      "otherEnvelopeFieldsByteExact": true,
+      "changedIvIsFresh": true,
+      "upstreamAndAppStatus": 200
+    }
+  ],
+  "independentDecryption": [
+    {
+      "session": 80,
+      "role": "upstream original",
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "innerTargetPath": "/youtubei/v1/get_watch",
+      "metadata": [
+        {
+          "part": 60,
+          "authenticated": true,
+          "compression": "gzip",
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacements": 4,
+          "adSlots": 1,
+          "richItems": 0
+        },
+        {
+          "part": 88,
+          "authenticated": true,
+          "compression": "gzip",
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacements": 0,
+          "adSlots": 0,
+          "richItems": 37
+        }
+      ]
+    },
+    {
+      "session": 79,
+      "role": "app filtered",
+      "requestKeyMatchesExport": true,
+      "requestAuthenticates": true,
+      "innerTargetPath": "/youtubei/v1/get_watch",
+      "metadata": [
+        {
+          "part": 60,
+          "authenticated": true,
+          "compression": "gzip",
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 1,
+          "nexts": 0,
+          "adPlacements": 0,
+          "adSlots": 0,
+          "richItems": 0
+        },
+        {
+          "part": 88,
+          "authenticated": true,
+          "compression": "gzip",
+          "proxyStatus": 1,
+          "httpStatus": 200,
+          "players": 0,
+          "nexts": 1,
+          "adPlacements": 0,
+          "adSlots": 0,
+          "richItems": 34
+        }
+      ]
+    }
+  ],
+  "independentPlayerUnknownFields": {
+    "opaqueFieldsPreserved": 13,
+    "topLevelChangedFields": [
+      2,
+      7,
+      68
+    ],
+    "note": "Field 2 is the existing playability/PiP/background policy; 7 and 68 are ad fields. Other Player fields were semantically compared outside intended edit branches."
+  },
+  "scriptTransportOrAuthenticationErrors": 0,
+  "bootstrapTrial": {
+    "preparationSession": 69,
+    "build": "capture-20261101.2",
+    "prepared": true,
+    "youtubeConfigCleared": true,
+    "bootstrapBudgetCleared": true,
+    "configRefreshSession": 70,
+    "configRefreshPersisted": true,
+    "nextAppPlaybackSession": 79,
+    "bootstrapEmptyLogs": 0,
+    "branchExercised": false,
+    "automaticRetryAfterEmptyResponse": "not tested; fresh keys arrived before the next playback POST"
+  },
+  "nativeConclusions": [
+    "QX request-stage local Google POST/fetch/filter/echo worked in all five captured app playback transactions.",
+    "The internal fetches retained the exact method, URL and binary POST body; no duplicate-inflight/508 or other script error occurred.",
+    "Both upstream and app-facing captures are available. The five extra upstream POSTs are adapter fetches, not five unfiltered app-facing responses.",
+    "All 518 unaffected UMP frames, including media and headers, are byte-identical across the five pairs; only nine encrypted metadata records changed.",
+    "The refreshed export independently authenticates/decrypts both sides of the final pair: four placements and one slot become zero, and Next rich-item count drops 37 to 34.",
+    "No Maasea Worker request was captured."
+  ],
+  "limits": [
+    "The export contains only the post-reset key. Four earlier request pairs use a different encrypted key, so their seven metadata blocks were not independently decrypted. Their counts come from native script logs; raw frame/envelope comparisons cover all five pairs.",
+    "Removal counts are Protobuf entries, not distinct ads or videos.",
+    "The successful reset did not exercise a missing-key empty response: config/log_event refreshed before the next playback POST. Native client retry after such an empty response is still unproven.",
+    "No player/ad_break response, unsupported HTTP encoding, native timeout or forced re-entry was exercised. Shadowrocket local behavior and Surge remain untested.",
+    "Normal .6 QX playback is verified for this run; this is not proof of every future YouTube payload or cold-start ordering."
+  ]
+}

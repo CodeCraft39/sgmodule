@@ -2,7 +2,8 @@ Current request/response build: **20261101.6**. The next native test is the
 [QX request-stage playback test](../youtube-local/QX-ECHO-TEST.md). It shares this
 response core through a QX-only transport adapter; legacy SR/Surge defaults are
 unchanged. Normal keyed response-hook filtering is device-verified from earlier
-runs. The new fetch/echo transport and startup retry are not yet device-verified.
+runs. The [2 November run](../youtube-local/QX-20261102-092452.json) now verifies normal
+QX fetch/echo transport. Startup retry after an empty response remains untested.
 The sections below retain the reconstruction and original compatibility findings;
 references to the .1 307 candidate describe legacy/default mode.
 

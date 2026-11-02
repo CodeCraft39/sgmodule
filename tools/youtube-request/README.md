@@ -10,8 +10,9 @@ The pinned original bundle remains in `fixtures/upstream.request.js` for parity.
 Use the [QX request-stage playback steps](../youtube-local/QX-ECHO-TEST.md) and
 [echo profile](../youtube-local/quantumult-x.echo.conf). Publish and refresh both
 rebuilt scripts plus the capture helper. This requires changing QX rules, not
-just refreshing scripts. The isolated native echo probe passed; the new Google
-POST/retry path has **not** been device-validated.
+just refreshing scripts. The [2 November native run](../youtube-local/QX-20261102-092452.json) verifies
+normal Google POST/fetch/filter/echo playback. The missing-key empty-response
+retry path remains **unvalidated**; configuration refreshed before playback.
 
 ## Behavior
 
