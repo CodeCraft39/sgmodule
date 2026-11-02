@@ -1,9 +1,22 @@
+> **Retired experiment.** The .6 build removes bootstrapRetry processing and its
+> retry budget. Do not repeat the historical steps below. Use the
+> [QX request-stage test](QX-ECHO-TEST.md) instead.
+
 # QX startup experiment — build 20261101.5
 
 The normal local mode retains .4 behavior. The experiment is disabled unless
 `bootstrapRetry=true` is explicitly set on the initplayback response script.
 It has not passed a device test. Keep the .4 checkpoint as the known working
 post-refresh baseline.
+
+## 21:57 result: request-stage primitives passed
+
+The echo probe produced a genuine zero-byte synthetic HTTP 200, correct binary
+output and a binary fetch round trip. All three 16-byte binary request inputs
+were exact. This identifies a viable API boundary for the next QX transport
+adapter, without claiming native YouTube forwarding or retry is already fixed.
+See [QX-20261101-215745.json](QX-20261101-215745.json). Keep the failed response-stage
+bootstrapRetry experiment disabled while the request-stage path is implemented.
 
 ## 21:34 result: zero-length response replacements are not applied
 

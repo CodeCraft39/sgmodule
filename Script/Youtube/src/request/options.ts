@@ -33,6 +33,6 @@ export function options(host: Host): Options {
     },
     debug: bool(values.debug, false),
     localPlayback: bool(values.localPlayback, false),
-    bootstrapRetry: bool(values.bootstrapRetry, false),
+    qxEcho: bool(values.qxEcho, false),
   };
 }

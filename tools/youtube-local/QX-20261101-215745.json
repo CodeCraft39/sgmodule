@@ -1,0 +1,106 @@
+{
+  "archive": "2026-11-01-215745.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-01-215745.log",
+  "client": "Quantumult X",
+  "clientVersion": "1.8.1, previously reported",
+  "platform": "iPhone iOS 18, user test setup",
+  "userReportedResults": {
+    "empty": "HTTP 200; zero bytes; blank; ArrayBuffer input; match true",
+    "bytes": "HTTP 200; 13 bytes; QX-ECHO:BYTES; ArrayBuffer input; match true",
+    "fetch": "HTTP 200; 16 bytes; QX-ECHO:UPSTREAM; ArrayBuffer input; match true"
+  },
+  "httpTransactions": 5,
+  "verifiedTransactions": [
+    {
+      "session": 1,
+      "host": "example.com",
+      "path": "/yt-local-capture/echo-probe",
+      "method": "GET",
+      "requestBytes": 0,
+      "exactSyntheticInput": null,
+      "status": "HTTP/1.1 200 OK",
+      "responseWireBytes": 747,
+      "responseEncoding": "gzip",
+      "responseDecodedBytes": 1208,
+      "responseText": "[control page]",
+      "inputKind": null,
+      "inputMatch": null
+    },
+    {
+      "session": 2,
+      "host": "example.com",
+      "path": "/yt-local-capture/echo-probe/empty",
+      "method": "POST",
+      "requestBytes": 16,
+      "exactSyntheticInput": true,
+      "status": "HTTP/1.1 200 OK",
+      "responseWireBytes": 0,
+      "responseEncoding": "identity",
+      "responseDecodedBytes": 0,
+      "responseText": "",
+      "inputKind": "ArrayBuffer",
+      "inputMatch": "true"
+    },
+    {
+      "session": 3,
+      "host": "example.com",
+      "path": "/yt-local-capture/echo-probe/bytes",
+      "method": "POST",
+      "requestBytes": 16,
+      "exactSyntheticInput": true,
+      "status": "HTTP/1.1 200 OK",
+      "responseWireBytes": 13,
+      "responseEncoding": "identity",
+      "responseDecodedBytes": 13,
+      "responseText": "QX-ECHO:BYTES",
+      "inputKind": "ArrayBuffer",
+      "inputMatch": "true"
+    },
+    {
+      "session": 4,
+      "host": "example.com",
+      "path": "/yt-local-capture/echo-probe/fetch",
+      "method": "POST",
+      "requestBytes": 16,
+      "exactSyntheticInput": true,
+      "status": "HTTP/1.1 200 OK",
+      "responseWireBytes": 16,
+      "responseEncoding": "identity",
+      "responseDecodedBytes": 16,
+      "responseText": "QX-ECHO:UPSTREAM",
+      "inputKind": "ArrayBuffer",
+      "inputMatch": "true"
+    },
+    {
+      "session": 5,
+      "host": "raw.githubusercontent.com",
+      "path": "/CodeCraft39/sgmodule/master/tools/youtube-device/echo-probe/upstream.txt",
+      "method": "GET",
+      "requestBytes": 0,
+      "exactSyntheticInput": null,
+      "status": "HTTP/1.1 200 OK",
+      "responseWireBytes": 36,
+      "responseEncoding": "gzip",
+      "responseDecodedBytes": 16,
+      "responseText": "QX-ECHO:UPSTREAM",
+      "inputKind": null,
+      "inputMatch": null
+    }
+  ],
+  "passedCapabilities": [
+    "script-analyze-echo-response receives the exact 16-byte synthetic binary POST including NUL, 0x80 and 0xff",
+    "request-stage flat HTTP 200 with empty text yields an actual zero-byte response",
+    "request-stage bodyBytes completion returns the intended 13 bytes",
+    "native GET fetch bodyBytes returns the public source and echoes all 16 decoded bytes; captured upstream used gzip"
+  ],
+  "productionScriptChanges": "none",
+  "conclusion": "The request-stage QX completion path supports the primitives required for a local transport adapter; response-stage zero-length replacements remain unsuitable on this setup.",
+  "notProven": [
+    "Native task.fetch forwarding of a real YouTube binary POST and all required headers",
+    "Whether a same-URL internal fetch is re-intercepted; loop prevention must be established",
+    "Handling compressed/error/redirect upstream responses in the production adapter",
+    "YouTube refresh/retry after a genuine synthetic empty bootstrap response",
+    "Startup ad blocking through the proposed adapter; Shadowrocket and Surge local behavior"
+  ],
+  "nextImplementation": "A QX-specific request-stage transport adapter that shares the existing filtering core, returns a true synthetic bootstrap response for unavailable keys, and fetches supported correctly-keyed playback directly from Google. Keep the validated response-hook path and SR/Surge behavior available until integration validation."
+}

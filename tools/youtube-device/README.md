@@ -1,3 +1,8 @@
+> Current playback testing uses [the .6 QX echo steps](../youtube-local/QX-ECHO-TEST.md).
+> The phases below are the original capture protocol, retained for reproduction.
+> For an authorized production change, helper verification uses
+> `--production-check paired` against freshly passed bundle manifests.
+
 # One device session to assess local playback processing
 
 The production checkpoint is `7978e7b`. These tools are separate, temporary

@@ -5,6 +5,20 @@ left the original body intact in Safari and the HTTP export. Nonempty byte
 replacement worked. That explains why the response-emptying bootstrap experiment
 cannot be accepted. No production-script changes are made for this next probe.
 
+## Completed device result — 21:57
+
+All three checks passed. The archive contains exact 16-byte POST bodies including
+NUL, 0x80 and 0xff, a zero-byte synthetic HTTP 200, the intended 13-byte binary
+response, and a 16-byte binary fetch/echo result. Safari and the capture agree.
+The upstream public file was gzip encoded in its captured transaction, while the
+native fetch callback and final echo contained the 16 decoded bytes.
+See [../../youtube-local/QX-20261101-215745.json](../../youtube-local/QX-20261101-215745.json).
+
+This establishes the tested API primitives, not a real YouTube POST/retry path.
+Same-URL fetch re-entry, outbound binary forwarding, headers/compression/errors
+and YouTube retry behavior remain integration requirements. The device steps
+below are retained for reproduction; this three-case probe need not be repeated.
+
 ## Device steps
 
 1. Keep bootstrapRetry disabled. Do not use prepare-bootstrap or reset keys.

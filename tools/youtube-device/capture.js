@@ -12,14 +12,8 @@
     return typeof id === "number" || typeof id === "string" && /^[\w-]{1,80}$/.test(id) ? ` session=${id}` : "";
   }
 
-  // Script/Youtube/src/protobuf/onesie.ts
-  var MAX_PLAYBACK_BYTES = 8 * 1024 * 1024;
-  var MAX_METADATA_BYTES = 8 * 1024 * 1024;
-
-  // Script/Youtube/src/response/bootstrap.ts
-  var BOOTSTRAP_STORE = "YouTubeBootstrap.v1";
-
   // tools/youtube-device/capture.ts
+  var BOOTSTRAP_STORE = "YouTubeBootstrap.v1";
   var BUILD = "capture-20261101.2";
   var STORE = "YTLocalCapture.v1";
   var LIMIT = 32;
@@ -264,7 +258,7 @@
       const caps = previous?.capabilities ?? await capabilities(host);
       const input = host.$response ?? host.$request;
       const headers = record(input?.headers);
-      const header2 = (name) => {
+      const header = (name) => {
         const key = Object.keys(headers).find((k) => k.toLowerCase() === name);
         return key && typeof headers[key] === "string" ? headers[key].slice(0, 256) : void 0;
       };
@@ -277,7 +271,7 @@
         session: sessionSuffix(host.$request).trim(),
         method: host.$request?.method ?? "unknown",
         body,
-        headers: { contentType: header2("content-type"), contentEncoding: header2("content-encoding"), contentLength: header2("content-length") },
+        headers: { contentType: header("content-type"), contentEncoding: header("content-encoding"), contentLength: header("content-length") },
         statusCode: host.$response?.statusCode,
         keys: privateConfig.keys,
         keyStatus: privateConfig.status,

@@ -4,7 +4,7 @@
 import {isQX} from '../../Script/Youtube/src/request/platform';
 import {sessionSuffix} from '../../Script/Youtube/src/request/diagnostics';
 import type {Host, Headers} from '../../Script/Youtube/src/request/types';
-import {BOOTSTRAP_STORE} from '../../Script/Youtube/src/response/bootstrap';
+const BOOTSTRAP_STORE = 'YouTubeBootstrap.v1'; // Cleanup of the retired .5 experiment only.
 
 export const BUILD = 'capture-20261101.2';
 export const STORE = 'YTLocalCapture.v1';

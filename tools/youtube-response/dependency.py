@@ -9,6 +9,20 @@ import urllib.request
 LOCK = Path(__file__).with_name('dependencies.json')
 
 
+def bundle_banner(package, description):
+    banner = description.rstrip() + '\n'
+    banner += '// Bundles @protobuf-ts/runtime 2.11.1; source and integrity: tools/youtube-response/dependencies.json\n'
+    banner += '/*\n' + (package / 'LICENSE').read_text() + '\n*/\n'
+    for name in ['goog-varint.js', 'protobufjs-utf8.js']:
+        notice = []
+        for line in (package / 'build/es2015' / name).read_text().splitlines():
+            if not line.startswith('//'):
+                break
+            notice.append(line)
+        banner += '\n'.join(notice) + '\n'
+    return banner
+
+
 def verify(directory):
     directory = Path(directory).resolve()
     directory.relative_to(Path('/private/tmp').resolve())

@@ -32,7 +32,7 @@ def run(cmd):
     return r.stdout.strip()
 
 run([sys.executable, 'tools/youtube-request/check.py', '--node', a.node,
-     '--typescript', a.typescript, '--esbuild', a.esbuild, '--work-dir', str(work / 'request')])
+     '--typescript', a.typescript, '--esbuild', a.esbuild, '--work-dir', str(work / 'request'), '--dependency-dir', str(a.dependency_dir)])
 package = verify(a.dependency_dir)
 run([sys.executable, 'tools/youtube-response/generate.py', '--check'])
 tsconfig = work / 'tsconfig.response.json'
@@ -53,6 +53,11 @@ run([sys.executable, 'tools/youtube-response/dependency.py', '--directory', str(
 run([sys.executable, 'tools/youtube-response/build.py', '--esbuild', a.esbuild,
      '--dependency-dir', str(alternate), '--out', str(work / 'response.alternate.js')])
 assert script.read_bytes() == (work / 'response.alternate.js').read_bytes(), 'Dependency path changes bundle'
+run([sys.executable, 'tools/youtube-request/build.py', '--esbuild', a.esbuild,
+     '--dependency-dir', str(alternate), '--out', str(work / 'request.alternate.js')])
+request_script = root / 'Script/Youtube/youtube.request.js'
+assert request_script.read_bytes() == (work / 'request.alternate.js').read_bytes()
+assert b'/private/tmp/' not in request_script.read_bytes()
 entry = work / 'test-entry.cjs'
 run([a.esbuild, 'tools/youtube-response/test-entry.ts', '--bundle', '--platform=node',
      '--format=cjs', '--alias:@protobuf-ts/runtime=' + str(package / 'build/es2015/index.js'), '--outfile=' + str(entry)])
@@ -81,18 +86,20 @@ lifecycle = run([a.node, 'tools/youtube-local/key-lifecycle.mjs', str(entry), st
 lifecycle_groups = int(re.search(r'^# tests (\d+)$', lifecycle, re.MULTILINE).group(1))
 assert lifecycle_groups == int(re.search(r'^# pass (\d+)$', lifecycle, re.MULTILINE).group(1))
 report.update(keyLifecycleGroups=lifecycle_groups, keyLifecyclePassed=lifecycle_groups)
-bootstrap = run([a.node, 'tools/youtube-local/bootstrap.mjs', str(entry), str(script)])
-(work / 'bootstrap.tap').write_text(bootstrap + '\n')
-bootstrap_groups = int(re.search(r'^# tests (\d+)$', bootstrap, re.MULTILINE).group(1))
-assert bootstrap_groups == int(re.search(r'^# pass (\d+)$', bootstrap, re.MULTILINE).group(1))
-report.update(bootstrapExperimentGroups=bootstrap_groups, bootstrapExperimentPassed=bootstrap_groups)
+echo = run([a.node, 'tools/youtube-local/qx-echo.mjs', str(entry), str(request_script)])
+(work / 'qx-echo.tap').write_text(echo + '\n')
+echo_groups = int(re.search(r'^# tests (\d+)$', echo, re.MULTILINE).group(1))
+assert echo_groups == int(re.search(r'^# pass (\d+)$', echo, re.MULTILINE).group(1))
+report.update(qxEchoGroups=echo_groups, qxEchoPassed=echo_groups,
+              deviceValidation='build .6 fetch/echo transport and native startup retry pending; historical keyed QX filtering recorded separately',
+              privatePlaybackReplay='not run; supply --playback-captures with matching normalized capture and keys')
 if a.playback_captures:
     replay = run([a.node, 'tools/youtube-local/test.mjs', str(entry), str(script),
                   str(root / 'Script/Youtube/youtube.request.js'), str(a.playback_captures.resolve())])
     (work / 'playback-replay.tap').write_text(replay + '\n')
     replay_groups = int(re.search(r'^# tests (\d+)$', replay, re.MULTILINE).group(1))
     assert replay_groups == int(re.search(r'^# pass (\d+)$', replay, re.MULTILINE).group(1))
-    report.update(playbackReplayGroups=replay_groups, playbackReplayPassed=replay_groups)
+    report.update(playbackReplayGroups=replay_groups, playbackReplayPassed=replay_groups, privatePlaybackReplay='passed on supplied normalized captures')
 
 report.update(schemaGeneration='verified', runtimeDependency='@protobuf-ts/runtime@2.11.1', architectureTestGroups=architecture_groups, architecturePassed=architecture_passed, typecheck='passed', reproducibleBuild=True, reproducibleAcrossDependencyPaths=True, auditRegressionGroups=groups,
               auditRegressionPassed=passed, scriptSha256=hashlib.sha256(script.read_bytes()).hexdigest())

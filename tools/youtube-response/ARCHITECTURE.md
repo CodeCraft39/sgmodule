@@ -1,7 +1,13 @@
-> Local playback extension (current request/response build 20261101.4): see [../youtube-local/README.md](../youtube-local/README.md).
-> The generated set now has eight artifacts, including protocol constants in
-> src/protobuf/onesie-schema.ts. Onesie code uses native crypto/compression and
-> reuses the same typed handlers. The chronology below records the preceding refactor.
+> Current build: **20261101.6**. [Local playback](../youtube-local/README.md)
+> and [QX echo test](../youtube-local/QX-ECHO-TEST.md) document current behavior.
+> Request and response bundles share the typed response core, public runtime and
+> native Onesie crypto/compression. `request/qx-echo.ts` owns QX HTTP transport;
+> `ResponseContext` supplies the transaction key snapshot/runtime and reports
+> failure without duplicating filtering logic. No initplayback response hook is
+> installed with that adapter. It is opt-in; other profiles retain their behavior.
+> The failed response-hook empty/bootstrap implementation has been removed.
+> Eight generated artifacts include `src/protobuf/onesie-schema.ts`.
+> The chronology below records the preceding refactor and its original test plan.
 
 # Maintained YouTube source architecture
 

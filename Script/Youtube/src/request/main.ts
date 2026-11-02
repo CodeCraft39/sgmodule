@@ -3,6 +3,8 @@ import {endpoint, platformKey, processRequest} from './core';
 import {options} from './options';
 import {bytes, completion, isQX} from './platform';
 import {sessionSuffix} from './diagnostics';
+import {normalizeConfig} from './config';
+import {runQxEcho} from './qx-echo';
 import type {Decision, Host, YouTubeConfig} from './types';
 
 function loadConfig(raw: string | null | undefined): YouTubeConfig {
@@ -34,16 +36,23 @@ export function run(host: Host): void {
   const sessionText = sessionSuffix(request);
   let stage = 'arguments';
   let local = false;
+  let echoMode = false;
   try {
     if (!request || route === 'other') { finish({}); return; }
     const opts = options(host);
     local = opts.localPlayback;
+    echoMode = qx && local && opts.qxEcho && route === 'initplayback';
     stage = 'config';
     const raw = qx ? host.$prefs?.valueForKey(CONFIG_KEY) : host.$persistentStore?.read(CONFIG_KEY);
-    const config = loadConfig(raw);
+    let config: YouTubeConfig;
+    if (local) {
+      try { config = normalizeConfig(raw ? JSON.parse(raw) : {}); }
+      catch { config = {}; log(`endpoint=${route} event=invalid-config-json${sessionText}`); }
+    } else config = loadConfig(raw);
     // log_event only edits headers; it must not depend on binary body exposure.
     stage = 'body';
     const body = route === 'initplayback' ? bytes(qx ? request.bodyBytes ?? request.body : request.body ?? request.bodyBytes) : undefined;
+    if (echoMode) { void runQxEcho(host,opts,config,body); return; }
     stage = 'decision';
     const decision = processRequest({url: request.url, headers: request.headers ?? {}, bodyBytes: body,
       config, params: opts.worker, preserveBodyEncoding: qx || local, localPlayback: local});
@@ -65,7 +74,7 @@ export function run(host: Host): void {
     // In QX analyze-echo mode there is no upstream pass-through contract. Use
     // the same empty-response fallback as the original missing-key path and
     // leave stored keys unchanged. Surge-compatible errors pass through.
-    const echo = qx && route === 'initplayback' && !local;
+    const echo = qx && route === 'initplayback' && (!local || echoMode);
     log(`endpoint=${route} action=${echo ? 'empty' : 'pass'} reason=processing-error stage=${stage}${sessionText}`);
     const fallback: Decision = {action: 'empty', reason: 'processing-error',
       platformKey: platformKey(request?.headers ?? {}), config: {}, changed: false};

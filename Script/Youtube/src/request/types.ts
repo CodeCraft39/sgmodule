@@ -8,7 +8,7 @@ export interface WorkerParams {
   blockImmersive: boolean;
   blockShorts: boolean;
 }
-export interface Options { worker: WorkerParams; debug: boolean; localPlayback: boolean; bootstrapRetry: boolean }
+export interface Options { worker: WorkerParams; debug: boolean; localPlayback: boolean; qxEcho: boolean }
 export interface RequestInput {
   url: string;
   headers: Headers;
@@ -43,7 +43,7 @@ export interface Host {
   $rocket?: unknown;
   $argument?: unknown;
   $environment?: { sourcePath?: string; variables?: Record<string, unknown>; [key: string]: unknown };
-  $prefs?: { valueForKey(key: string): string | null; setValueForKey(value: string, key: string): boolean };
+  $prefs?: { valueForKey(key: string): string | null; setValueForKey(value: string, key: string): boolean; removeValueForKey?(key: string): boolean };
   $persistentStore?: { read(key: string): string | null; write(value: string, key: string): boolean | void };
   $done(result: Record<string, unknown>): void;
   console: { log(message: string): void };

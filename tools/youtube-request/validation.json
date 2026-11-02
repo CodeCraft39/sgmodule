@@ -4,12 +4,13 @@
   "passed": 16,
   "decoderDifferentialVariants": 100,
   "reproducibleBuild": true,
-  "fixtures": "synthetic plus pinned original bundle; no live initplayback capture",
+  "fixtures": "synthetic plus pinned original bundle; QX echo tests run by paired checker",
+  "runtimeDependency": "@protobuf-ts/runtime@2.11.1",
   "deviceValidation": "pending user testing on Quantumult X and Shadowrocket; Surge untested",
   "tools": {
     "node": "v22.21.1",
     "typescript": "Version 5.9.3",
     "esbuild": "0.25.12"
   },
-  "scriptSha256": "ae9c9bc23197a6558ff6cdf2ec8036ea91f497533e246c779e46fc428b4f5a1e"
+  "scriptSha256": "0ed8621ed4917f027740ac219e159f0d4521cafd641190e80e9f54d62fac6530"
 }

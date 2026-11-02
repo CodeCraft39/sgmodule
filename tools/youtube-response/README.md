@@ -1,11 +1,14 @@
-Current opt-in local playback candidate: request and response build `20261101.4`. See
-[../youtube-local/README.md](../youtube-local/README.md) for the short QX test steps
-and the authenticated capture results. The existing default profile below keeps
-the legacy Worker path; use the new local profile when testing server removal.
+Current request/response build: **20261101.6**. The next native test is the
+[QX request-stage playback test](../youtube-local/QX-ECHO-TEST.md). It shares this
+response core through a QX-only transport adapter; legacy SR/Surge defaults are
+unchanged. Normal keyed response-hook filtering is device-verified from earlier
+runs. The new fetch/echo transport and startup retry are not yet device-verified.
+The sections below retain the reconstruction and original compatibility findings;
+references to the .1 307 candidate describe legacy/default mode.
 
 # Paired YouTube script reconstruction
 
-Current builds: `request-compat-20261101.1` and `response-compat-20261101.1`.
+Original reconstruction builds: `request-compat-20261101.1` and `response-compat-20261101.1`.
 The source/runtime consolidation is described in [ARCHITECTURE.md](ARCHITECTURE.md).
 The pre-device audit findings remain resolved; see [../youtube-audit/RESOLUTION.md](../youtube-audit/RESOLUTION.md).
 Routine logs require debug=true; the supplied QX test profile enables it through remote script-URL fragments.

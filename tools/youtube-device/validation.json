@@ -7,5 +7,5 @@
   "productionCheckpoint": null,
   "productionFiles": "current bundle hashes match passed paired validation manifests",
   "deviceValidation": "bootstrap preparation/client retry pending; earlier QX key exports are recorded separately",
-  "scriptSha256": "3562531b42d6b595a4ad20ea48ed6984968048eaaf28b45b3d207957090b1393"
+  "scriptSha256": "d154f0e43e605328022a0b2b1887f3cb5fd4952840f7aa1de2930c7cd005fc14"
 }

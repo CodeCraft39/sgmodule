@@ -21,15 +21,14 @@
     }
   ],
   "adBreak": "pass-through observation only",
-  "deviceValidation": "pending",
+  "deviceValidation": "build .6 fetch/echo transport and native startup retry pending; historical keyed QX filtering recorded separately",
   "playbackUnitGroups": 8,
   "playbackUnitPassed": 8,
   "keyLifecycleGroups": 6,
   "keyLifecyclePassed": 6,
-  "bootstrapExperimentGroups": 7,
-  "bootstrapExperimentPassed": 7,
-  "playbackReplayGroups": 16,
-  "playbackReplayPassed": 16,
+  "qxEchoGroups": 16,
+  "qxEchoPassed": 16,
+  "privatePlaybackReplay": "not run; supply --playback-captures with matching normalized capture and keys",
   "schemaGeneration": "verified",
   "runtimeDependency": "@protobuf-ts/runtime@2.11.1",
   "architectureTestGroups": 12,
@@ -39,5 +38,5 @@
   "reproducibleAcrossDependencyPaths": true,
   "auditRegressionGroups": 8,
   "auditRegressionPassed": 8,
-  "scriptSha256": "e9fa095339643d9a80480179b7af31bc6f7ebcd3713f507eecb0c5c3c4a1310b"
+  "scriptSha256": "033976f14ee0ee8df98baace22f442b9bc33aab46126bdddcddf4e744f2060ad"
 }
