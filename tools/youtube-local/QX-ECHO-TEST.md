@@ -1,3 +1,12 @@
+> **Completed native test, 2 November 2026.** See
+> [QX-20261102-124053.json](QX-20261102-124053.json). Session 146 delivered an actual
+> zero-byte HTTP 200. Session 147 completed direct get_watch for the same video
+> about two seconds later; filtered Player ad fields are empty and media delivery
+> followed. Keys refreshed later in session 154. This validates observed automatic
+> fallback recovery, not a repeated encrypted initplayback request. Disarm the
+> diagnostic and restore the normal QX echo profile. The procedures below are
+> retained for reproduction; another timing/reset test is not required.
+
 # Deterministic missing-key diagnostic — bootstrap-probe-20261102.1
 
 The temporary profile is

@@ -1,0 +1,11 @@
+#!name=YouTube runtime capability check
+# Append while investigating native runtime support. No YouTube interception.
+[Script]
+yt.runtime.page = type=http-request,pattern=^https:\/\/example\.com\/yt-runtime-probe(?:\?.*)?$,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/runtime-probe.js
+
+yt.runtime.auto = type=http-response,engine=auto,pattern=^https:\/\/raw\.githubusercontent\.com\/CodeCraft39\/sgmodule\/master\/tools\/youtube-device\/echo-probe\/upstream\.txt\?sr-runtime=auto(?:&.*)?$,requires-body=1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/runtime-probe.js
+yt.runtime.webview = type=http-response,engine=webview,pattern=^https:\/\/raw\.githubusercontent\.com\/CodeCraft39\/sgmodule\/master\/tools\/youtube-device\/echo-probe\/upstream\.txt\?sr-runtime=webview(?:&.*)?$,requires-body=1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/runtime-probe.js
+yt.runtime.jsc = type=http-response,engine=jsc,pattern=^https:\/\/raw\.githubusercontent\.com\/CodeCraft39\/sgmodule\/master\/tools\/youtube-device\/echo-probe\/upstream\.txt\?sr-runtime=jsc(?:&.*)?$,requires-body=1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/CodeCraft39/sgmodule/master/tools/youtube-device/runtime-probe.js
+
+[MITM]
+hostname = %APPEND% example.com, raw.githubusercontent.com

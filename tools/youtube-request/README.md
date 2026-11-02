@@ -5,14 +5,19 @@ Current build: **request-compat-20261101.6**. Readable TypeScript under
 This is equivalent reconstructed source, not Maasea's original TypeScript.
 The pinned original bundle remains in `fixtures/upstream.request.js` for parity.
 
-## Next device test
+## Native status
 
-Use the [QX request-stage playback steps](../youtube-local/QX-ECHO-TEST.md) and
-[echo profile](../youtube-local/quantumult-x.echo.conf). Publish and refresh both
-rebuilt scripts plus the capture helper. This requires changing QX rules, not
-just refreshing scripts. The [2 November native run](../youtube-local/QX-20261102-092452.json) verifies
-normal Google POST/fetch/filter/echo playback. The missing-key empty-response
-retry path remains **unvalidated**; configuration refreshed before playback.
+QX .6 normal playback and forced missing-key recovery are verified in the
+[09:24](../youtube-local/QX-20261102-092452.json) and
+[12:40](../youtube-local/QX-20261102-124053.json) runs. After the actual empty 200,
+YouTube recovered through direct get_watch for the same video and received a
+filtered response; key acquisition completed later. No additional production
+change was needed for this behavior. Use the normal
+[QX echo profile](../youtube-local/quantumult-x.echo.conf) after disarming the
+completed temporary bootstrap probe. The first Shadowrocket local run acquired
+matching keys but passed playback responses with unsupported-crypto; see
+[the native failure report](../youtube-local/SR-20261102-191430.json). Runtime
+capability probing is next. Surge remains untested.
 
 ## Behavior
 

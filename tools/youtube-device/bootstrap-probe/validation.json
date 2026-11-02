@@ -11,6 +11,7 @@
   },
   "productionFiles": "unchanged",
   "runtimeNetworkCodeLoading": false,
-  "deviceValidation": "forced missing-key completion and automatic retry pending",
-  "scriptSha256": "6d0f8d3319ef3c941c9a9800bbff157feebbd9845c407917b9c997143fb77187"
+  "deviceValidation": "QX one-shot missing-key completion and same-video direct get_watch recovery verified in 2026-11-02 12:40 run; not an encrypted initplayback retry",
+  "scriptSha256": "6d0f8d3319ef3c941c9a9800bbff157feebbd9845c407917b9c997143fb77187",
+  "deviceEvidence": "tools/youtube-local/QX-20261102-124053.json"
 }

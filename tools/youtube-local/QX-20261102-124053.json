@@ -1,0 +1,222 @@
+{
+  "archive": "2026-11-02-124053.zip",
+  "tunnelLog": "iOS-Quantumult X Tunnel 2026-11-02-124053.log",
+  "keyExport": "yt-local-capture 2.json",
+  "client": "Quantumult X",
+  "build": "20261101.6",
+  "diagnosticBuild": "bootstrap-probe-20261102.1",
+  "diagnosticSha256": "6d0f8d3319ef3c941c9a9800bbff157feebbd9845c407917b9c997143fb77187",
+  "userObservation": "Playback normal; no ads observed during the instructed one-shot test",
+  "httpTransactions": 178,
+  "loggedPlayback": [
+    {
+      "inputBytes": 30397,
+      "outputBytes": 30166,
+      "session": 31,
+      "verified": 1,
+      "updated": 1,
+      "parts": 27,
+      "adPlacementsRemoved": 0,
+      "adSlotsRemoved": 0,
+      "richItemsRemoved": 0,
+      "panelsRemoved": 0
+    },
+    {
+      "inputBytes": 2685249,
+      "outputBytes": 2483520,
+      "session": 45,
+      "verified": 2,
+      "updated": 2,
+      "parts": 160,
+      "adPlacementsRemoved": 12,
+      "adSlotsRemoved": 1,
+      "richItemsRemoved": 3,
+      "panelsRemoved": 0
+    }
+  ],
+  "loggedTotals": {
+    "verified": 3,
+    "updated": 3,
+    "adPlacementsRemoved": 12,
+    "adSlotsRemoved": 1,
+    "richItemsRemoved": 3,
+    "panelsRemoved": 0
+  },
+  "independentNormalPlaybackVerification": [
+    {
+      "appSession": 31,
+      "upstreamFetchSession": 32,
+      "requestAuthenticates": true,
+      "exactForwardedPostBody": true,
+      "inputBytes": 30397,
+      "outputBytes": 30166,
+      "umpParts": 27,
+      "preservedFrames": 26,
+      "changedMetadataParts": [
+        21
+      ],
+      "otherEnvelopeFieldsByteExact": true,
+      "ivChanged": true,
+      "metadata": [
+        {
+          "part": 21,
+          "before": {
+            "players": 1,
+            "nexts": 0,
+            "adPlacements": 0,
+            "adSlots": 0,
+            "richItems": 0
+          },
+          "after": {
+            "players": 1,
+            "nexts": 0,
+            "adPlacements": 0,
+            "adSlots": 0,
+            "richItems": 0
+          },
+          "bothAuthenticate": true
+        }
+      ]
+    },
+    {
+      "appSession": 45,
+      "upstreamFetchSession": 46,
+      "requestAuthenticates": true,
+      "exactForwardedPostBody": true,
+      "inputBytes": 2685249,
+      "outputBytes": 2483520,
+      "umpParts": 160,
+      "preservedFrames": 158,
+      "changedMetadataParts": [
+        54,
+        159
+      ],
+      "otherEnvelopeFieldsByteExact": true,
+      "ivChanged": true,
+      "metadata": [
+        {
+          "part": 54,
+          "before": {
+            "players": 1,
+            "nexts": 0,
+            "adPlacements": 12,
+            "adSlots": 1,
+            "richItems": 0
+          },
+          "after": {
+            "players": 1,
+            "nexts": 0,
+            "adPlacements": 0,
+            "adSlots": 0,
+            "richItems": 0
+          },
+          "bothAuthenticate": true
+        },
+        {
+          "part": 159,
+          "before": {
+            "players": 0,
+            "nexts": 1,
+            "adPlacements": 0,
+            "adSlots": 0,
+            "richItems": 37
+          },
+          "after": {
+            "players": 0,
+            "nexts": 1,
+            "adPlacements": 0,
+            "adSlots": 0,
+            "richItems": 34
+          },
+          "bothAuthenticate": true
+        }
+      ]
+    }
+  ],
+  "forcedBranch": {
+    "armSession": 136,
+    "forceCount": 1,
+    "session": 146,
+    "time": "12:43:17.899",
+    "requestAuthenticates": true,
+    "requestKeyMatchesInitialConfig": true,
+    "innerTarget": "/youtubei/v1/get_watch",
+    "actualHttpStatus": 200,
+    "actualWireResponseBytes": 0,
+    "actualDecodedResponseBytes": 0,
+    "matchingCapturedInitplaybackPosts": 1,
+    "upstreamFetchForForcedRequest": false,
+    "diagnosticStatus": {
+      "build": "bootstrap-probe-20261102.1",
+      "state": "completed",
+      "armed": false,
+      "session": "session=146",
+      "emptyCompletionRequested": true,
+      "initialConfigReadMasked": true
+    }
+  },
+  "automaticRecovery": {
+    "mechanism": "same-video direct /youtubei/v1/get_watch fallback",
+    "session": 147,
+    "responseProcessedAt": "12:43:19.884",
+    "secondsAfterEmptyCompletion": 1.985,
+    "sameVideoVerified": true,
+    "videoIdentityComparison": "Identical 11-byte value at inner request body paths 2.2 and 3.2, direct fallback request paths 2.2 and 3.2, and response Player path 11.1. No video identifiers retained in this report.",
+    "httpStatus": 200,
+    "loggedOriginalBytes": 1687644,
+    "capturedFilteredBytes": 1052073,
+    "outputMatchesScriptLog": true,
+    "filteredPlayerAndNext": {
+      "players": 1,
+      "nexts": 1,
+      "adPlacements": 0,
+      "adSlots": 0,
+      "richItems": 34
+    },
+    "mediaTransactionsBeforeKeyRefresh": [
+      {
+        "session": 148,
+        "status": "HTTP/1.1 200 OK"
+      },
+      {
+        "session": 149,
+        "status": "HTTP/1.1 200 OK"
+      },
+      {
+        "session": 150,
+        "status": "HTTP/1.1 200 OK"
+      },
+      {
+        "session": 151,
+        "status": "HTTP/1.1 200 OK"
+      }
+    ],
+    "mediaTransactionsAfterFallback": 17,
+    "mediaHttpErrors": 0,
+    "interpretation": "The app recovered through the direct API path before keys were refreshed; it did not repeat encrypted initplayback in this capture. User reports normal playback under the hands-off test procedure."
+  },
+  "configRecovery": {
+    "initialSession": 7,
+    "initialClientKeyBytes": 32,
+    "refreshSession": 154,
+    "refreshedAt": "12:43:40.603",
+    "secondsAfterEmptyCompletion": 22.704,
+    "clientKeyChanged": true,
+    "encryptedKeyChanged": true,
+    "newPairMatchesExport": true,
+    "refreshRequestOmitsHotHash": true,
+    "laterRequestUsesNewHash": true,
+    "persistedTrueInLog": true
+  },
+  "scriptTransportOrAuthenticationErrors": 0,
+  "legacyWorkerRequestsCaptured": 0,
+  "adBreakRequestsCaptured": 0,
+  "conclusion": "The tested QX missing-key recovery gap is closed: a real empty synthetic response triggered same-video direct get_watch fallback, filtered output and successful media delivery. Key acquisition subsequently recovered normally. No production change is required for this observed recovery mechanism.",
+  "limits": [
+    "The direct fallback export contains post-filter output, not its original pre-filter response; no exact removal count is assigned to that response. Its logged size reduction is verified and captured Player ad fields are empty.",
+    "The trace shows network recovery for the same video. Absence of manual intervention and smooth playback are supported by the prescribed procedure and user observation, not network data alone.",
+    "There is no encrypted initplayback POST after session 146, so this run does not independently test encrypted playback under the newly refreshed pair; earlier QX runs cover normal keyed transport.",
+    "One forced missing-key event does not establish every cold-start timing, server payload, native timeout or memory boundary. player/ad_break is unfiltered and was not captured.",
+    "Shadowrocket local playback and Surge remain unvalidated."
+  ]
+}

@@ -1,14 +1,31 @@
 # Local YouTube playback
 
-Current build: **request/response 20261101.6**. Normal QX request-stage playback
-passed the [2 November capture](QX-20261102-092452.json): five native fetch/filter/echo
-transactions, no reported ads/stalls, and independent before/after decryption of
-the final pair. Logs record 31 placement entries, four slots and 11 rich items
-removed. Missing-key empty-response/retry remains untested because configuration
-refreshed before the next playback request. The
-[request-stage playback steps](QX-ECHO-TEST.md) use
-[quantumult-x.echo.conf](quantumult-x.echo.conf). It replaces the overlapping
-YouTube rules; refreshing scripts alone is insufficient.
+Current build: **request/response 20261101.6**. QX normal local playback and the
+forced missing-key recovery path are native-verified for the captured runs.
+
+- [09:24 run](QX-20261102-092452.json): five native fetch/filter/echo pairs; logs
+  record 31 placement entries, four slots and 11 rich items removed. The final
+  pair independently decrypts to zero placements/slots.
+- [12:40 run](QX-20261102-124053.json): exactly one forced missing-key request
+  produced a real empty HTTP 200. Within about two seconds, the app completed a
+  direct `/get_watch` response for the same video, with empty Player ad fields;
+  media delivery followed before keys refreshed. Both config snapshots decode,
+  the fresh pair matches the export and later hot-hash headers use the new hash.
+  Warm-up traffic independently confirms 12 placements, one slot and three rich
+  items removed. The user reports normal playback without ads.
+
+Recovery used direct `/get_watch`, not an encrypted initplayback retry. No
+production change is required for that observed fallback. The wrapper is now a
+completed diagnostic; disarm it and restore
+[quantumult-x.echo.conf](quantumult-x.echo.conf) for normal use. Remove temporary
+diagnostic assets after the device configuration no longer references them.
+The [first Shadowrocket local run](SR-20261102-191430.json) failed native
+acceptance: keys matched, but six playback response callbacks passed through
+with unsupported-crypto and none performed local filtering. Four ad_break calls
+were also observed without payload bodies. The next step is the public-vector
+[runtime probe](../youtube-device/runtime-probe/shadowrocket.sgmodule) across
+Auto, WebView and JSC; do not infer that an engine setting alone fixes it.
+Surge remains untested.
 
 ## Why the QX transport changed
 
@@ -47,14 +64,15 @@ Maasea's Worker. The new local profile does not contact that service.
 | [21:34](QX-20261101-213425.json) | Controlled Safari probe: nonempty bytes replaced correctly; empty bytes/text retained the original response. |
 | [2 Nov 09:24](QX-20261102-092452.json) | Five real Google POST/fetch/filter/echo pairs verified; 518 unaffected frames exact. Final pair independently decrypts to zero placements/slots. Missing-key branch did not run. |
 | [21:57](QX-20261101-215745.json) | Request-stage echo: actual zero-byte response, exact binary input/output, public GET fetch round trip. |
+| [2 Nov 12:40](QX-20261102-124053.json) | Forced empty 200 verified; same-video direct get_watch fallback and media delivery preceded fresh-key acquisition. Native missing-key recovery passed for this run. |
 
-The .6 normal transport is now native-verified in this run: exact POST forwarding,
-filtered full-response completion and no observed fetch recursion. The warm reset
-succeeded, but key refresh won the race; YouTube retry after a genuine empty
-response remains untested. Do not repeat the same timing trial expecting it to
-guarantee that branch. Ad-free periods alone remain insufficient evidence.
-Shadowrocket local playback and Surge remain unverified. `/player/ad_break` is
-observed but unfiltered pending a real binary response and schema evidence.
+The .6 normal transport and forced missing-key fallback are native-verified in
+these runs. The direct fallback output contains no placement or slot entries;
+its original response is unavailable, so no exact removal count is assigned to
+that fallback response. Native logs, captured framing, decrypted matching video
+identifiers and user observation together support recovery. This does not prove
+every startup ordering, server variant or native resource boundary. `/player/ad_break`
+is observed but unfiltered pending a real binary response and schema evidence.
 
 ## Shared processing and limits
 
@@ -68,8 +86,8 @@ IV and HMAC. Only supported type-25 encrypted-response-part headers are handled.
 The response-hook path passes the original response on errors. The QX echo
 candidate instead completes the entire transaction: key failures return empty
 200; transport/processing errors return an explicit 502/504/508. It does not
-silently deliver an ad-bearing body after a known processing failure. This
-behavior needs native playback validation before adoption.
+silently deliver an ad-bearing body after a known processing failure. Normal playback and one forced missing-key case have native coverage; native
+timeout/size/forced-reentry failures still have only offline coverage.
 
 Runtime `YouTubeConfig` stores real keys acquired through config/log_event; it
 is necessary for local crypto, not just debugging. The exporter and probes are

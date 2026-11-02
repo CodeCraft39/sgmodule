@@ -1,11 +1,12 @@
-Current request/response build: **20261101.6**. The next native test is the
-[QX request-stage playback test](../youtube-local/QX-ECHO-TEST.md). It shares this
-response core through a QX-only transport adapter; legacy SR/Surge defaults are
-unchanged. Normal keyed response-hook filtering is device-verified from earlier
-runs. The [2 November run](../youtube-local/QX-20261102-092452.json) now verifies normal
-QX fetch/echo transport. Startup retry after an empty response remains untested.
-The sections below retain the reconstruction and original compatibility findings;
-references to the .1 307 candidate describe legacy/default mode.
+Current request/response build: **20261101.6**. Normal QX local fetch/filter/echo
+and the forced missing-key fallback are native-verified. The
+[12:40 run](../youtube-local/QX-20261102-124053.json) shows a real empty 200 followed
+by direct get_watch for the same video, filtered Player output and successful
+media delivery. Keys refreshed afterward. This uses the shared response core;
+legacy SR/Surge defaults are unchanged. Shadowrocket local playback failed its
+[first native run](../youtube-local/SR-20261102-191430.json) with unsupported-crypto;
+Auto/WebView/JSC capability probing is next. Surge remains untested. The sections below retain the original reconstruction and
+compatibility findings; references to .1 describe legacy/default mode.
 
 # Paired YouTube script reconstruction
 

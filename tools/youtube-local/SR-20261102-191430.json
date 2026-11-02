@@ -1,0 +1,160 @@
+{
+  "client": "Shadowrocket",
+  "build": "20261101.6",
+  "tunnelLog": "PacketTunnel-20261102191430.log",
+  "proxyDatabase": "proxy-2026-11-02-191430.db",
+  "keyExport": "yt-local-capture.json",
+  "userObservation": "One ad on initial playback; no further ads reported after video switches and force-quit/relaunch",
+  "configAcquisition": {
+    "refreshedAt": "19:14:37.092",
+    "session": 18,
+    "persisted": true,
+    "hashBound": true,
+    "clientKeyBytes": 32,
+    "encryptedKeyBytes": 53,
+    "firstPlaybackRequestAt": "19:14:39.362",
+    "firstPlaybackKeyMatches": true
+  },
+  "playbackRequests": [
+    {
+      "time": "19:14:39.362",
+      "session": 39,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7008
+    },
+    {
+      "time": "19:14:41.881",
+      "session": 40,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7916
+    },
+    {
+      "time": "19:14:54.152",
+      "session": 52,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7601
+    },
+    {
+      "time": "19:15:02.138",
+      "session": 52,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7453
+    },
+    {
+      "time": "19:15:09.032",
+      "session": 52,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7334
+    },
+    {
+      "time": "19:16:40.617",
+      "session": 185,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 7075
+    },
+    {
+      "time": "19:16:41.964",
+      "session": 186,
+      "action": "pass",
+      "reason": "key-match",
+      "requestBytes": 8041
+    }
+  ],
+  "playbackResponses": [
+    {
+      "time": "19:14:40.939",
+      "session": 39,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    },
+    {
+      "time": "19:14:43.960",
+      "session": 40,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    },
+    {
+      "time": "19:14:55.220",
+      "session": 52,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    },
+    {
+      "time": "19:15:03.336",
+      "session": 52,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    },
+    {
+      "time": "19:15:10.804",
+      "session": 52,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    },
+    {
+      "time": "19:16:44.500",
+      "session": 186,
+      "action": "pass",
+      "reason": "unsupported-crypto"
+    }
+  ],
+  "totals": {
+    "matchedKeyRequests": 7,
+    "unsupportedCryptoResponses": 6,
+    "successfulLocalPlaybackResponses": 0
+  },
+  "adBreakObservations": [
+    {
+      "time": "19:15:13.039",
+      "session": 7,
+      "action": "pass"
+    },
+    {
+      "time": "19:15:18.117",
+      "session": 7,
+      "action": "pass"
+    },
+    {
+      "time": "19:16:47.248",
+      "session": 160,
+      "action": "pass"
+    },
+    {
+      "time": "19:16:49.579",
+      "session": 160,
+      "action": "pass"
+    }
+  ],
+  "proxyDatabaseInspection": {
+    "bytes": 4096,
+    "pages": 1,
+    "tables": [],
+    "sidecarsPresent": {
+      "-wal": false,
+      "-shm": false
+    },
+    "httpBodiesAvailable": false
+  },
+  "proven": [
+    "Interception, binary request exposure and key acquisition executed; all seven playback request logs matched the cached encrypted key.",
+    "All six captured initplayback response callbacks passed through with unsupported-crypto. No local-body or local-pass completion was recorded.",
+    "Non-playback response handlers executed, including browse/guide/account settings and Next inspection.",
+    "Four player/ad_break callbacks were observed and intentionally passed through.",
+    "Later ad-free playback is not evidence of local playback filtering."
+  ],
+  "notProven": [
+    "The log cannot distinguish missing timers from unavailable random/subtle APIs; both guards currently use unsupported-crypto.",
+    "Compression availability was not reached and remains untested in this client.",
+    "The exact ad-bearing payload for the visible initial ad is unavailable; the ad cannot be attributed to an individual response.",
+    "The empty database cannot supply encrypted playback or ad_break bodies for independent wire analysis.",
+    "Request session 185 has no captured response-script console completion; the six observed response failures are not described as seven verified failures."
+  ],
+  "nextStep": "Run a bounded public-vector capability probe in Auto, WebView and JSC response contexts. Do not infer that selecting an engine alone fixes the failure.",
+  "productionStatus": "Shadowrocket local playback failed this native acceptance test; QX validation remains unchanged."
+}
